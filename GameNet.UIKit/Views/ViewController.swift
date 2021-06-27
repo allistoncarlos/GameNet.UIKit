@@ -20,6 +20,15 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         presenter = UserPresenter(service: UserService(), delegate: self)
+        
+        if let presenter = presenter {
+            if presenter.hasValidToken() {
+                print("TÁ VÁLIDO")
+            }
+            else {
+                print("LOGA AI MALANDRO")
+            }
+        }
     }
 
     // MARK: - IBActions

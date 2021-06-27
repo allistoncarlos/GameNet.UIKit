@@ -6,9 +6,11 @@
 //
 
 import Foundation
+import KeychainAccess
 
 protocol UserPresenterProtocol: AnyObject {
     func login(username: String, password: String)
+    func hasValidToken() -> Bool
 }
 
 protocol UserPresenterDelegate: AnyObject {
@@ -16,6 +18,9 @@ protocol UserPresenterDelegate: AnyObject {
 }
 
 class UserPresenter: UserPresenterProtocol {
+    private let keychainIdentifier = "gamenet.azurewebsites.net"
+    private let tokenIdentifier = "token"
+    
     private var service: UserServiceProtocol
     private weak var delegate: UserPresenterDelegate?
     
@@ -30,15 +35,25 @@ class UserPresenter: UserPresenterProtocol {
         { (result) in
             switch result {
                 case .success(let user):
-                    print(user)
+                    self.saveToken(token: user.token)
                 case .failure(let error):
                     print(error.localizedDescription)
             }
         }
     }
     
-    // MARK: - Private funcs
-    private func saveToken() {
+    func hasValidToken() -> Bool {
+        let keychain = Keychain(service: keychainIdentifier)
+        if keychain[tokenIdentifier] != nil {
+            return true
+        }
         
+        return false
+    }
+    
+    // MARK: - Private funcs
+    private func saveToken(token: String) {
+        let keychain = Keychain(service: keychainIdentifier)
+        keychain[tokenIdentifier] = token
     }
 }
