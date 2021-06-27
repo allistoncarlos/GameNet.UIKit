@@ -18,9 +18,6 @@ protocol UserPresenterDelegate: AnyObject {
 }
 
 class UserPresenter: UserPresenterProtocol {
-    private let keychainIdentifier = "gamenet.azurewebsites.net"
-    private let tokenIdentifier = "token"
-    
     private var service: UserServiceProtocol
     private weak var delegate: UserPresenterDelegate?
     
@@ -43,8 +40,8 @@ class UserPresenter: UserPresenterProtocol {
     }
     
     func hasValidToken() -> Bool {
-        let keychain = Keychain(service: keychainIdentifier)
-        if keychain[tokenIdentifier] != nil {
+        let keychain = Keychain(service: Constants.keychainIdentifier)
+        if keychain[Constants.tokenIdentifier] != nil {
             return true
         }
         
@@ -53,7 +50,7 @@ class UserPresenter: UserPresenterProtocol {
     
     // MARK: - Private funcs
     private func saveToken(token: String) {
-        let keychain = Keychain(service: keychainIdentifier)
-        keychain[tokenIdentifier] = token
+        let keychain = Keychain(service: Constants.keychainIdentifier)
+        keychain[Constants.tokenIdentifier] = token
     }
 }

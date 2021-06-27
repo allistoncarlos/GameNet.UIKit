@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class LoginViewController: UIViewController {
     // MARK: - Properties
     var presenter: UserPresenterProtocol?
     
@@ -40,7 +40,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: UserPresenterDelegate {
+extension LoginViewController: UserPresenterDelegate {
     
 }
 
