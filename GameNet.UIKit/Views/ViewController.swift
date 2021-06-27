@@ -8,27 +8,30 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    // MARK: - Properties
+    var presenter: UserPresenterProtocol?
+    
+    // MARK: - Outlets
     @IBOutlet weak var usernameTextField: UITextField?
     @IBOutlet weak var passwordTextField: UITextField?
     
+    // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        presenter = UserPresenter(service: UserService(), delegate: self)
     }
 
+    // MARK: - IBActions
     @IBAction func loginTouched(_ sender: Any) {
         guard let username = usernameTextField?.text else { return }
         guard let password = passwordTextField?.text else { return }
-        
-        let loginModel = LoginRequestModel(username: username, password: password)
-        UserService().login(LoginRequestModel: loginModel) { result in
-            switch result {
-                case .success(let user):
-                    print(user)
-                case .failure(let error):
-                    print(error.localizedDescription)
-                }
-        }
+
+        presenter?.login(username: username, password: password)
     }
+}
+
+extension ViewController: UserPresenterDelegate {
+    
 }
 
