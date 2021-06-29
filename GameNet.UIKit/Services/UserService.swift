@@ -16,7 +16,7 @@ protocol UserServiceProtocol: AnyObject {
 class UserService: UserServiceProtocol {
     func login(LoginRequestModel : LoginRequestModel,
                completion: @escaping (Result<LoginResponseModel, Error>) -> Void) -> Void {
-        guard let url = URL(string: "https://gamenet.azurewebsites.net/api/user/login") else { return }
+        guard let url = URL(string: "\(Constants.apiPath)/\(Constants.userResource)/login") else { return }
 
         do {
             let jsonData = try JSONEncoder().encode(LoginRequestModel)
