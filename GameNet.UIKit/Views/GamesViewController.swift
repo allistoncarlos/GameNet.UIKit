@@ -7,10 +7,16 @@
 
 import UIKit
 
+enum ImageError: Error {
+    case couldNotLoadImage
+}
+
 class GamesViewController: UIViewController {
     // MARK: - Properties
     var presenter: GamePresenterProtocol?
     var games: [GameViewModel] = []
+    var pagedResultViewModel: PagedResultViewModel<GameViewModel>?
+    var isLoading: Bool = false
     
     // MARK: - Outlets
     @IBOutlet weak var gamesCollectionView: UICollectionView?
@@ -23,68 +29,63 @@ class GamesViewController: UIViewController {
         self.gamesCollectionView?.dataSource = self
         self.gamesCollectionView?.delegate = self
         
+        self.isLoading = true
         presenter = GamePresenter(service: GameService(apiResource: Constants.gameResource), delegate: self)
         presenter?.load()
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard let gamesCollectionView = self.gamesCollectionView else { return }
+        
+        if gamesCollectionView.contentOffset.y >= (gamesCollectionView.contentSize.height - gamesCollectionView.bounds.size.height) {
+            
+            if !isLoading {
+                self.isLoading = true
+                
+                guard let page = pagedResultViewModel?.page else { return }
+                presenter?.load(page: page + 1)
+            }
+        }
     }
 }
 
 extension GamesViewController: GamePresenterDelegate {
-    func render(games: [GameViewModel]) {
-        self.games = games
+    func render(pagedResult: PagedResultViewModel<GameViewModel>?) {
+        if let pagedResult = pagedResult {
+            self.pagedResultViewModel = pagedResult
+            self.games += pagedResult.result
+            
+            print(pagedResult.result)
+        }
         
-        
+        self.isLoading = false
         gamesCollectionView?.reloadData()
-        
-        print(games)
     }
-}
-
-enum ImageError: Error {
-    case couldNotLoadImage
 }
 
 extension GamesViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     // MARK: - DataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return games.count
+        return self.games.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "gameViewCell", for: indexPath) as! GameViewCell
+        
         let actualGame = self.games[indexPath.row]
         
-        loadGameCover(url: actualGame.cover, imageView: cell.gameImage!)
+        cell.gameImage.load(url: actualGame.cover)
+        cell.layer.borderWidth = 0.5
+        cell.layer.borderColor = CGColor(red: 150 / 255.0, green: 150 / 255.0, blue: 150 / 255.0, alpha: 1)
         
         return cell
     }
     
     // MARK: - FlowLayoutDelegate
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let iPhoneSize = 130
-        let iPadSize = 325
-        
-        let resultSize = UIDevice.current.userInterfaceIdiom == .phone ? iPhoneSize : iPadSize
-        
+        let columns: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 3 : 5
+        let resultSize = (collectionView.bounds.width / columns) - 15
+
         return CGSize(width: resultSize, height: resultSize)
-    }
-    
-    // MARK: - Private Funcs
-    func loadGameCover(url: String, imageView: UIImageView) {
-        DispatchQueue.global(qos: .userInitiated).async {
-            guard let imageUrl = URL(string: url) else { return }
-            
-            do {
-                let imageData: NSData = try NSData(contentsOf: imageUrl)
-                
-                DispatchQueue.main.async {
-                    let image = UIImage(data: imageData as Data)
-                    imageView.image = image
-                }
-            }
-            catch {
-                // TODO: colocar imagem de placeholder
-                print(error.localizedDescription)
-            }
-        }
     }
 }
