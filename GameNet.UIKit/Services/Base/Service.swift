@@ -17,7 +17,7 @@ protocol ServiceProtocol: AnyObject {
     associatedtype T: BaseModel
     
     func get(completion: @escaping (Result<T, Error>) -> Void) -> Void
-    func load(completion: @escaping (Result<APIResult<PagedResult<T>>, Error>) -> Void) -> Void
+    func load(page: Int?, pageSize: Int?, completion: @escaping (Result<APIResult<PagedResult<T>>, Error>) -> Void) -> Void
 }
 
 class Service<T: BaseModel>: ServiceProtocol {
@@ -53,8 +53,18 @@ class Service<T: BaseModel>: ServiceProtocol {
         }
     }
     
-    func load(completion: @escaping (Result<APIResult<PagedResult<T>>, Error>) -> Void) -> Void {
-        guard let url = URL(string: "\(Constants.apiPath)/\(apiResource)") else { return }
+    func load(page: Int? = nil, pageSize: Int? = nil, completion: @escaping (Result<APIResult<PagedResult<T>>, Error>) -> Void) -> Void {
+        var baseUrl = "\(Constants.apiPath)/\(apiResource)?";
+        
+        if let page = page {
+            baseUrl = "\(baseUrl)page=\(page)&"
+        }
+        
+        if let pageSize = pageSize {
+            baseUrl = "\(baseUrl)pageSize=\(pageSize)&"
+        }
+        
+        guard let url = URL(string: baseUrl) else { return }
         
         let keychain = Keychain(service: Constants.keychainIdentifier)
         

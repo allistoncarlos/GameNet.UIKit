@@ -9,17 +9,18 @@ import Foundation
 
 protocol GamePresenterProtocol: AnyObject {
     func load()
+    func load(page: Int)
 }
 
 protocol GamePresenterDelegate: AnyObject {
-    func render(games: [GameViewModel])
+    func render(pagedResult: PagedResultViewModel<GameViewModel>?)
 }
 
 class GamePresenter: GamePresenterProtocol {
     private var service: GameService
     private weak var delegate: GamePresenterDelegate?
     private var apiResult: APIResult<PagedResult<GameModel>>?
-    private var gamesViewModel: [GameViewModel] = []
+    private var pagedResultViewModel: PagedResultViewModel<GameViewModel>?
 
     init(service: GameService, delegate: GamePresenterDelegate?) {
         self.service = service
@@ -28,17 +29,20 @@ class GamePresenter: GamePresenterProtocol {
     
     // MARK: - GamePresenterProtocol
     func load() {
-        service.load(completion: { (result) in
+        self.load(page: 1)
+    }
+    
+    func load(page: Int) {
+        service.load(page: page, pageSize: Constants.pageSize, completion: { (result) in
             switch result {
             case .success(let apiResult):
                 self.apiResult = apiResult
                 
                 if apiResult.ok {
-                    // TODO: Será que preciso passar o PagedResult pra view, em caso de paginação? ver depois...
-                    self.gamesViewModel = self.mapToViewModel(apiResult.data.result)
+                    self.pagedResultViewModel = self.mapToViewModel(apiResult.data)
                 }
                 
-                self.delegate?.render(games: self.gamesViewModel)
+                self.delegate?.render(pagedResult: self.pagedResultViewModel)
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -46,59 +50,20 @@ class GamePresenter: GamePresenterProtocol {
     }
     
     // MARK: - Private funcs
-    private func mapToViewModel(_ games: [GameModel]) -> [GameViewModel] {
-        return games.map { game in
+    private func mapToViewModel(_ pagedResult: PagedResult<GameModel>) -> PagedResultViewModel<GameViewModel> {
+        let data = pagedResult.result.map { game in
             GameViewModel(id: game.id, name: game.name, cover: game.cover, platformId: game.platformId, platform: game.platform)
         }
+        
+        let pagedResultViewModel = PagedResultViewModel<GameViewModel>(
+            count: pagedResult.count,
+            totalCount: pagedResult.totalCount,
+            page: pagedResult.page,
+            pageSize: pagedResult.pageSize,
+            search: pagedResult.search,
+            result: data,
+            totalPages: pagedResult.totalPages)
+        
+        return pagedResultViewModel
     }
 }
-
-/*
- protocol UserPresenterProtocol: AnyObject {
-     func login(username: String, password: String)
-     func hasValidToken() -> Bool
- }
-
- protocol UserPresenterDelegate: AnyObject {
-     
- }
-
- class UserPresenter: UserPresenterProtocol {
-     private var service: UserServiceProtocol
-     private weak var delegate: UserPresenterDelegate?
-     
-     init(service: UserServiceProtocol, delegate: UserPresenterDelegate?) {
-         self.service = service
-         self.delegate = delegate
-     }
-     
-     // MARK: - UserPresenterProtocol
-     func login(username: String, password: String) {
-         service.login(LoginRequestModel: LoginRequestModel(username: username, password: password))
-         { (result) in
-             switch result {
-                 case .success(let user):
-                     self.saveToken(token: user.token)
-                 case .failure(let error):
-                     print(error.localizedDescription)
-             }
-         }
-     }
-     
-     func hasValidToken() -> Bool {
-         let keychain = Keychain(service: Constants.keychainIdentifier)
-         if keychain[Constants.tokenIdentifier] != nil {
-             return true
-         }
-         
-         return false
-     }
-     
-     // MARK: - Private funcs
-     private func saveToken(token: String) {
-         let keychain = Keychain(service: Constants.keychainIdentifier)
-         keychain[Constants.tokenIdentifier] = token
-     }
- }
-
- */

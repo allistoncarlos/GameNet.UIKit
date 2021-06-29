@@ -10,5 +10,5 @@ import Foundation
 
 class GameViewCell: UICollectionViewCell {
     // MARK: - Outlets
-    @IBOutlet weak var gameImage: UIImageView?
+    @IBOutlet weak var gameImage: UIImageView!
 }

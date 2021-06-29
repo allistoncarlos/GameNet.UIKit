@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class Constants {
     static let apiPath = "https://gamenet.azurewebsites.net/api"
@@ -18,4 +19,8 @@ class Constants {
     static let dashboardViewTitle = "Dashboard"
     static let gamesViewTitle = "Games"
     
+    static let pageSizePhone = 21
+    static let pageSizePad = 30
+    
+    static let pageSize = UIDevice.current.userInterfaceIdiom == .phone ? pageSizePhone : pageSizePad
 }
