@@ -13,7 +13,7 @@ struct PagedResult<T: Codable>: Codable {
     var page: Int?
     var pageSize: Int?
     var search: String?
-    var result: [T]
+    var result: Array<T>
     
     var totalPages: Int
     

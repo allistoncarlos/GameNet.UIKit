@@ -12,12 +12,14 @@ class Constants {
     static let apiPath = "https://gamenet.azurewebsites.net/api"
     static let userResource = "user"
     static let gameResource = "usergame"
+    static let platformResource = "platform"
     
     static let keychainIdentifier = "gamenet.azurewebsites.net"
     static let tokenIdentifier = "token"
     
     static let dashboardViewTitle = "Dashboard"
     static let gamesViewTitle = "Games"
+    static let platformsViewTitle = "Plataformas"
     
     static let pageSizePhone = 21
     static let pageSizePad = 30
