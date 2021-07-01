@@ -178,6 +178,35 @@
             </objects>
             <point key="canvasLocation" x="2876.811594202899" y="864.50892857142856"/>
         </scene>
+        <!--Plataformas-->
+        <scene sceneID="qP9-EX-w91">
+            <objects>
+                <tableViewController title="Plataformas" id="0n6-ed-qcf" customClass="PlatformsViewController" customModule="GameNet_UIKit" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="GZm-hy-JVN">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="MWz-tZ-TZg">
+                                <rect key="frame" x="0.0" y="24.5" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MWz-tZ-TZg" id="siU-uG-V5R">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="0n6-ed-qcf" id="Og5-yP-ygo"/>
+                            <outlet property="delegate" destination="0n6-ed-qcf" id="dau-rN-VPq"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="lHU-IV-5Tk"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="l10-FC-7hK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2877" y="1592"/>
+        </scene>
         <!--Dashboard-->
         <scene sceneID="S94-cK-JoQ">
             <objects>
@@ -210,11 +239,12 @@
                     <connections>
                         <segue destination="V3T-dZ-gGQ" kind="relationship" relationship="viewControllers" id="jKC-Gd-75I"/>
                         <segue destination="hRo-lV-T03" kind="relationship" relationship="viewControllers" id="pzL-D8-rR7"/>
+                        <segue destination="qax-hn-CT4" kind="relationship" relationship="viewControllers" id="tyY-Ai-zmS"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Pu-qT-BsE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1055.072463768116" y="137.94642857142856"/>
+            <point key="canvasLocation" x="994" y="865"/>
         </scene>
         <!--Games-->
         <scene sceneID="5aR-59-zJt">
@@ -234,6 +264,26 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VSG-Gq-apP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1965" y="865"/>
+        </scene>
+        <!--Plataformas-->
+        <scene sceneID="gRS-yv-YAR">
+            <objects>
+                <navigationController title="Plataformas" automaticallyAdjustsScrollViewInsets="NO" id="qax-hn-CT4" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Plataformas" id="Nlb-k7-A5Q"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Plataformas" largeTitleDisplayMode="always" id="hCA-2N-XiL"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="ikM-xO-ch6">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="0n6-ed-qcf" kind="relationship" relationship="rootViewController" id="k9j-AE-7dG"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="y2n-DJ-bQ8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1965" y="1592"/>
         </scene>
     </scenes>
     <resources>

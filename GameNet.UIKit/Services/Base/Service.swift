@@ -18,6 +18,7 @@ protocol ServiceProtocol: AnyObject {
     
     func get(completion: @escaping (Result<T, Error>) -> Void) -> Void
     func load(page: Int?, pageSize: Int?, completion: @escaping (Result<APIResult<PagedResult<T>>, Error>) -> Void) -> Void
+    func load(completion: @escaping (Result<APIResult<Array<T>>, Error>) -> Void) -> Void
 }
 
 class Service<T: BaseModel>: ServiceProtocol {
@@ -79,6 +80,33 @@ class Service<T: BaseModel>: ServiceProtocol {
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
         AF.request(request).responseDecodable(of: APIResult<PagedResult<T>>.self) { (response) in
+            switch response.result {
+                case .success(let value):
+                    completion(.success(value))
+                case .failure(let error):
+                    completion(.failure(error))
+            }
+        }
+    }
+    
+    func load(completion: @escaping (Result<APIResult<Array<T>>, Error>) -> Void) -> Void {
+        guard let url = URL(string: "\(Constants.apiPath)/\(apiResource)?") else { return }
+        
+        let keychain = Keychain(service: Constants.keychainIdentifier)
+        
+        guard let token = keychain[Constants.tokenIdentifier] else {
+            completion(.failure(ServiceError.invalidToken))
+            return
+        }
+        
+        print(url)
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = HTTPMethod.get.rawValue
+        request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        AF.request(request).responseDecodable(of: APIResult<Array<T>>.self) { (response) in
             switch response.result {
                 case .success(let value):
                     completion(.success(value))
