@@ -47,7 +47,7 @@ class PlatformPresenter: PlatformPresenterProtocol {
     // MARK: - Private funcs
     private func mapToViewModel(_ platforms: [PlatformModel]) -> [PlatformViewModel] {
         return platforms.map { platform in
-            PlatformViewModel(id: platform.id, name: platform.name)
+            PlatformViewModel(id: platform.id!, name: platform.name)
         }
     }
 }

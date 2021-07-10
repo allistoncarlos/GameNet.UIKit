@@ -52,7 +52,7 @@ class GamePresenter: GamePresenterProtocol {
     // MARK: - Private funcs
     private func mapToViewModel(_ pagedResult: PagedResult<GameModel>) -> PagedResultViewModel<GameViewModel> {
         let data = pagedResult.result.map { game in
-            GameViewModel(id: game.id, name: game.name, cover: game.cover, platformId: game.platformId, platform: game.platform)
+            GameViewModel(id: game.id!, name: game.name, cover: game.cover, platformId: game.platformId, platform: game.platform)
         }
         
         let pagedResultViewModel = PagedResultViewModel<GameViewModel>(

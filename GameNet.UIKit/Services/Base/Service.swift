@@ -16,7 +16,7 @@ enum ServiceError: Error {
 protocol ServiceProtocol: AnyObject {
     associatedtype T: BaseModel
     
-    func get(completion: @escaping (Result<T, Error>) -> Void) -> Void
+    func get(completion: @escaping (Result<APIResult<T>, Error>) -> Void) -> Void
     func load(page: Int?, pageSize: Int?, completion: @escaping (Result<APIResult<PagedResult<T>>, Error>) -> Void) -> Void
     func load(completion: @escaping (Result<APIResult<Array<T>>, Error>) -> Void) -> Void
 }
@@ -29,7 +29,7 @@ class Service<T: BaseModel>: ServiceProtocol {
         self.apiResource = apiResource
     }
     
-    func get(completion: @escaping (Result<T, Error>) -> Void) -> Void {
+    func get(completion: @escaping (Result<APIResult<T>, Error>) -> Void) -> Void {
         guard let url = URL(string: "\(Constants.apiPath)/\(apiResource)") else { return }
         
         let keychain = Keychain(service: Constants.keychainIdentifier)
@@ -44,7 +44,7 @@ class Service<T: BaseModel>: ServiceProtocol {
         request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
-        AF.request(request).responseDecodable(of: T.self) { (response) in
+        AF.request(request).responseDecodable(of: APIResult<T>.self) { (response) in
             switch response.result {
                 case .success(let value):
                     completion(.success(value))

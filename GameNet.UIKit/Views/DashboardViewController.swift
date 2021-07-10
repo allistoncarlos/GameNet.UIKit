@@ -12,5 +12,14 @@ class DashboardViewController: UIViewController {
         super.viewDidLoad()
         
         self.navigationItem.title = Constants.dashboardViewTitle
+        
+        DashboardService(apiResource: "dashboard").get { (result) in
+            switch result {
+            case .success(let apiResult):
+                print(apiResult)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
 }
