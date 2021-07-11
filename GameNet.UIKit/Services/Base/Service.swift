@@ -24,9 +24,11 @@ protocol ServiceProtocol: AnyObject {
 class Service<T: BaseModel>: ServiceProtocol {
     typealias T = T
     private let apiResource: String
+    private let decoder = JSONDecoder()
     
     init(apiResource: String) {
         self.apiResource = apiResource
+        decoder.dateDecodingStrategy = .iso8601
     }
     
     func get(completion: @escaping (Result<APIResult<T>, Error>) -> Void) -> Void {
@@ -44,7 +46,7 @@ class Service<T: BaseModel>: ServiceProtocol {
         request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
-        AF.request(request).responseDecodable(of: APIResult<T>.self) { (response) in
+        AF.request(request).responseDecodable(of: APIResult<T>.self, decoder: decoder) { (response) in
             switch response.result {
                 case .success(let value):
                     completion(.success(value))
@@ -79,7 +81,7 @@ class Service<T: BaseModel>: ServiceProtocol {
         request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
-        AF.request(request).responseDecodable(of: APIResult<PagedResult<T>>.self) { (response) in
+        AF.request(request).responseDecodable(of: APIResult<PagedResult<T>>.self, decoder: decoder) { (response) in
             switch response.result {
                 case .success(let value):
                     completion(.success(value))
@@ -106,7 +108,7 @@ class Service<T: BaseModel>: ServiceProtocol {
         request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
-        AF.request(request).responseDecodable(of: APIResult<Array<T>>.self) { (response) in
+        AF.request(request).responseDecodable(of: APIResult<Array<T>>.self, decoder: decoder) { (response) in
             switch response.result {
                 case .success(let value):
                     completion(.success(value))
