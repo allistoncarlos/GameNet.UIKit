@@ -10,6 +10,7 @@ import KeychainAccess
 
 protocol UserPresenterProtocol: AnyObject {
     func login(username: String, password: String)
+    func refreshToken(accessToken: String, refreshToken: String)
 }
 
 protocol UserPresenterDelegate: AnyObject {
@@ -27,11 +28,23 @@ class UserPresenter: UserPresenterProtocol {
     
     // MARK: - UserPresenterProtocol
     func login(username: String, password: String) {
-        service.login(LoginRequestModel: LoginRequestModel(username: username, password: password))
+        service.login(loginRequestModel: LoginRequestModel(username: username, password: password))
         { (result) in
             switch result {
                 case .success(let user):
                     self.saveToken(accessToken: user.accessToken, refreshToken: user.refreshToken, expiresIn: user.expiresIn)
+                case .failure(let error):
+                    print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func refreshToken(accessToken: String, refreshToken: String) {
+        service.refreshToken(refreshTokenRequestModel: RefreshTokenRequestModel(accessToken: accessToken, refreshToken: refreshToken))
+        { (result) in
+            switch result {
+                case .success(let response):
+                    self.saveToken(accessToken: response.accessToken, refreshToken: response.refreshToken, expiresIn: response.expiresIn)
                 case .failure(let error):
                     print(error.localizedDescription)
             }

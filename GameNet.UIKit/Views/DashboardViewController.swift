@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import KeychainAccess
 
-class DashboardViewController: UIViewController, UITableViewDataSource {
+class DashboardViewController: UIViewController, UITableViewDataSource, UserPresenterDelegate {
     // MARK: - Outlets
     @IBOutlet weak var playingGamesView: UIView?
     @IBOutlet weak var playingGamesTableView: UITableView?
@@ -19,6 +20,16 @@ class DashboardViewController: UIViewController, UITableViewDataSource {
         self.navigationItem.title = Constants.dashboardViewTitle
         playingGamesView?.layer.cornerRadius = 10
         
+        
+//        let keychain = Keychain(service: Constants.keychainIdentifier)
+//
+//        guard let accessToken = keychain[Constants.accessTokenIdentifier],
+//              let refreshToken = keychain[Constants.refreshTokenIdentifier] else {
+//            return
+//        }
+//
+//        let userPresenter = UserPresenter(service: UserService(), delegate: self)
+//        userPresenter.refreshToken(accessToken: accessToken, refreshToken: refreshToken)
         
         DashboardService(apiResource: "dashboard").get { (result) in
             switch result {

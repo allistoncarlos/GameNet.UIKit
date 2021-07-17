@@ -25,6 +25,7 @@ class Service<T: BaseModel>: ServiceProtocol {
     typealias T = T
     private let apiResource: String
     private let decoder = JSONDecoder()
+    private let keychain = Keychain(service: Constants.keychainIdentifier)
     
     init(apiResource: String) {
         self.apiResource = apiResource
@@ -34,9 +35,7 @@ class Service<T: BaseModel>: ServiceProtocol {
     func get(completion: @escaping (Result<APIResult<T>, Error>) -> Void) -> Void {
         guard let url = URL(string: "\(Constants.apiPath)/\(apiResource)") else { return }
         
-        let keychain = Keychain(service: Constants.keychainIdentifier)
-        
-        guard let token = keychain[Constants.accessTokenIdentifier] else {
+        guard let accessToken = keychain[Constants.accessTokenIdentifier] else {
             completion(.failure(ServiceError.invalidToken))
             return
         }
@@ -44,7 +43,7 @@ class Service<T: BaseModel>: ServiceProtocol {
         var request = URLRequest(url: url)
         request.httpMethod = HTTPMethod.get.rawValue
         request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
-        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
         
         AF.request(request).responseDecodable(of: APIResult<T>.self, decoder: decoder) { (response) in
             switch response.result {
@@ -69,9 +68,7 @@ class Service<T: BaseModel>: ServiceProtocol {
         
         guard let url = URL(string: baseUrl) else { return }
         
-        let keychain = Keychain(service: Constants.keychainIdentifier)
-        
-        guard let token = keychain[Constants.accessTokenIdentifier] else {
+        guard let accessToken = keychain[Constants.accessTokenIdentifier] else {
             completion(.failure(ServiceError.invalidToken))
             return
         }
@@ -79,7 +76,7 @@ class Service<T: BaseModel>: ServiceProtocol {
         var request = URLRequest(url: url)
         request.httpMethod = HTTPMethod.get.rawValue
         request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
-        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
         
         AF.request(request).responseDecodable(of: APIResult<PagedResult<T>>.self, decoder: decoder) { (response) in
             switch response.result {
@@ -96,7 +93,7 @@ class Service<T: BaseModel>: ServiceProtocol {
         
         let keychain = Keychain(service: Constants.keychainIdentifier)
         
-        guard let token = keychain[Constants.accessTokenIdentifier] else {
+        guard let accessToken = keychain[Constants.accessTokenIdentifier] else {
             completion(.failure(ServiceError.invalidToken))
             return
         }
@@ -106,7 +103,7 @@ class Service<T: BaseModel>: ServiceProtocol {
         var request = URLRequest(url: url)
         request.httpMethod = HTTPMethod.get.rawValue
         request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
-        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
         
         AF.request(request).responseDecodable(of: APIResult<Array<T>>.self, decoder: decoder) { (response) in
             switch response.result {

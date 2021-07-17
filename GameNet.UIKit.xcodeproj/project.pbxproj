@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A535906A26A35B5B00AB5AFC /* RefreshTokenRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A535906926A35B5B00AB5AFC /* RefreshTokenRequestModel.swift */; };
+		A535906C26A35B6600AB5AFC /* RefreshTokenResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A535906B26A35B6600AB5AFC /* RefreshTokenResponseModel.swift */; };
 		A56A136D2688D22B0099127C /* LoginRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A136C2688D22B0099127C /* LoginRequestModel.swift */; };
 		A56A136F2688D2450099127C /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A136E2688D2450099127C /* UserService.swift */; };
 		A56A13712688D7ED0099127C /* LoginResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A13702688D7ED0099127C /* LoginResponseModel.swift */; };
@@ -51,6 +53,8 @@
 /* Begin PBXFileReference section */
 		50D5C225997AC8F04B948149 /* Pods_GameNet_UIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameNet_UIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		614D9AA234558E6FFAD6F277 /* Pods-GameNet.UIKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameNet.UIKit.release.xcconfig"; path = "Target Support Files/Pods-GameNet.UIKit/Pods-GameNet.UIKit.release.xcconfig"; sourceTree = "<group>"; };
+		A535906926A35B5B00AB5AFC /* RefreshTokenRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokenRequestModel.swift; sourceTree = "<group>"; };
+		A535906B26A35B6600AB5AFC /* RefreshTokenResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokenResponseModel.swift; sourceTree = "<group>"; };
 		A56A136C2688D22B0099127C /* LoginRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequestModel.swift; sourceTree = "<group>"; };
 		A56A136E2688D2450099127C /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		A56A13702688D7ED0099127C /* LoginResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponseModel.swift; sourceTree = "<group>"; };
@@ -106,9 +110,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A535906826A35B3F00AB5AFC /* RefreshToken */ = {
+			isa = PBXGroup;
+			children = (
+				A535906926A35B5B00AB5AFC /* RefreshTokenRequestModel.swift */,
+				A535906B26A35B6600AB5AFC /* RefreshTokenResponseModel.swift */,
+			);
+			path = RefreshToken;
+			sourceTree = "<group>";
+		};
 		A56A13682688D2010099127C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A535906826A35B3F00AB5AFC /* RefreshToken */,
 				A57E2805268A461A00EFB503 /* Base */,
 				A5936CFE268E429B00EC93B7 /* Dashboard */,
 				A57E2808268A467000EFB503 /* Login */,
@@ -412,6 +426,8 @@
 				A57E2807268A462200EFB503 /* BaseModel.swift in Sources */,
 				A5936CFD268E312300EC93B7 /* PlatformViewModel.swift in Sources */,
 				A5936CF7268E2FC000EC93B7 /* PlatformModel.swift in Sources */,
+				A535906A26A35B5B00AB5AFC /* RefreshTokenRequestModel.swift in Sources */,
+				A535906C26A35B6600AB5AFC /* RefreshTokenResponseModel.swift in Sources */,
 				A5936D0A268E470200EC93B7 /* BoughtGamesByYearModel.swift in Sources */,
 				A57E280F268A4E7600EFB503 /* PagedResult.swift in Sources */,
 				A57E280D268A4CB600EFB503 /* APIResult.swift in Sources */,
