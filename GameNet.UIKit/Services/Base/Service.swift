@@ -36,7 +36,7 @@ class Service<T: BaseModel>: ServiceProtocol {
         
         let keychain = Keychain(service: Constants.keychainIdentifier)
         
-        guard let token = keychain[Constants.tokenIdentifier] else {
+        guard let token = keychain[Constants.accessTokenIdentifier] else {
             completion(.failure(ServiceError.invalidToken))
             return
         }
@@ -71,7 +71,7 @@ class Service<T: BaseModel>: ServiceProtocol {
         
         let keychain = Keychain(service: Constants.keychainIdentifier)
         
-        guard let token = keychain[Constants.tokenIdentifier] else {
+        guard let token = keychain[Constants.accessTokenIdentifier] else {
             completion(.failure(ServiceError.invalidToken))
             return
         }
@@ -96,7 +96,7 @@ class Service<T: BaseModel>: ServiceProtocol {
         
         let keychain = Keychain(service: Constants.keychainIdentifier)
         
-        guard let token = keychain[Constants.tokenIdentifier] else {
+        guard let token = keychain[Constants.accessTokenIdentifier] else {
             completion(.failure(ServiceError.invalidToken))
             return
         }

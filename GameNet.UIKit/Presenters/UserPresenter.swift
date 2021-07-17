@@ -10,7 +10,6 @@ import KeychainAccess
 
 protocol UserPresenterProtocol: AnyObject {
     func login(username: String, password: String)
-    func hasValidToken() -> Bool
 }
 
 protocol UserPresenterDelegate: AnyObject {
@@ -32,25 +31,18 @@ class UserPresenter: UserPresenterProtocol {
         { (result) in
             switch result {
                 case .success(let user):
-                    self.saveToken(token: user.token)
+                    self.saveToken(accessToken: user.accessToken, refreshToken: user.refreshToken, expiresIn: user.expiresIn)
                 case .failure(let error):
                     print(error.localizedDescription)
             }
         }
     }
     
-    func hasValidToken() -> Bool {
-        let keychain = Keychain(service: Constants.keychainIdentifier)
-        if keychain[Constants.tokenIdentifier] != nil {
-            return true
-        }
-        
-        return false
-    }
-    
     // MARK: - Private funcs
-    private func saveToken(token: String) {
+    private func saveToken(accessToken: String, refreshToken: String, expiresIn: Date) {
         let keychain = Keychain(service: Constants.keychainIdentifier)
-        keychain[Constants.tokenIdentifier] = token
+        keychain[Constants.accessTokenIdentifier] = accessToken
+        keychain[Constants.refreshTokenIdentifier] = refreshToken
+        keychain[Constants.expiresInIdentifier] = "\(expiresIn)"
     }
 }

@@ -14,9 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        let keychain = Keychain(service: Constants.keychainIdentifier)
-        
-        if keychain[Constants.tokenIdentifier] == nil {
+        if !hasValidToken() {
             guard let windowScene = scene as? UIWindowScene else { return }
             
             let viewController = storyboard.instantiateViewController (withIdentifier: "LoginViewController")
@@ -54,6 +52,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
-
+    // MARK: - Private methods
+    private func hasValidToken() -> Bool {
+        let keychain = Keychain(service: Constants.keychainIdentifier)
+        if keychain[Constants.accessTokenIdentifier] != nil &&
+            keychain[Constants.refreshTokenIdentifier] != nil &&
+            keychain[Constants.expiresInIdentifier] != nil {
+            return true
+        }
+        
+        return false
+    }
 }
 

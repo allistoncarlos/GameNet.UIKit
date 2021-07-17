@@ -15,7 +15,9 @@ class Constants {
     static let platformResource = "platform"
     
     static let keychainIdentifier = "gamenet.azurewebsites.net"
-    static let tokenIdentifier = "token"
+    static let accessTokenIdentifier = "access_token"
+    static let refreshTokenIdentifier = "refresh_token"
+    static let expiresInIdentifier = "expires_in"
     
     static let dashboardViewTitle = "Dashboard"
     static let gamesViewTitle = "Games"

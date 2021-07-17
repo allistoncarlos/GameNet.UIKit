@@ -14,6 +14,12 @@ protocol UserServiceProtocol: AnyObject {
 }
 
 class UserService: UserServiceProtocol {
+    private let decoder = JSONDecoder()
+    
+    init() {
+        decoder.dateDecodingStrategy = .iso8601
+    }
+    
     func login(LoginRequestModel : LoginRequestModel,
                completion: @escaping (Result<LoginResponseModel, Error>) -> Void) -> Void {
         guard let url = URL(string: "\(Constants.apiPath)/\(Constants.userResource)/login") else { return }
@@ -26,7 +32,7 @@ class UserService: UserServiceProtocol {
             request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
             request.httpBody = jsonData
             
-            AF.request(request).responseDecodable(of: LoginResponseModel.self) { (response) in
+            AF.request(request).responseDecodable(of: LoginResponseModel.self, decoder: decoder) { (response) in
                 switch response.result {
                     case .success(let value):
                         completion(.success(value))
