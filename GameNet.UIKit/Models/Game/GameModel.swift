@@ -8,7 +8,7 @@
 import Foundation
 
 struct GameModel: BaseModel {
-    var id: String
+    var id: String?
     var name: String
     var cover: String
     var platformId: String

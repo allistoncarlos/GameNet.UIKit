@@ -21,6 +21,11 @@ class GamesViewController: UIViewController {
     // MARK: - Outlets
     @IBOutlet weak var gamesCollectionView: UICollectionView?
     
+    // MARK: - Init
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     // MARK: - Override funcs
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +35,6 @@ class GamesViewController: UIViewController {
         self.gamesCollectionView?.delegate = self
         
         self.isLoading = true
-        presenter = GamePresenter(service: GameService(apiResource: Constants.gameResource), delegate: self)
         presenter?.load()
     }
     

@@ -16,19 +16,19 @@ protocol PlatformPresenterDelegate: AnyObject {
 }
 
 class PlatformPresenter: PlatformPresenterProtocol {
-    private var service: PlatformService
+    private var service: ServiceBox<PlatformService>?
     private weak var delegate: PlatformPresenterDelegate?
     private var apiResult: APIResult<PagedResult<PlatformModel>>?
     private var platforms: [PlatformViewModel] = []
 
-    init(service: PlatformService, delegate: PlatformPresenterDelegate?) {
+    init(delegate: PlatformPresenterDelegate?, service: ServiceBox<PlatformService>?) {
         self.service = service
         self.delegate = delegate
     }
     
     // MARK: - PlatformPresenterProtocol
     func load() {
-        service.load(page: nil, pageSize: nil, completion: { (result) in
+        service?.object.load(page: nil, pageSize: nil, completion: { (result) in
             switch result {
             case .success(let apiResult):
                 self.apiResult = apiResult
@@ -47,7 +47,7 @@ class PlatformPresenter: PlatformPresenterProtocol {
     // MARK: - Private funcs
     private func mapToViewModel(_ platforms: [PlatformModel]) -> [PlatformViewModel] {
         return platforms.map { platform in
-            PlatformViewModel(id: platform.id, name: platform.name)
+            PlatformViewModel(id: platform.id!, name: platform.name)
         }
     }
 }

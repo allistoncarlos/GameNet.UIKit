@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Swinject
 
 class LoginViewController: UIViewController {
     // MARK: - Properties
@@ -15,20 +16,14 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var usernameTextField: UITextField?
     @IBOutlet weak var passwordTextField: UITextField?
     
+    // MARK: - Init
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        presenter = UserPresenter(service: UserService(), delegate: self)
-        
-        if let presenter = presenter {
-            if presenter.hasValidToken() {
-                print("TÁ VÁLIDO")
-            }
-            else {
-                print("LOGA AI MALANDRO")
-            }
-        }
     }
 
     // MARK: - IBActions

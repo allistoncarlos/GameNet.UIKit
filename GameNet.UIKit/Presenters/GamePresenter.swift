@@ -17,12 +17,12 @@ protocol GamePresenterDelegate: AnyObject {
 }
 
 class GamePresenter: GamePresenterProtocol {
-    private var service: GameService
+    private var service: ServiceBox<GameService>?
     private weak var delegate: GamePresenterDelegate?
     private var apiResult: APIResult<PagedResult<GameModel>>?
     private var pagedResultViewModel: PagedResultViewModel<GameViewModel>?
 
-    init(service: GameService, delegate: GamePresenterDelegate?) {
+    init(delegate: GamePresenterDelegate?, service: ServiceBox<GameService>?) {
         self.service = service
         self.delegate = delegate
     }
@@ -33,7 +33,7 @@ class GamePresenter: GamePresenterProtocol {
     }
     
     func load(page: Int) {
-        service.load(page: page, pageSize: Constants.pageSize, completion: { (result) in
+        service?.object.load(page: page, pageSize: Constants.pageSize, completion: { (result) in
             switch result {
             case .success(let apiResult):
                 self.apiResult = apiResult
@@ -52,7 +52,7 @@ class GamePresenter: GamePresenterProtocol {
     // MARK: - Private funcs
     private func mapToViewModel(_ pagedResult: PagedResult<GameModel>) -> PagedResultViewModel<GameViewModel> {
         let data = pagedResult.result.map { game in
-            GameViewModel(id: game.id, name: game.name, cover: game.cover, platformId: game.platformId, platform: game.platform)
+            GameViewModel(id: game.id!, name: game.name, cover: game.cover, platformId: game.platformId, platform: game.platform)
         }
         
         let pagedResultViewModel = PagedResultViewModel<GameViewModel>(

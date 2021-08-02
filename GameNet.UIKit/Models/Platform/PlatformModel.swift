@@ -8,7 +8,7 @@
 import Foundation
 
 struct PlatformModel: BaseModel {
-    var id: String
+    var id: String?
     var name: String
     
     enum CodingKeys: String, CodingKey {

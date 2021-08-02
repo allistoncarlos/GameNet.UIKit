@@ -8,5 +8,5 @@
 import Foundation
 
 protocol BaseModel: Codable {
-    var id: String { get set }
+    var id: String? { get set }
 }

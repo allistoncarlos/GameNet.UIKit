@@ -7,10 +7,10 @@
 
 import Foundation
 import KeychainAccess
+import Swinject
 
 protocol UserPresenterProtocol: AnyObject {
     func login(username: String, password: String)
-    func hasValidToken() -> Bool
 }
 
 protocol UserPresenterDelegate: AnyObject {
@@ -18,39 +18,26 @@ protocol UserPresenterDelegate: AnyObject {
 }
 
 class UserPresenter: UserPresenterProtocol {
-    private var service: UserServiceProtocol
+    private var service: UserServiceProtocol?
     private weak var delegate: UserPresenterDelegate?
     
-    init(service: UserServiceProtocol, delegate: UserPresenterDelegate?) {
-        self.service = service
+    init(delegate: UserPresenterDelegate?,
+         service: UserServiceProtocol?) {
         self.delegate = delegate
+        self.service = service
     }
     
     // MARK: - UserPresenterProtocol
     func login(username: String, password: String) {
-        service.login(LoginRequestModel: LoginRequestModel(username: username, password: password))
+        service?.login(loginRequestModel: LoginRequestModel(username: username, password: password))
         { (result) in
             switch result {
                 case .success(let user):
-                    self.saveToken(token: user.token)
+                    print(user)
+                    print("CHAMAR O DELEGATE DO SEGUE")
                 case .failure(let error):
                     print(error.localizedDescription)
             }
         }
-    }
-    
-    func hasValidToken() -> Bool {
-        let keychain = Keychain(service: Constants.keychainIdentifier)
-        if keychain[Constants.tokenIdentifier] != nil {
-            return true
-        }
-        
-        return false
-    }
-    
-    // MARK: - Private funcs
-    private func saveToken(token: String) {
-        let keychain = Keychain(service: Constants.keychainIdentifier)
-        keychain[Constants.tokenIdentifier] = token
     }
 }
