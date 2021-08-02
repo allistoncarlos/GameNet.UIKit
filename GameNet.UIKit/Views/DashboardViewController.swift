@@ -8,10 +8,18 @@
 import UIKit
 import KeychainAccess
 
-class DashboardViewController: UIViewController, UITableViewDataSource, UserPresenterDelegate {
+class DashboardViewController: UIViewController, UITableViewDataSource {
+    // MARK: - Properties
+    var presenter: DashboardPresenterProtocol?
+    
     // MARK: - Outlets
     @IBOutlet weak var playingGamesView: UIView?
     @IBOutlet weak var playingGamesTableView: UITableView?
+    
+    // MARK: - Init
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
     
     // MARK: - Override functions
     override func viewDidLoad() {
@@ -20,26 +28,7 @@ class DashboardViewController: UIViewController, UITableViewDataSource, UserPres
         self.navigationItem.title = Constants.dashboardViewTitle
         playingGamesView?.layer.cornerRadius = 10
         
-        
-//        let keychain = Keychain(service: Constants.keychainIdentifier)
-//
-//        guard let accessToken = keychain[Constants.accessTokenIdentifier],
-//              let refreshToken = keychain[Constants.refreshTokenIdentifier] else {
-//            return
-//        }
-//
-//        let userPresenter = UserPresenter(service: UserService(), delegate: self)
-//        userPresenter.refreshToken(accessToken: accessToken, refreshToken: refreshToken)
-        
-        DashboardService(apiResource: "dashboard").get { (result) in
-            switch result {
-            case .success(let apiResult):
-                print(apiResult)
-                self.playingGamesTableView?.reloadData()
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
+        presenter?.fetchData()
     }
     
     // MARK: - UITableViewDataSource
@@ -54,5 +43,23 @@ class DashboardViewController: UIViewController, UITableViewDataSource, UserPres
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return UITableViewCell()
+    }
+}
+
+extension DashboardViewController: DashboardPresenterDelegate {
+    func renderLoading() {
+        
+    }
+    
+    func render(data: DashboardModel) {
+        print("DATA FETCHED")
+    }
+    
+    func render(error: Error) {
+        
+    }
+    
+    func render(errors: [String]) {
+        
     }
 }

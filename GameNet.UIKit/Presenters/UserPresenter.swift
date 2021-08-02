@@ -7,10 +7,10 @@
 
 import Foundation
 import KeychainAccess
+import Swinject
 
 protocol UserPresenterProtocol: AnyObject {
     func login(username: String, password: String)
-    func refreshToken(accessToken: String, refreshToken: String)
 }
 
 protocol UserPresenterDelegate: AnyObject {
@@ -18,44 +18,26 @@ protocol UserPresenterDelegate: AnyObject {
 }
 
 class UserPresenter: UserPresenterProtocol {
-    private var service: UserServiceProtocol
+    private var service: UserServiceProtocol?
     private weak var delegate: UserPresenterDelegate?
     
-    init(service: UserServiceProtocol, delegate: UserPresenterDelegate?) {
-        self.service = service
+    init(delegate: UserPresenterDelegate?,
+         service: UserServiceProtocol?) {
         self.delegate = delegate
+        self.service = service
     }
     
     // MARK: - UserPresenterProtocol
     func login(username: String, password: String) {
-        service.login(loginRequestModel: LoginRequestModel(username: username, password: password))
+        service?.login(loginRequestModel: LoginRequestModel(username: username, password: password))
         { (result) in
             switch result {
                 case .success(let user):
-                    self.saveToken(accessToken: user.accessToken, refreshToken: user.refreshToken, expiresIn: user.expiresIn)
+                    print(user)
+                    print("CHAMAR O DELEGATE DO SEGUE")
                 case .failure(let error):
                     print(error.localizedDescription)
             }
         }
-    }
-    
-    func refreshToken(accessToken: String, refreshToken: String) {
-        service.refreshToken(refreshTokenRequestModel: RefreshTokenRequestModel(accessToken: accessToken, refreshToken: refreshToken))
-        { (result) in
-            switch result {
-                case .success(let response):
-                    self.saveToken(accessToken: response.accessToken, refreshToken: response.refreshToken, expiresIn: response.expiresIn)
-                case .failure(let error):
-                    print(error.localizedDescription)
-            }
-        }
-    }
-    
-    // MARK: - Private funcs
-    private func saveToken(accessToken: String, refreshToken: String, expiresIn: Date) {
-        let keychain = Keychain(service: Constants.keychainIdentifier)
-        keychain[Constants.accessTokenIdentifier] = accessToken
-        keychain[Constants.refreshTokenIdentifier] = refreshToken
-        keychain[Constants.expiresInIdentifier] = "\(expiresIn)"
     }
 }

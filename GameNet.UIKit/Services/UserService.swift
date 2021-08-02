@@ -39,6 +39,9 @@ class UserService: UserServiceProtocol {
             AF.request(request).responseDecodable(of: LoginResponseModel.self, decoder: decoder) { (response) in
                 switch response.result {
                     case .success(let value):
+                        self.saveToken(accessToken: value.accessToken,
+                                       refreshToken: value.refreshToken,
+                                       expiresIn: value.expiresIn)
                         completion(.success(value))
                     case .failure(let error):
                         completion(.failure(error))
@@ -69,8 +72,14 @@ class UserService: UserServiceProtocol {
             request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
             
             AF.request(request).responseDecodable(of: RefreshTokenResponseModel.self, decoder: decoder) { (response) in
+                let teste = response
+                print(teste)
+                
                 switch response.result {
                     case .success(let value):
+                        self.saveToken(accessToken: value.accessToken,
+                                       refreshToken: value.refreshToken,
+                                       expiresIn: value.expiresIn)
                         completion(.success(value))
                     case .failure(let error):
                         completion(.failure(error))
@@ -80,5 +89,16 @@ class UserService: UserServiceProtocol {
         catch {
             completion(.failure(error))
         }
+    }
+    
+    // MARK: - Private funcs
+    private func saveToken(accessToken: String, refreshToken: String, expiresIn: Date) {
+        let keychain = Keychain(service: Constants.keychainIdentifier)
+        keychain[Constants.accessTokenIdentifier] = accessToken
+        keychain[Constants.refreshTokenIdentifier] = refreshToken
+    
+        let dateFormatter = ISO8601DateFormatter()
+        
+        keychain[Constants.expiresInIdentifier] = dateFormatter.string(from: expiresIn)
     }
 }

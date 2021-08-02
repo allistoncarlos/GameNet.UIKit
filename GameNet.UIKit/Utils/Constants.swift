@@ -11,6 +11,7 @@ import UIKit
 class Constants {
     static let apiPath = "https://gamenet.azurewebsites.net/api"
     static let userResource = "user"
+    static let dashboardResource = "dashboard"
     static let gameResource = "usergame"
     static let platformResource = "platform"
     

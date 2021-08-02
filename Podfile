@@ -8,4 +8,6 @@ target 'GameNet.UIKit' do
   # Pods for GameNet.UIKit
   pod 'Alamofire', '~> 5.4'
   pod 'KeychainAccess'
+  pod 'Swinject'
+  pod 'SwinjectStoryboard'
 end

@@ -6,12 +6,18 @@
 //
 
 import UIKit
+import Swinject
 
 class PlatformsViewController: UITableViewController {
     // MARK: - Properties
     var presenter: PlatformPresenterProtocol?
     var platforms: [PlatformViewModel] = []
     var isLoading: Bool = false
+    
+    // MARK: - Init
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
     
     // MARK: - Override funcs
     override func viewDidLoad() {
@@ -20,7 +26,6 @@ class PlatformsViewController: UITableViewController {
         self.navigationItem.title = Constants.platformsViewTitle
         
         self.isLoading = true
-        presenter = PlatformPresenter(service: PlatformService(apiResource: Constants.platformResource), delegate: self)
         presenter?.load()
     }
     

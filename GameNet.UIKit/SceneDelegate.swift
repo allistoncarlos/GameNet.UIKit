@@ -7,9 +7,10 @@
 
 import UIKit
 import KeychainAccess
+import Swinject
+import SwinjectStoryboard
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
     var window: UIWindow?
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
@@ -65,3 +66,31 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 }
 
+extension SwinjectStoryboard {
+    @objc class func setup() {
+        defaultContainer.storyboardInitCompleted(LoginViewController.self) { r, c in
+            c.presenter = UserPresenter(delegate: c, service: r.resolve(UserServiceProtocol.self))
+        }
+        defaultContainer.storyboardInitCompleted(DashboardViewController.self) { r, c in
+            c.presenter = DashboardPresenter(delegate: c, service: r.resolve(ServiceBox<DashboardService>.self))
+        }
+        defaultContainer.storyboardInitCompleted(GamesViewController.self) { r, c in
+            c.presenter = GamePresenter(delegate: c, service: r.resolve(ServiceBox<GameService>.self))
+        }
+        defaultContainer.storyboardInitCompleted(PlatformsViewController.self) { r, c in
+            c.presenter = PlatformPresenter(delegate: c, service: r.resolve(ServiceBox<PlatformService>.self))
+        }
+        
+        // Services
+        defaultContainer.register(UserServiceProtocol.self) { _ in UserService() }
+        defaultContainer.register(ServiceBox.self) { _ in
+            ServiceBox<DashboardService>(object: DashboardService(apiResource: Constants.dashboardResource))
+        }
+        defaultContainer.register(ServiceBox.self) { _ in
+            ServiceBox<GameService>(object: GameService(apiResource: Constants.gameResource))
+        }
+        defaultContainer.register(ServiceBox.self) { _ in
+            ServiceBox<PlatformService>(object: PlatformService(apiResource: Constants.platformResource))
+        }
+    }
+}
