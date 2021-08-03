@@ -16,7 +16,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "66"
             endingLineNumber = "66"
-            landmarkName = "refresh(_:for:completion:)"
+            landmarkName = "didRequest(_:with:failDueToAuthenticationError:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -32,7 +32,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "76"
             endingLineNumber = "76"
-            landmarkName = "didRequest(_:with:failDueToAuthenticationError:)"
+            landmarkName = "isRequest(_:authenticatedWith:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -80,7 +80,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "37"
             endingLineNumber = "37"
-            landmarkName = "apply(_:to:)"
+            landmarkName = "refresh(_:for:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
