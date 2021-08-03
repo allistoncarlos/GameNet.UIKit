@@ -14,7 +14,7 @@ protocol UserPresenterProtocol: AnyObject {
 }
 
 protocol UserPresenterDelegate: AnyObject {
-    
+    func loggedIn()
 }
 
 class UserPresenter: UserPresenterProtocol {
@@ -32,9 +32,8 @@ class UserPresenter: UserPresenterProtocol {
         service?.login(loginRequestModel: LoginRequestModel(username: username, password: password))
         { (result) in
             switch result {
-                case .success(let user):
-                    print(user)
-                    print("CHAMAR O DELEGATE DO SEGUE")
+                case .success(_):
+                    self.delegate?.loggedIn()
                 case .failure(let error):
                     print(error.localizedDescription)
             }

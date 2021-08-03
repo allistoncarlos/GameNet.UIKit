@@ -9,6 +9,9 @@ import UIKit
 import Swinject
 
 class LoginViewController: UIViewController {
+    // MARK: - Static Properties
+    static let NotificationLoggedIn = NSNotification.Name(rawValue: "LoggedIn")
+    
     // MARK: - Properties
     var presenter: UserPresenterProtocol?
     
@@ -36,6 +39,8 @@ class LoginViewController: UIViewController {
 }
 
 extension LoginViewController: UserPresenterDelegate {
-    
+    func loggedIn() {
+        NotificationCenter.default.post(name: LoginViewController.NotificationLoggedIn, object: nil)
+    }
 }
 

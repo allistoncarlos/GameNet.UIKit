@@ -15,6 +15,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        NotificationCenter.default.addObserver(self, selector:#selector(loggedIn(notification:)),name:LoginViewController.NotificationLoggedIn,object: nil)
+        
         if !hasValidToken() {
             guard let windowScene = scene as? UIWindowScene else { return }
             
@@ -63,6 +65,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
         return false
+    }
+    
+    // MARK: - NotificationCenter
+    @objc func loggedIn(notification: Notification) {
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle(for: type(of: self)))
+        self.window?.rootViewController = storyboard.instantiateInitialViewController()
     }
 }
 
