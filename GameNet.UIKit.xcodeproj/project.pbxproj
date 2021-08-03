@@ -40,6 +40,8 @@
 		A5936D0A268E470200EC93B7 /* BoughtGamesByYearModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5936D09268E470200EC93B7 /* BoughtGamesByYearModel.swift */; };
 		A5936D0C268E474400EC93B7 /* DashboardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5936D0B268E474400EC93B7 /* DashboardModel.swift */; };
 		A5936D0E268E485E00EC93B7 /* DashboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5936D0D268E485E00EC93B7 /* DashboardService.swift */; };
+		A5AD4BA926B9B9B1002EBF28 /* FontExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AD4BA826B9B9B1002EBF28 /* FontExtensions.swift */; };
+		A5AD4BAB26B9BB8F002EBF28 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AD4BAA26B9BB8F002EBF28 /* DateExtensions.swift */; };
 		A5BAF1E026ADE17600E6BCC6 /* DashboardPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BAF1DF26ADE17600E6BCC6 /* DashboardPresenter.swift */; };
 		A5C5C706268B9C5A00B3FE13 /* PagedResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C5C705268B9C5A00B3FE13 /* PagedResultViewModel.swift */; };
 		A5C5C708268BDED700B3FE13 /* UIImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C5C707268BDED700B3FE13 /* UIImageViewExtensions.swift */; };
@@ -88,6 +90,8 @@
 		A5936D09268E470200EC93B7 /* BoughtGamesByYearModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoughtGamesByYearModel.swift; sourceTree = "<group>"; };
 		A5936D0B268E474400EC93B7 /* DashboardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardModel.swift; sourceTree = "<group>"; };
 		A5936D0D268E485E00EC93B7 /* DashboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardService.swift; sourceTree = "<group>"; };
+		A5AD4BA826B9B9B1002EBF28 /* FontExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontExtensions.swift; sourceTree = "<group>"; };
+		A5AD4BAA26B9BB8F002EBF28 /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		A5BAF1DF26ADE17600E6BCC6 /* DashboardPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardPresenter.swift; sourceTree = "<group>"; };
 		A5C5C705268B9C5A00B3FE13 /* PagedResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagedResultViewModel.swift; sourceTree = "<group>"; };
 		A5C5C707268BDED700B3FE13 /* UIImageViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtensions.swift; sourceTree = "<group>"; };
@@ -195,6 +199,7 @@
 			children = (
 				A56A137B2688E7D70099127C /* Constants.swift */,
 				A5C5C707268BDED700B3FE13 /* UIImageViewExtensions.swift */,
+				A5AD4BAA26B9BB8F002EBF28 /* DateExtensions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -264,6 +269,14 @@
 			path = Dashboard;
 			sourceTree = "<group>";
 		};
+		A5AD4BA726B9B9A5002EBF28 /* Styles */ = {
+			isa = PBXGroup;
+			children = (
+				A5AD4BA826B9B9B1002EBF28 /* FontExtensions.swift */,
+			);
+			path = Styles;
+			sourceTree = "<group>";
+		};
 		A5D24FA62688D11000F8A0DA = {
 			isa = PBXGroup;
 			children = (
@@ -285,6 +298,7 @@
 		A5D24FB12688D11000F8A0DA /* GameNet.UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				A5AD4BA726B9B9A5002EBF28 /* Styles */,
 				A535906D26A3623C00AB5AFC /* Network */,
 				A56A137A2688E7CD0099127C /* Utils */,
 				A5D24FB22688D11000F8A0DA /* AppDelegate.swift */,
@@ -455,7 +469,9 @@
 				A57E280B268A468D00EFB503 /* GameModel.swift in Sources */,
 				A56A136F2688D2450099127C /* UserService.swift in Sources */,
 				A535906F26A3624F00AB5AFC /* OAuthAuthenticator.swift in Sources */,
+				A5AD4BA926B9B9B1002EBF28 /* FontExtensions.swift in Sources */,
 				A5936D0E268E485E00EC93B7 /* DashboardService.swift in Sources */,
+				A5AD4BAB26B9BB8F002EBF28 /* DateExtensions.swift in Sources */,
 				A56A136D2688D22B0099127C /* LoginRequestModel.swift in Sources */,
 				A5936D00268E42FE00EC93B7 /* PlatformGamesModel.swift in Sources */,
 				A5936CFB268E301800EC93B7 /* PlatformPresenter.swift in Sources */,

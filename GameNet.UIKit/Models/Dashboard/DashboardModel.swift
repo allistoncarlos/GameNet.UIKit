@@ -12,7 +12,7 @@ struct DashboardModel: BaseModel {
     var boughtByYear: [BoughtGamesByYearTotalModel]?
     var finishedByYear: [FinishedGameByYearTotalModel]?
     var playingGames: [PlayingGameModel]?
-//    var physicalDigital: PhysicalDigitalModel?
+    var physicalDigital: PhysicalDigitalModel?
 //    var gamesByPlatform: PlatformGamesModel?
     var totalPrice: Decimal?
     var totalGames: Int?
@@ -22,7 +22,7 @@ struct DashboardModel: BaseModel {
         case boughtByYear
         case finishedByYear
         case playingGames
-//        case physicalDigital
+        case physicalDigital
 //        case gamesByPlatform
         case totalPrice
         case totalGames
