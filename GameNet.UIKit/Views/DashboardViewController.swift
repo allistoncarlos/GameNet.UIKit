@@ -13,8 +13,13 @@ class DashboardViewController: UIViewController {
     var presenter: DashboardPresenterProtocol?
     
     // MARK: - Outlets
+    @IBOutlet weak var scrollView: UIScrollView!
+    
     @IBOutlet weak var playingGamesView: UIStackView!
     @IBOutlet weak var physicalDigitalGamesView: UIStackView!
+    @IBOutlet weak var finishedByYearView: UIStackView!
+    @IBOutlet weak var boughtByYearView: UIStackView!
+    @IBOutlet weak var gameByPlatformView: UIStackView!
     
     @IBOutlet weak var totalGamesLabel: UILabel!
     
@@ -32,6 +37,15 @@ class DashboardViewController: UIViewController {
         self.navigationItem.title = Constants.dashboardViewTitle
         playingGamesView.layer.cornerRadius = cornerRadius
         physicalDigitalGamesView.layer.cornerRadius = cornerRadius
+        finishedByYearView.layer.cornerRadius = cornerRadius
+        boughtByYearView.layer.cornerRadius = cornerRadius
+        gameByPlatformView.layer.cornerRadius = cornerRadius
+        
+        playingGamesView.translatesAutoresizingMaskIntoConstraints = false
+        physicalDigitalGamesView.translatesAutoresizingMaskIntoConstraints = false
+        finishedByYearView.translatesAutoresizingMaskIntoConstraints = false
+        boughtByYearView.translatesAutoresizingMaskIntoConstraints = false
+        gameByPlatformView.translatesAutoresizingMaskIntoConstraints = false
         
         presenter?.fetchData()
     }
@@ -50,7 +64,10 @@ extension DashboardViewController: DashboardPresenterDelegate {
         guard let playingGames = data.playingGames,
               let totalGames = data.totalGames,
               let totalPrice = data.totalPrice,
-              let physicalDigital = data.physicalDigital
+              let physicalDigital = data.physicalDigital,
+              let finishedGamesByYear = data.finishedByYear,
+              let boughtGamesByYear = data.boughtByYear,
+              let gamesByPlatform = data.gamesByPlatform?.platforms
         else { return }
         
         // Playing Games
@@ -68,11 +85,34 @@ extension DashboardViewController: DashboardPresenterDelegate {
         totalPriceLabel.text = "R$ \(totalPrice),00"
         physicalDigitalGamesView?.addArrangedSubview(totalPriceLabel)
 
+        // Digital
         let digitalStackView = renderBadgeText(badge: physicalDigital.digital, text: "Digitais")
         physicalDigitalGamesView?.addArrangedSubview(digitalStackView)
         
+        // Physical
         let physicalStackView = renderBadgeText(badge: physicalDigital.physical, text: "Físicos")
         physicalDigitalGamesView?.addArrangedSubview(physicalStackView)
+        
+        // Finished By Year
+        for finishedGameByYear in finishedGamesByYear {
+            let finishedByYearStackView = renderBadgeText(badge: finishedGameByYear.total, text: "\(finishedGameByYear.year)")
+            finishedByYearView?.addArrangedSubview(finishedByYearStackView)
+        }
+        
+        // Bought By Year
+        for boughtGameByYear in boughtGamesByYear {
+            let boughtByYearStackView = renderBadgeText(badge: boughtGameByYear.quantity,
+                                                        text: "\(boughtGameByYear.year)",
+                                                        subtitle: "\(boughtGameByYear.total)")
+            boughtByYearView?.addArrangedSubview(boughtByYearStackView)
+        }
+        
+        // Games By Platform
+        for platform in gamesByPlatform {
+            let platformStackView = renderBadgeText(badge: platform.platformGamesTotal,
+                                                        text: "\(platform.name)")
+            gameByPlatformView?.addArrangedSubview(platformStackView)
+        }
     }
     
     func render(error: Error) {
@@ -90,41 +130,42 @@ extension DashboardViewController: DashboardPresenterDelegate {
         titleSubtitleStackView.alignment = .leading
         titleSubtitleStackView.distribution = .equalSpacing
         
-        let playingGameTitleLabel = UILabel()
-        playingGameTitleLabel.font = UIFont.dashboardPlayingGameTitle
-        playingGameTitleLabel.text = title
-        titleSubtitleStackView.addArrangedSubview(playingGameTitleLabel)
+        let titleLabel = UILabel()
+        titleLabel.font = UIFont.dashboardPlayingGameTitle
+        titleLabel.text = title
+        titleSubtitleStackView.addArrangedSubview(titleLabel)
 
-        let playingGameSubtitleLabel = UILabel()
-        playingGameSubtitleLabel.font = UIFont.dashboardPlayingGameSubtitle
-        playingGameSubtitleLabel.text = subtitle
-        titleSubtitleStackView.addArrangedSubview(playingGameSubtitleLabel)
+        let subtitleLabel = UILabel()
+        subtitleLabel.font = UIFont.dashboardPlayingGameSubtitle
+        subtitleLabel.text = subtitle
+        titleSubtitleStackView.addArrangedSubview(subtitleLabel)
         
         return titleSubtitleStackView
     }
     
-    private func renderBadgeText(badge: Int, text: String, hasSubtitle: Bool = false) -> UIStackView {
-        let physicalStackView = UIStackView()
-        physicalStackView.axis = .horizontal
-        physicalStackView.alignment = .center
-        physicalStackView.distribution = .fillProportionally
+    private func renderBadgeText(badge: Int, text: String, subtitle: String = "") -> UIStackView {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.distribution = .fillProportionally
 
-        let physicalNumberLabel = UILabel()
-        physicalNumberLabel.text = "\(badge)"
-        physicalNumberLabel.font = UIFont.dashboardPlayingGameTitle
+        let badgeLabel = UILabel()
+        badgeLabel.text = "\(badge)"
+        badgeLabel.font = UIFont.dashboardPlayingGameTitle
+        badgeLabel.textAlignment = .center
         
-        let physicalNumberConstraints = [
-            physicalNumberLabel.widthAnchor.constraint(equalToConstant: 50)
+        let numberConstraints = [
+            badgeLabel.widthAnchor.constraint(equalToConstant: 50)
         ]
-        NSLayoutConstraint.activate(physicalNumberConstraints)
+        NSLayoutConstraint.activate(numberConstraints)
         
-        physicalStackView.addArrangedSubview(physicalNumberLabel)
+        stackView.addArrangedSubview(badgeLabel)
         
-        let physicalLabel = UILabel()
-        physicalLabel.text = text
-        physicalLabel.font = UIFont.dashboardPlayingGameTitle
-        physicalStackView.addArrangedSubview(physicalLabel)
+        let title = UILabel()
+        title.text = text
+        title.font = UIFont.dashboardPlayingGameTitle
+        stackView.addArrangedSubview(title)
         
-        return physicalStackView
+        return stackView
     }
 }
