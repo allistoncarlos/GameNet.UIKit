@@ -102,10 +102,6 @@
                                                     </label>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.1019607843" green="0.1333333333" blue="0.49019607840000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                <constraints>
-                                                    <constraint firstItem="ePp-J4-uLr" firstAttribute="leading" secondItem="qfo-Kj-wwO" secondAttribute="leading" constant="8" id="HVR-10-nUw"/>
-                                                    <constraint firstItem="ePp-J4-uLr" firstAttribute="top" secondItem="qfo-Kj-wwO" secondAttribute="top" constant="8" id="bOS-nH-MGy"/>
-                                                </constraints>
                                                 <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Omm-xK-Q7L">
@@ -162,30 +158,20 @@
                                             </stackView>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="y1g-9F-qe1" secondAttribute="trailing" id="0h2-3f-NyN"/>
-                                            <constraint firstItem="Omm-xK-Q7L" firstAttribute="top" secondItem="qfo-Kj-wwO" secondAttribute="bottom" constant="10" id="43b-jy-9Pw"/>
-                                            <constraint firstItem="2mr-fP-ud2" firstAttribute="top" secondItem="y1g-9F-qe1" secondAttribute="bottom" constant="10" id="AGg-xr-jnb"/>
-                                            <constraint firstItem="y1g-9F-qe1" firstAttribute="top" secondItem="3iv-Ng-0Yc" secondAttribute="bottom" constant="10" id="CSI-sM-aia"/>
-                                            <constraint firstAttribute="trailing" secondItem="qfo-Kj-wwO" secondAttribute="trailing" id="RT6-4t-tWa"/>
-                                            <constraint firstAttribute="trailing" secondItem="3iv-Ng-0Yc" secondAttribute="trailing" id="SjA-D9-mja"/>
-                                            <constraint firstItem="2mr-fP-ud2" firstAttribute="leading" secondItem="LhU-Me-KNe" secondAttribute="leading" id="XPz-j5-Tb7"/>
-                                            <constraint firstItem="qfo-Kj-wwO" firstAttribute="top" secondItem="LhU-Me-KNe" secondAttribute="top" id="XQZ-H2-U70"/>
-                                            <constraint firstItem="Omm-xK-Q7L" firstAttribute="leading" secondItem="LhU-Me-KNe" secondAttribute="leading" id="dqN-Uz-Ceu"/>
-                                            <constraint firstAttribute="trailing" secondItem="Omm-xK-Q7L" secondAttribute="trailing" id="gcg-Uy-Dxm"/>
-                                            <constraint firstItem="y1g-9F-qe1" firstAttribute="leading" secondItem="LhU-Me-KNe" secondAttribute="leading" id="hnb-4K-74N"/>
-                                            <constraint firstItem="qfo-Kj-wwO" firstAttribute="leading" secondItem="LhU-Me-KNe" secondAttribute="leading" id="mTW-c6-ogk"/>
-                                            <constraint firstAttribute="trailing" secondItem="2mr-fP-ud2" secondAttribute="trailing" id="q76-ls-2sZ"/>
-                                            <constraint firstItem="3iv-Ng-0Yc" firstAttribute="top" secondItem="Omm-xK-Q7L" secondAttribute="bottom" constant="10" id="qTt-yS-ZTX"/>
-                                            <constraint firstItem="3iv-Ng-0Yc" firstAttribute="leading" secondItem="LhU-Me-KNe" secondAttribute="leading" id="qfu-SZ-uca"/>
+                                            <constraint firstItem="3iv-Ng-0Yc" firstAttribute="centerX" secondItem="LhU-Me-KNe" secondAttribute="centerX" id="90X-TI-0wL"/>
+                                            <constraint firstItem="Omm-xK-Q7L" firstAttribute="centerX" secondItem="LhU-Me-KNe" secondAttribute="centerX" id="Eqg-7j-71e"/>
+                                            <constraint firstItem="2mr-fP-ud2" firstAttribute="centerX" secondItem="LhU-Me-KNe" secondAttribute="centerX" id="eDa-0W-Z5I"/>
+                                            <constraint firstItem="qfo-Kj-wwO" firstAttribute="centerX" secondItem="LhU-Me-KNe" secondAttribute="centerX" id="gme-7Q-iN4"/>
+                                            <constraint firstItem="y1g-9F-qe1" firstAttribute="centerX" secondItem="LhU-Me-KNe" secondAttribute="centerX" id="wsn-IZ-pLz"/>
                                         </constraints>
                                     </stackView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="LhU-Me-KNe" secondAttribute="bottom" constant="270" id="BgK-Ce-qwx"/>
-                                    <constraint firstItem="LhU-Me-KNe" firstAttribute="top" secondItem="JhO-Wq-Uno" secondAttribute="top" id="Dx8-CC-TX3"/>
-                                    <constraint firstItem="LhU-Me-KNe" firstAttribute="trailing" secondItem="JhO-Wq-Uno" secondAttribute="trailing" id="ONx-aV-eIj"/>
-                                    <constraint firstAttribute="trailing" secondItem="LhU-Me-KNe" secondAttribute="trailing" id="jYF-Lc-o7t"/>
-                                    <constraint firstItem="LhU-Me-KNe" firstAttribute="leading" secondItem="JhO-Wq-Uno" secondAttribute="leading" id="zMP-sH-AG0"/>
+                                    <constraint firstAttribute="bottom" secondItem="LhU-Me-KNe" secondAttribute="bottom" constant="35" id="EJE-34-9zh"/>
+                                    <constraint firstAttribute="trailing" secondItem="LhU-Me-KNe" secondAttribute="trailing" constant="13" id="Pt7-dn-P8X"/>
+                                    <constraint firstItem="JhO-Wq-Uno" firstAttribute="trailing" secondItem="LhU-Me-KNe" secondAttribute="trailing" id="eX4-cM-qhh"/>
+                                    <constraint firstItem="LhU-Me-KNe" firstAttribute="top" secondItem="yYz-yn-E0C" secondAttribute="top" id="wF1-Wq-XMe"/>
+                                    <constraint firstItem="LhU-Me-KNe" firstAttribute="leading" secondItem="JhO-Wq-Uno" secondAttribute="leading" id="xBt-jp-Juh"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="yYz-yn-E0C"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="JhO-Wq-Uno"/>
@@ -194,14 +180,10 @@
                         <viewLayoutGuide key="safeArea" id="Bk9-m6-fHn"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="ugT-ZM-P5i" firstAttribute="leading" secondItem="Bk9-m6-fHn" secondAttribute="leading" constant="16" id="0AG-fi-Q7N"/>
-                            <constraint firstItem="ugT-ZM-P5i" firstAttribute="bottom" secondItem="Bk9-m6-fHn" secondAttribute="bottom" id="ESf-eC-5ei"/>
-                            <constraint firstItem="ugT-ZM-P5i" firstAttribute="bottom" secondItem="Bk9-m6-fHn" secondAttribute="bottom" id="RBa-Yz-3JV"/>
-                            <constraint firstItem="ugT-ZM-P5i" firstAttribute="leading" secondItem="2J7-lj-wib" secondAttribute="leadingMargin" id="Wo5-pO-h4M"/>
-                            <constraint firstItem="ugT-ZM-P5i" firstAttribute="top" secondItem="Bk9-m6-fHn" secondAttribute="top" id="e5v-56-D5o"/>
-                            <constraint firstItem="Bk9-m6-fHn" firstAttribute="trailing" secondItem="ugT-ZM-P5i" secondAttribute="trailing" constant="16" id="pfq-KK-Ts5"/>
-                            <constraint firstItem="ugT-ZM-P5i" firstAttribute="top" secondItem="Bk9-m6-fHn" secondAttribute="top" id="pgY-8c-8Vz"/>
-                            <constraint firstItem="ugT-ZM-P5i" firstAttribute="trailing" secondItem="2J7-lj-wib" secondAttribute="trailingMargin" id="tHe-SO-Puh"/>
+                            <constraint firstItem="Bk9-m6-fHn" firstAttribute="trailing" secondItem="ugT-ZM-P5i" secondAttribute="trailing" constant="16" id="04O-gM-uXa"/>
+                            <constraint firstItem="ugT-ZM-P5i" firstAttribute="top" secondItem="Bk9-m6-fHn" secondAttribute="top" id="DIU-ap-GSK"/>
+                            <constraint firstItem="ugT-ZM-P5i" firstAttribute="bottom" secondItem="Bk9-m6-fHn" secondAttribute="bottom" id="jtJ-LZ-Lh4"/>
+                            <constraint firstItem="ugT-ZM-P5i" firstAttribute="leading" secondItem="Bk9-m6-fHn" secondAttribute="leading" constant="16" id="uEz-rl-lo5"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Dashboard" id="UKc-xZ-oMN"/>
@@ -317,7 +299,7 @@
                     <tabBarItem key="tabBarItem" title="Dashboard" id="yxj-rz-9KV"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="bfb-RE-xHW">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="96"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="102"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -356,7 +338,7 @@
                     <tabBarItem key="tabBarItem" title="Games" id="WYB-t6-zNv"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="GxC-5h-2iT">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="96"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="102"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -376,7 +358,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Plataformas" largeTitleDisplayMode="always" id="hCA-2N-XiL"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="ikM-xO-ch6">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="96"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="102"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
