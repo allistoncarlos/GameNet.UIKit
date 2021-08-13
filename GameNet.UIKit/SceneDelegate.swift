@@ -58,11 +58,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // MARK: - Private methods
     private func hasValidToken() -> Bool {
         let keychain = Keychain(service: Constants.keychainIdentifier)
+        
+        // ESSA VERIFICAÇÃO É TEMPORÁRIA
+        guard let expiresIn = keychain[Constants.expiresInIdentifier]?.toDate() else { return false }
+        
         if keychain[Constants.accessTokenIdentifier] != nil &&
             keychain[Constants.refreshTokenIdentifier] != nil &&
-            keychain[Constants.expiresInIdentifier] != nil {
+            keychain[Constants.expiresInIdentifier] != nil &&
+            expiresIn < Date() {
             return true
         }
+        
+        keychain[Constants.accessTokenIdentifier] = nil
+        keychain[Constants.refreshTokenIdentifier] = nil
+        keychain[Constants.expiresInIdentifier] = nil
         
         return false
     }
