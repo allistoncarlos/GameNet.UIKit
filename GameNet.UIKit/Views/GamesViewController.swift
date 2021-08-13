@@ -38,6 +38,13 @@ class GamesViewController: UIViewController {
         presenter?.load()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        let statusBarFrame = self.view.window?.windowScene?.statusBarManager?.statusBarFrame ?? CGRect.zero
+        let statusBarView = UIView(frame: statusBarFrame)
+        statusBarView.backgroundColor = Constants.primaryColor
+        view.addSubview(statusBarView)
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let gamesCollectionView = self.gamesCollectionView else { return }
         
