@@ -29,6 +29,13 @@ class PlatformsViewController: UITableViewController {
         presenter?.load()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        let statusBarFrame = self.view.window?.windowScene?.statusBarManager?.statusBarFrame ?? CGRect.zero
+        let statusBarView = UIView(frame: statusBarFrame)
+        statusBarView.backgroundColor = Constants.primaryColor
+        view.addSubview(statusBarView)
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return platforms.count
     }
