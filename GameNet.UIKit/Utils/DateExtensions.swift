@@ -19,9 +19,7 @@ extension Date {
 
 extension String {
     func toDate() -> Date? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .short
-        dateFormatter.locale = Locale(identifier: Locale.current.identifier)
+        let dateFormatter = ISO8601DateFormatter()
         
         return dateFormatter.date(from: self)
     }
