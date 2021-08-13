@@ -27,5 +27,7 @@ class Constants {
     static let pageSizePhone = 21
     static let pageSizePad = 30
     
+    static let primaryColor = UIColor(red: 0.48, green: 0.12, blue: 0.64, alpha: 1.00)
+    
     static let pageSize = UIDevice.current.userInterfaceIdiom == .phone ? pageSizePhone : pageSizePad
 }

@@ -50,6 +50,13 @@ class DashboardViewController: UIViewController {
         presenter?.fetchData()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        let statusBarFrame = self.view.window?.windowScene?.statusBarManager?.statusBarFrame ?? CGRect.zero
+        let statusBarView = UIView(frame: statusBarFrame)
+        statusBarView.backgroundColor = Constants.primaryColor
+        view.addSubview(statusBarView)
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return UITableViewCell()
     }
