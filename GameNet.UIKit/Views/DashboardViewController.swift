@@ -8,6 +8,10 @@
 import UIKit
 import KeychainAccess
 
+class GameDetailTapGestureRecognizer: UITapGestureRecognizer {
+    var playingGame: PlayingGameModel?
+}
+
 class DashboardViewController: UIViewController {
     // MARK: - Properties
     var presenter: DashboardPresenterProtocol?
@@ -60,6 +64,13 @@ class DashboardViewController: UIViewController {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return UITableViewCell()
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let gameDetailViewController = segue.destination as? GameDetailViewController else { return }
+        
+        let playingGame = sender as? PlayingGameModel
+        gameDetailViewController.title = playingGame?.name
+    }
 }
 
 extension DashboardViewController: DashboardPresenterDelegate {
@@ -80,6 +91,11 @@ extension DashboardViewController: DashboardPresenterDelegate {
         // Playing Games
         for playingGame in playingGames {
             let titleSubtitleStackView = renderTitleSubtitle(title: playingGame.name, subtitle: playingGame.latestGameplaySession.start.toFormattedString())
+            
+            let gesture = GameDetailTapGestureRecognizer(target: self, action: #selector(self.showGameDetail))
+            gesture.playingGame = playingGame
+            titleSubtitleStackView.addGestureRecognizer(gesture)
+            
             playingGamesView.addArrangedSubview(titleSubtitleStackView)
         }
         
@@ -174,5 +190,10 @@ extension DashboardViewController: DashboardPresenterDelegate {
         stackView.addArrangedSubview(title)
         
         return stackView
+    }
+    
+    // MARK: - Actions
+    @objc func showGameDetail(sender : GameDetailTapGestureRecognizer) {
+        performSegue(withIdentifier: "ShowGameDetailSegue", sender: sender.playingGame)
     }
 }

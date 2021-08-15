@@ -195,11 +195,28 @@
                         <outlet property="playingGamesView" destination="qfo-Kj-wwO" id="dNB-an-vIX"/>
                         <outlet property="scrollView" destination="ugT-ZM-P5i" id="jjf-yz-5nJ"/>
                         <outlet property="totalGamesLabel" destination="bVB-Qb-cDK" id="fMr-Qt-0kX"/>
+                        <segue destination="gpP-Q4-LnL" kind="show" identifier="ShowGameDetailSegue" id="fGT-bq-aNL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NoB-nG-FkN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2874.375" y="136.25"/>
+        </scene>
+        <!--Game Detail View Controller-->
+        <scene sceneID="fkE-Ao-Fqw">
+            <objects>
+                <viewController id="gpP-Q4-LnL" customClass="GameDetailViewController" customModule="GameNet_UIKit" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ngr-rL-SMB">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Ema-7d-hLP"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="iFp-Oz-qPV"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lhd-9A-lL5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4051" y="136"/>
         </scene>
         <!--Games-->
         <scene sceneID="LUI-wv-lvV">
