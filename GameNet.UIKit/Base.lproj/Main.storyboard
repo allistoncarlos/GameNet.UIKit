@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19115.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GGt-Vu-XKg">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GGt-Vu-XKg">
     <device id="retina6_5" orientation="portrait" appearance="dark"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19107.4"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -211,21 +210,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ECf-G1-Yun">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ECf-G1-Yun">
                                 <rect key="frame" x="0.0" y="97" width="414" height="716"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="DgG-KL-eHd">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="DgG-KL-eHd">
                                         <rect key="frame" x="0.0" y="-43" width="414" height="716"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </stackView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="DgG-KL-eHd" secondAttribute="trailing" id="3hc-ix-sQB"/>
+                                    <constraint firstItem="DgG-KL-eHd" firstAttribute="centerX" secondItem="ECf-G1-Yun" secondAttribute="centerX" id="66u-1Z-fwI"/>
+                                    <constraint firstItem="DgG-KL-eHd" firstAttribute="bottom" secondItem="lYD-pe-phQ" secondAttribute="bottom" id="TTo-vh-gQa"/>
+                                    <constraint firstItem="DgG-KL-eHd" firstAttribute="top" secondItem="lYD-pe-phQ" secondAttribute="top" id="VSF-Mk-lYp"/>
+                                    <constraint firstAttribute="bottom" secondItem="DgG-KL-eHd" secondAttribute="bottom" id="oP7-DE-5Qb"/>
+                                    <constraint firstItem="DgG-KL-eHd" firstAttribute="leading" secondItem="lYD-pe-phQ" secondAttribute="leading" id="xyj-kw-rEv"/>
+                                </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="R3u-2o-QOh"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="lYD-pe-phQ"/>
                             </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Ema-7d-hLP"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ECf-G1-Yun" firstAttribute="height" secondItem="Ema-7d-hLP" secondAttribute="height" multiplier="1.06389" id="9Qc-I5-w0K"/>
+                            <constraint firstItem="ECf-G1-Yun" firstAttribute="width" secondItem="Ema-7d-hLP" secondAttribute="width" id="Blu-0b-RHD"/>
+                            <constraint firstItem="ECf-G1-Yun" firstAttribute="centerX" secondItem="Ngr-rL-SMB" secondAttribute="centerX" id="Zsa-de-2BE"/>
+                            <constraint firstItem="ECf-G1-Yun" firstAttribute="bottom" secondItem="Ema-7d-hLP" secondAttribute="bottom" id="ble-06-hwX"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="iFp-Oz-qPV"/>
                     <connections>
@@ -309,7 +320,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="MWz-tZ-TZg">
-                                <rect key="frame" x="0.0" y="50" width="414" height="43.666667938232422"/>
+                                <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MWz-tZ-TZg" id="siU-uG-V5R">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
