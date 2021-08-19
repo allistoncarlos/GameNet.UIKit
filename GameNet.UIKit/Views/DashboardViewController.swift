@@ -70,6 +70,7 @@ class DashboardViewController: UIViewController {
         
         let playingGame = sender as? PlayingGameModel
         gameDetailViewController.title = playingGame?.name
+        gameDetailViewController.gameId = playingGame?.id
     }
 }
 
