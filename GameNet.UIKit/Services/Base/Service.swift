@@ -17,7 +17,7 @@ enum ServiceError: Error {
 protocol ServiceProtocol: AnyObject {
     associatedtype T: BaseModel
     
-    func get(completion: @escaping (Result<APIResult<T>, Error>) -> Void) -> Void
+    func get(id: String?, completion: @escaping (Result<APIResult<T>, Error>) -> Void) -> Void
     func load(page: Int?, pageSize: Int?, completion: @escaping (Result<APIResult<PagedResult<T>>, Error>) -> Void) -> Void
     func load(completion: @escaping (Result<APIResult<Array<T>>, Error>) -> Void) -> Void
 }
@@ -69,14 +69,20 @@ class Service<T: BaseModel>: ServiceProtocol {
                                                     credential: authCredentials)
     }
     
-    func get(completion: @escaping (Result<APIResult<T>, Error>) -> Void) -> Void {
-        guard let url = URL(string: "\(Constants.apiPath)/\(apiResource)") else { return }
+    func baseGet<TModel: BaseModel>(id: String? = nil, completion: @escaping (Result<APIResult<TModel>, Error>) -> Void) -> Void {
+        var urlString = "\(Constants.apiPath)/\(apiResource)"
+        
+        if let id = id {
+            urlString = "\(urlString)/\(id)"
+        }
+        
+        guard let url = URL(string: urlString) else { return }
         
         var request = URLRequest(url: url)
         request.httpMethod = HTTPMethod.get.rawValue
         request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
         
-        AF.request(request, interceptor: interceptor).responseDecodable(of: APIResult<T>.self, decoder: decoder) { (response) in
+        AF.request(request, interceptor: interceptor).responseDecodable(of: APIResult<TModel>.self, decoder: decoder) { (response) in
             switch response.result {
                 case .success(let value):
                     completion(.success(value))
@@ -84,6 +90,10 @@ class Service<T: BaseModel>: ServiceProtocol {
                     completion(.failure(error))
             }
         }
+    }
+    
+    func get(id: String? = nil, completion: @escaping (Result<APIResult<T>, Error>) -> Void) -> Void {
+        self.baseGet(id: id, completion: completion)
     }
     
     func load(page: Int? = nil, pageSize: Int? = nil, completion: @escaping (Result<APIResult<PagedResult<T>>, Error>) -> Void) -> Void {

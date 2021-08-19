@@ -10,4 +10,5 @@ target 'GameNet.UIKit' do
   pod 'KeychainAccess'
   pod 'Swinject'
   pod 'SwinjectStoryboard'
+  pod 'SDWebImage'
 end
