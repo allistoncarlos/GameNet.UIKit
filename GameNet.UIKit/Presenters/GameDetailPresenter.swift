@@ -45,7 +45,10 @@ class GameDetailPresenter: GameDetailPresenterProtocol {
             id: apiResult.id!,
             name: apiResult.name,
             cover: apiResult.cover,
-            platform: apiResult.platform)
+            platform: apiResult.platform,
+            value: apiResult.value,
+            boughtDate: apiResult.boughtDate
+        )
         
         return viewModel
     }

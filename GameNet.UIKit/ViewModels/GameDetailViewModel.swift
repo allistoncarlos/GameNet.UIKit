@@ -12,4 +12,6 @@ struct GameDetailViewModel {
     var name: String
     var cover: String
     var platform: String
+    var value: Decimal
+    var boughtDate: Date
 }

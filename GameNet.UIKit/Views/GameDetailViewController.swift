@@ -73,14 +73,13 @@ extension GameDetailViewController: GameDetailPresenterDelegate {
         stackView.addArrangedSubview(imageView)
         
         let imageViewConstraints = [
-            imageView.topAnchor.constraint(equalTo: stackView.topAnchor, constant: 75),
+            imageView.topAnchor.constraint(equalTo: stackView.topAnchor, constant: 15),
             imageView.heightAnchor.constraint(equalToConstant: 300)
         ]
         NSLayoutConstraint.activate(imageViewConstraints)
         
         // Title
         let title = UILabel()
-        title.backgroundColor = UIColor.blue
         title.text = result?.name
         stackView.addArrangedSubview(title)
         
@@ -91,7 +90,6 @@ extension GameDetailViewController: GameDetailPresenterDelegate {
         
         // Platform
         let platform = UILabel()
-        platform.backgroundColor = UIColor.blue
         platform.text = result?.platform
         stackView.addArrangedSubview(platform)
         
@@ -101,81 +99,28 @@ extension GameDetailViewController: GameDetailPresenterDelegate {
         NSLayoutConstraint.activate(platformConstraints)
         
         // Price
-        let price = UILabel()
-        price.backgroundColor = UIColor.blue
-        price.text = "Preço: R$ \(result?.platform)"
-        stackView.addArrangedSubview(price)
+        if let valueDecimal = result?.value {
+            let value = UILabel()
+            value.text = "Preço: R$ \(valueDecimal)"
+            stackView.addArrangedSubview(value)
+            
+            let valueConstraints = [
+                value.topAnchor.constraint(equalTo: platform.bottomAnchor, constant: 10),
+            ]
+            NSLayoutConstraint.activate(valueConstraints)
+        }
         
-        let priceConstraints = [
-            price.topAnchor.constraint(equalTo: platform.bottomAnchor, constant: 10),
-        ]
-        NSLayoutConstraint.activate(priceConstraints)
-        
-        // Deletar
-        let price2 = UILabel()
-        price2.backgroundColor = UIColor.blue
-        price2.text = "Preço: R$ \(result?.platform)"
-        price2.font = UIFont(name: "AvenirNext-DemiBold", size: 50)!
-        stackView.addArrangedSubview(price2)
-        
-        let price2Constraints = [
-            price2.topAnchor.constraint(equalTo: price.bottomAnchor, constant: 10),
-        ]
-        NSLayoutConstraint.activate(price2Constraints)
-        
-        let price3 = UILabel()
-        price3.backgroundColor = UIColor.blue
-        price3.font = UIFont(name: "AvenirNext-DemiBold", size: 50)!
-        price3.text = "Preço: R$ \(result?.platform)"
-        stackView.addArrangedSubview(price3)
-        
-        let price3Constraints = [
-            price3.topAnchor.constraint(equalTo: price2.bottomAnchor, constant: 10),
-        ]
-        NSLayoutConstraint.activate(price3Constraints)
-        
-        let price4 = UILabel()
-        price4.backgroundColor = UIColor.blue
-        price4.font = UIFont(name: "AvenirNext-DemiBold", size: 50)!
-        price4.text = "Preço: R$ \(result?.platform)"
-        stackView.addArrangedSubview(price4)
-        
-        let price4Constraints = [
-            price4.topAnchor.constraint(equalTo: price3.bottomAnchor, constant: 10),
-        ]
-        NSLayoutConstraint.activate(price4Constraints)
-        
-        let price5 = UILabel()
-        price5.backgroundColor = UIColor.blue
-        price5.font = UIFont(name: "AvenirNext-DemiBold", size: 50)!
-        price5.text = "Preço: R$ \(result?.platform)"
-        stackView.addArrangedSubview(price5)
-        
-        let price5Constraints = [
-            price5.topAnchor.constraint(equalTo: price4.bottomAnchor, constant: 10),
-        ]
-        NSLayoutConstraint.activate(price5Constraints)
-        
-        let price6 = UILabel()
-        price6.backgroundColor = UIColor.blue
-        price6.font = UIFont(name: "AvenirNext-DemiBold", size: 50)!
-        price6.text = "Preço: R$ \(result?.platform)"
-        stackView.addArrangedSubview(price6)
-        
-        let price6Constraints = [
-            price6.topAnchor.constraint(equalTo: price5.bottomAnchor, constant: 10),
-        ]
-        NSLayoutConstraint.activate(price6Constraints)
-        
-        let price7 = UILabel()
-        price7.backgroundColor = UIColor.blue
-        price7.font = UIFont(name: "AvenirNext-DemiBold", size: 50)!
-        price7.text = "Preço: R$ \(result?.platform)"
-        stackView.addArrangedSubview(price7)
-        
-        let price7Constraints = [
-            price7.topAnchor.constraint(equalTo: price6.bottomAnchor, constant: 10),
-        ]
-        NSLayoutConstraint.activate(price7Constraints)
+        // Bought Date
+        if let boughtDateValue = result?.boughtDate {
+            let boughtDate = UILabel()
+            boughtDate.text = "Data de Compra: \(boughtDateValue.toFormattedString())"
+            stackView.addArrangedSubview(boughtDate)
+            
+            let boughtDateConstraints = [
+                boughtDate.topAnchor.constraint(equalTo: platform.bottomAnchor, constant: 10),
+                boughtDate.bottomAnchor.constraint(equalTo: platform.bottomAnchor, constant: 100)
+            ]
+            NSLayoutConstraint.activate(boughtDateConstraints)
+        }
     }
 }

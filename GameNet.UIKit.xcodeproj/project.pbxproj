@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A502568026F91A3C00DCA2BF /* TesteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A502567F26F91A3C00DCA2BF /* TesteViewController.swift */; };
 		A535906A26A35B5B00AB5AFC /* RefreshTokenRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A535906926A35B5B00AB5AFC /* RefreshTokenRequestModel.swift */; };
 		A535906C26A35B6600AB5AFC /* RefreshTokenResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A535906B26A35B6600AB5AFC /* RefreshTokenResponseModel.swift */; };
 		A535906F26A3624F00AB5AFC /* OAuthAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A535906E26A3624F00AB5AFC /* OAuthAuthenticator.swift */; };
@@ -61,6 +62,7 @@
 /* Begin PBXFileReference section */
 		50D5C225997AC8F04B948149 /* Pods_GameNet_UIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameNet_UIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		614D9AA234558E6FFAD6F277 /* Pods-GameNet.UIKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameNet.UIKit.release.xcconfig"; path = "Target Support Files/Pods-GameNet.UIKit/Pods-GameNet.UIKit.release.xcconfig"; sourceTree = "<group>"; };
+		A502567F26F91A3C00DCA2BF /* TesteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TesteViewController.swift; sourceTree = "<group>"; };
 		A535906926A35B5B00AB5AFC /* RefreshTokenRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokenRequestModel.swift; sourceTree = "<group>"; };
 		A535906B26A35B6600AB5AFC /* RefreshTokenResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokenResponseModel.swift; sourceTree = "<group>"; };
 		A535906E26A3624F00AB5AFC /* OAuthAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthAuthenticator.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 				A57E27FE268A440A00EFB503 /* GamesViewController.swift */,
 				A5936CF2268E2EB400EC93B7 /* PlatformsViewController.swift */,
 				A58F65A626C9992300E1ABA4 /* GameDetailViewController.swift */,
+				A502567F26F91A3C00DCA2BF /* TesteViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -481,6 +484,7 @@
 				A5936D02268E43F300EC93B7 /* PhysicalDigitalModel.swift in Sources */,
 				A5936D04268E442D00EC93B7 /* GameplaySessionModel.swift in Sources */,
 				A57E280B268A468D00EFB503 /* GameModel.swift in Sources */,
+				A502568026F91A3C00DCA2BF /* TesteViewController.swift in Sources */,
 				A56A136F2688D2450099127C /* UserService.swift in Sources */,
 				A535906F26A3624F00AB5AFC /* OAuthAuthenticator.swift in Sources */,
 				A5EC5A8026CBF87700AE910D /* GameDetailViewModel.swift in Sources */,
