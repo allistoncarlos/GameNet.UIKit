@@ -248,6 +248,7 @@ class Teste3ViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var imageView: UIImageView!
     
+    @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint!
     // MARK: - Init
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -263,8 +264,13 @@ class Teste3ViewController: UIViewController, UIScrollViewDelegate {
         
         self.navigationController?.navigationBar.tintColor = UIColor.white
     
-//        self.scrollView.delegate = self
-//        self.stackView.distribution = .equalSpacing
+        if UIDevice.current.userInterfaceIdiom != .phone {
+            imageHeightConstraint.constant = 450
+            
+            if UIDevice.current.orientation.isPortrait {
+                imageHeightConstraint.constant = 600
+            }
+        }
         
         self.imageView.load(url: URL(string: "http://allistoncarlos.blob.core.windows.net/gamenet/playstation-4/persona-5.jpg")!)
     }

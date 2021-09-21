@@ -782,6 +782,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Persona 5" id="Pko-l1-h5L"/>
                     <connections>
+                        <outlet property="imageHeightConstraint" destination="3mB-mP-8y0" id="zGb-3o-2RJ"/>
                         <outlet property="imageView" destination="EOo-DR-wbW" id="fXl-T2-HXy"/>
                         <outlet property="scrollView" destination="5wJ-fN-G54" id="JPe-iK-36l"/>
                         <outlet property="stackView" destination="rpV-N8-age" id="6zi-8e-jig"/>
