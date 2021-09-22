@@ -47,7 +47,8 @@ class GameDetailPresenter: GameDetailPresenterProtocol {
             cover: apiResult.cover,
             platform: apiResult.platform,
             value: apiResult.value,
-            boughtDate: apiResult.boughtDate
+            boughtDate: apiResult.boughtDate,
+            gameplays: apiResult.gameplays?.map { GameplayViewModel(start: $0.start, finish: $0.finish) }
         )
         
         return viewModel

@@ -14,4 +14,5 @@ struct GameDetailViewModel {
     var platform: String
     var value: Decimal
     var boughtDate: Date
+    var gameplays: [GameplayViewModel]?
 }

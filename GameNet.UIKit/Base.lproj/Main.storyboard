@@ -576,7 +576,7 @@
             </objects>
             <point key="canvasLocation" x="6087" y="138"/>
         </scene>
-        <!--Persona 5-->
+        <!--Game Detail View Controller-->
         <scene sceneID="kbW-nD-2O0">
             <objects>
                 <viewController id="dYP-8f-xut" customClass="GameDetailViewController" customModule="GameNet_UIKit" customModuleProvider="target" sceneMemberID="viewController">
@@ -780,7 +780,7 @@
                             <constraint firstItem="5wJ-fN-G54" firstAttribute="centerX" secondItem="6YE-z8-4cc" secondAttribute="centerX" id="vDh-TL-VmJ"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Persona 5" id="Pko-l1-h5L"/>
+                    <navigationItem key="navigationItem" id="Pko-l1-h5L"/>
                     <connections>
                         <outlet property="boughtDate" destination="JaQ-OP-WWf" id="cl3-q9-BxX"/>
                         <outlet property="gameTitle" destination="A2z-3r-8LU" id="ihN-Gj-g18"/>

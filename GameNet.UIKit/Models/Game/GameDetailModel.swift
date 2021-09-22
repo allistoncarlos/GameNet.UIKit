@@ -14,6 +14,7 @@ struct GameDetailModel: BaseModel {
     var platform: String
     var value: Decimal
     var boughtDate: Date
+    var gameplays: [GameplayModel]?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -22,6 +23,7 @@ struct GameDetailModel: BaseModel {
         case platform = "platformName"
         case value
         case boughtDate
+        case gameplays
     }
 }
 

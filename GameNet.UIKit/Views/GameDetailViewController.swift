@@ -82,5 +82,12 @@ extension GameDetailViewController: GameDetailPresenterDelegate {
         if let boughtDateValue = result?.boughtDate {
             self.boughtDate.text = "Data de Compra: \(boughtDateValue.toFormattedString())"
         }
+        
+        if let latestGameplays = result?.gameplays {
+            
+            if let latestGameplay = latestGameplays.last {
+                self.playingSince.text = "Jogando desde: \(latestGameplay.start.toFormattedString())"
+            }
+        }
     }
 }
