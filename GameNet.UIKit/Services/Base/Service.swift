@@ -69,11 +69,15 @@ class Service<T: BaseModel>: ServiceProtocol {
                                                     credential: authCredentials)
     }
     
-    func baseGet<TModel: BaseModel>(id: String? = nil, completion: @escaping (Result<APIResult<TModel>, Error>) -> Void) -> Void {
+    func baseGet<TModel: BaseModel>(id: String? = nil, queryString: String? = nil, completion: @escaping (Result<APIResult<TModel>, Error>) -> Void) -> Void {
         var urlString = "\(Constants.apiPath)/\(apiResource)"
         
         if let id = id {
             urlString = "\(urlString)/\(id)"
+        }
+        
+        if let queryString = queryString {
+            urlString = "\(urlString)?\(queryString)"
         }
         
         guard let url = URL(string: urlString) else { return }
