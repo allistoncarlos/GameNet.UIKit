@@ -11,7 +11,7 @@ struct PlayingGameModel: BaseModel {
     var id: String?
     var name: String
     var platform: String
-    var latestGameplaySession: GameplaySessionModel
+    var latestGameplaySession: LatestGameplaySessionModel
     
     enum CodingKeys: String, CodingKey {
         case id

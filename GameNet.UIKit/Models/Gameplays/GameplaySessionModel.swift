@@ -2,7 +2,7 @@
 //  GameplaySessionModel.swift
 //  GameNet.UIKit
 //
-//  Created by Alliston Aleixo on 01/07/21.
+//  Created by Alliston Aleixo on 22/09/21.
 //
 
 import Foundation
@@ -13,6 +13,7 @@ struct GameplaySessionModel: BaseModel {
     var userGameId: String
     var start: Date
     var finish: Date
+    var totalGameplayTime: String
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -20,5 +21,6 @@ struct GameplaySessionModel: BaseModel {
         case userGameId
         case start
         case finish
+        case totalGameplayTime
     }
 }

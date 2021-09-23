@@ -94,7 +94,10 @@ extension SwinjectStoryboard {
             c.presenter = GamePresenter(delegate: c, service: r.resolve(ServiceBox<GameService>.self))
         }
         defaultContainer.storyboardInitCompleted(GameDetailViewController.self) { r, c in
-            c.presenter = GameDetailPresenter(delegate: c, service: r.resolve(ServiceBox<GameService>.self))
+            c.presenter = GameDetailPresenter(
+                delegate: c,
+                service: r.resolve(ServiceBox<GameService>.self),
+                gameplaySessionService: r.resolve(ServiceBox<GameplaySessionService>.self))
         }
         defaultContainer.storyboardInitCompleted(PlatformsViewController.self) { r, c in
             c.presenter = PlatformPresenter(delegate: c, service: r.resolve(ServiceBox<PlatformService>.self))
@@ -107,6 +110,9 @@ extension SwinjectStoryboard {
         }
         defaultContainer.register(ServiceBox.self) { _ in
             ServiceBox<GameService>(object: GameService(apiResource: Constants.gameResource))
+        }
+        defaultContainer.register(ServiceBox.self) { _ in
+            ServiceBox<GameplaySessionService>(object: GameplaySessionService(apiResource: Constants.gameplaySessionResource))
         }
         defaultContainer.register(ServiceBox.self) { _ in
             ServiceBox<PlatformService>(object: PlatformService(apiResource: Constants.platformResource))

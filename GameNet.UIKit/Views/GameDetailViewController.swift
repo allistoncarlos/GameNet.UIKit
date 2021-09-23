@@ -40,6 +40,7 @@ class GameDetailViewController: UIViewController, UIScrollViewDelegate {
         
         if let gameId = gameId {
             presenter?.get(id: gameId)
+            presenter?.getGameplaySessions(id: gameId)
         }
     }
     
@@ -89,5 +90,35 @@ extension GameDetailViewController: GameDetailPresenterDelegate {
                 self.playingSince.text = "Jogando desde: \(latestGameplay.start.toFormattedString())"
             }
         }
+    }
+    
+    func renderGameplays(result: GameplaySessionsViewModel?) {
+        if let result = result {
+            gameplays.isHidden = false
+            
+            renderGameplayLabel(text: "Total de \(result.totalGameplayTime)")
+            renderGameplayLabel(text: "Média de \(result.averageGameplayTime) por sessão")
+            
+            for gameplaySession in result.sessions {
+                renderGameplayLabel(
+                    text: "\(gameplaySession.start.toFormattedString()) até \(gameplaySession.finish.toFormattedString())\nTotal de \(gameplaySession.totalGameplayTime)",
+                    numberOfLines: 2)
+            }
+        }
+    }
+    
+    // MARK: - Private Funcs
+    private func renderGameplayLabel(text: String, numberOfLines: Int = 1) {
+        let label = UILabel()
+        label.numberOfLines = numberOfLines
+        label.text = text
+        
+//            let totalGameplayTimeConstraints = [
+//                totalGameplayTime.topAnchor.constraint(equalTo: gameplaysTitle.bottomAnchor, constant: 5),
+//                totalGameplayTime.heightAnchor.constraint(equalToConstant: 20)
+//            ]
+//            NSLayoutConstraint.activate(totalGameplayTimeConstraints)
+            
+        gameplays.addArrangedSubview(label)
     }
 }
