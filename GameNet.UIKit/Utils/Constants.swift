@@ -25,6 +25,8 @@ class Constants {
     static let gamesViewTitle = "Games"
     static let platformsViewTitle = "Plataformas"
     
+    static let dateFormat = "dd/MM/yyyy HH:mm"
+    
     static let pageSizePhone = 21
     static let pageSizePad = 30
     
