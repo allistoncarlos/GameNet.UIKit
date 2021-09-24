@@ -52,6 +52,7 @@ class GameDetailPresenter: GameDetailPresenterProtocol {
                         self.delegate?.renderGameplays(result: viewModel)
                     }
                 case .failure(let error):
+                    self.delegate?.renderGameplays(result: nil)
                     print(error.localizedDescription)
             }
         })
@@ -77,16 +78,24 @@ class GameDetailPresenter: GameDetailPresenterProtocol {
             id: apiResult.id,
             totalGameplayTime: apiResult.totalGameplayTime,
             averageGameplayTime: apiResult.averageGameplayTime,
-            sessions: apiResult.sessions.map { GameplaySessionViewModel(
-                id: $0.id,
-                userId: $0.userId,
-                userGameId: $0.userGameId,
-                start: $0.start,
-                finish: $0.finish,
-                totalGameplayTime: $0.totalGameplayTime
-            )}
+            sessions: apiResult.sessions.map { mapGameplaySessionToViewModel(model: $0) }
         )
         
         return viewModel
+    }
+    
+    private func mapGameplaySessionToViewModel(model: GameplaySessionModel?) -> GameplaySessionViewModel? {
+        if let model = model {
+            return GameplaySessionViewModel(
+                id: model.id,
+                userId: model.userId,
+                userGameId: model.userGameId,
+                start: model.start,
+                finish: model.finish,
+                totalGameplayTime: model.totalGameplayTime
+            )
+        }
+        
+        return nil
     }
 }

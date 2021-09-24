@@ -58,6 +58,15 @@ class GamesViewController: UIViewController {
             }
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let gameDetailViewController = segue.destination as? GameDetailViewController else { return }
+        
+        let gameViewCell = sender as? GameViewCell
+        
+        gameDetailViewController.title = gameViewCell?.gameName
+        gameDetailViewController.gameId = gameViewCell?.gameId
+    }
 }
 
 extension GamesViewController: GamePresenterDelegate {
@@ -85,6 +94,8 @@ extension GamesViewController: UICollectionViewDataSource, UICollectionViewDeleg
         
         let actualGame = self.games[indexPath.row]
         
+        cell.gameId = actualGame.id
+        cell.gameName = actualGame.name
         cell.gameImage.load(url: actualGame.cover)
         cell.layer.borderWidth = 0.5
         cell.layer.borderColor = CGColor(red: 150 / 255.0, green: 150 / 255.0, blue: 150 / 255.0, alpha: 1)
