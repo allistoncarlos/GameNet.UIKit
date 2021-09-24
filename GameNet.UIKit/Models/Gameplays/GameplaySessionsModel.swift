@@ -9,7 +9,7 @@ import Foundation
 
 struct GameplaySessionsModel: BaseModel {
     var id: String?
-    var sessions: [GameplaySessionModel]
+    var sessions: [GameplaySessionModel?]
     var totalGameplayTime: String
     var averageGameplayTime: String
     

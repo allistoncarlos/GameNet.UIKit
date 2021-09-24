@@ -11,5 +11,5 @@ struct GameplaySessionsViewModel {
     var id: String?
     var totalGameplayTime: String
     var averageGameplayTime: String
-    var sessions: [GameplaySessionViewModel]
+    var sessions: [GameplaySessionViewModel?]
 }

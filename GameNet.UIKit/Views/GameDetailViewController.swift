@@ -98,13 +98,17 @@ extension GameDetailViewController: GameDetailPresenterDelegate {
             
             renderGameplayLabel(text: "Total de \(result.totalGameplayTime)\nMédia de \(result.averageGameplayTime)", numberOfLines: 2)
             
-            let sessions = result.sessions.sorted(by: { $0.start > $1.start })
+            let sessions = result.sessions.sorted(by: { $0!.start >= $1!.start })
             
             for gameplaySession in sessions {
-                renderGameplayLabel(
-                    text: "\(gameplaySession.start.toFormattedString(dateFormat: Constants.dateFormat)) até \(gameplaySession.finish.toFormattedString(dateFormat: Constants.dateFormat))\nTotal de \(gameplaySession.totalGameplayTime)",
-                    numberOfLines: 2)
+                if let gameplaySession = gameplaySession {
+                    renderGameplayLabel(
+                        text: "\(gameplaySession.start.toFormattedString(dateFormat: Constants.dateFormat)) até \(gameplaySession.finish.toFormattedString(dateFormat: Constants.dateFormat))\nTotal de \(gameplaySession.totalGameplayTime)",
+                        numberOfLines: 2)
+                }
             }
+        } else {
+            gameplays.isHidden = true
         }
     }
     
