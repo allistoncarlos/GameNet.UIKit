@@ -8,10 +8,15 @@
 import Foundation
 
 extension Date {
-    func toFormattedString() -> String {
+    func toFormattedString(dateFormat: String? = nil) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .short
         dateFormatter.locale = Locale(identifier: Locale.current.identifier)
+        
+        if let dateFormat = dateFormat {
+            dateFormatter.dateFormat = dateFormat
+        } else {
+            dateFormatter.dateStyle = .short
+        }
         
         return dateFormatter.string(from: self)
     }

@@ -96,12 +96,13 @@ extension GameDetailViewController: GameDetailPresenterDelegate {
         if let result = result {
             gameplays.isHidden = false
             
-            renderGameplayLabel(text: "Total de \(result.totalGameplayTime)")
-            renderGameplayLabel(text: "Média de \(result.averageGameplayTime) por sessão")
+            renderGameplayLabel(text: "Total de \(result.totalGameplayTime)\nMédia de \(result.averageGameplayTime)", numberOfLines: 2)
             
-            for gameplaySession in result.sessions {
+            let sessions = result.sessions.sorted(by: { $0.start > $1.start })
+            
+            for gameplaySession in sessions {
                 renderGameplayLabel(
-                    text: "\(gameplaySession.start.toFormattedString()) até \(gameplaySession.finish.toFormattedString())\nTotal de \(gameplaySession.totalGameplayTime)",
+                    text: "\(gameplaySession.start.toFormattedString(dateFormat: Constants.dateFormat)) até \(gameplaySession.finish.toFormattedString(dateFormat: Constants.dateFormat))\nTotal de \(gameplaySession.totalGameplayTime)",
                     numberOfLines: 2)
             }
         }
@@ -112,13 +113,8 @@ extension GameDetailViewController: GameDetailPresenterDelegate {
         let label = UILabel()
         label.numberOfLines = numberOfLines
         label.text = text
+        label.font = UIFont(name: "Avenir Next", size: 16)
         
-//            let totalGameplayTimeConstraints = [
-//                totalGameplayTime.topAnchor.constraint(equalTo: gameplaysTitle.bottomAnchor, constant: 5),
-//                totalGameplayTime.heightAnchor.constraint(equalToConstant: 20)
-//            ]
-//            NSLayoutConstraint.activate(totalGameplayTimeConstraints)
-            
         gameplays.addArrangedSubview(label)
     }
 }
