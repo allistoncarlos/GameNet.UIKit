@@ -18,7 +18,7 @@ protocol ServiceProtocol: AnyObject {
     associatedtype T: BaseModel
     
     func get(id: String?, completion: @escaping (Result<APIResult<T>, Error>) -> Void) -> Void
-    func load(page: Int?, pageSize: Int?, completion: @escaping (Result<APIResult<PagedResult<T>>, Error>) -> Void) -> Void
+    func load(page: Int?, pageSize: Int?, search: String?, completion: @escaping (Result<APIResult<PagedResult<T>>, Error>) -> Void) -> Void
     func load(completion: @escaping (Result<APIResult<Array<T>>, Error>) -> Void) -> Void
 }
 
@@ -100,7 +100,7 @@ class Service<T: BaseModel>: ServiceProtocol {
         self.baseGet(id: id, completion: completion)
     }
     
-    func load(page: Int? = nil, pageSize: Int? = nil, completion: @escaping (Result<APIResult<PagedResult<T>>, Error>) -> Void) -> Void {
+    func load(page: Int? = nil, pageSize: Int? = nil, search: String? = nil, completion: @escaping (Result<APIResult<PagedResult<T>>, Error>) -> Void) -> Void {
         var baseUrl = "\(Constants.apiPath)/\(apiResource)?";
         
         if let page = page {
@@ -109,6 +109,10 @@ class Service<T: BaseModel>: ServiceProtocol {
         
         if let pageSize = pageSize {
             baseUrl = "\(baseUrl)pageSize=\(pageSize)&"
+        }
+        
+        if let search = search {
+            baseUrl = "\(baseUrl)search=\(search)&"
         }
         
         guard let url = URL(string: baseUrl) else { return }

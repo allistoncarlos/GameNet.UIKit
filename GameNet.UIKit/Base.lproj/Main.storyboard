@@ -215,13 +215,13 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="I7o-rV-ZyZ">
                                     <size key="itemSize" width="195" height="195"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="headerReferenceSize" width="50" height="50"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="gameViewCell" id="K5q-K0-h1A" customClass="GameViewCell" customModule="GameNet_UIKit" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="135" height="135"/>
+                                        <rect key="frame" x="0.0" y="50" width="135" height="135"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="7c8-g5-RVm">
                                             <rect key="frame" x="0.0" y="0.0" width="135" height="135"/>
@@ -245,7 +245,31 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="SearchBar" id="uRL-rC-usj">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="sO7-ld-GEQ">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <outlet property="delegate" destination="t7U-Mo-xAM" id="OnE-Hz-X19"/>
+                                            </connections>
+                                        </searchBar>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="sO7-ld-GEQ" secondAttribute="bottom" id="Be2-bW-SRl"/>
+                                        <constraint firstItem="sO7-ld-GEQ" firstAttribute="top" secondItem="uRL-rC-usj" secondAttribute="top" id="V80-XA-lqb"/>
+                                        <constraint firstAttribute="trailing" secondItem="sO7-ld-GEQ" secondAttribute="trailing" id="Wav-5o-iqa"/>
+                                        <constraint firstItem="sO7-ld-GEQ" firstAttribute="leading" secondItem="uRL-rC-usj" secondAttribute="leading" id="dHG-md-DxL"/>
+                                    </constraints>
+                                </collectionReusableView>
                             </collectionView>
+                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sJF-Gq-Q21">
+                                <rect key="frame" x="16" y="16" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Wfp-2J-Zgg"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
