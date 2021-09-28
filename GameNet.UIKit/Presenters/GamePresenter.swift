@@ -9,7 +9,7 @@ import Foundation
 
 protocol GamePresenterProtocol: AnyObject {
     func load()
-    func load(page: Int)
+    func load(search: String?, page: Int)
 }
 
 protocol GamePresenterDelegate: AnyObject {
@@ -29,11 +29,11 @@ class GamePresenter: GamePresenterProtocol {
     
     // MARK: - GamePresenterProtocol
     func load() {
-        self.load(page: 1)
+        self.load(search: nil, page: 0)
     }
     
-    func load(page: Int) {
-        service?.object.load(page: page, pageSize: Constants.pageSize, completion: { (result) in
+    func load(search: String?, page: Int) {
+        service?.object.load(page: page, pageSize: Constants.pageSize, search: search, completion: { (result) in
             switch result {
             case .success(let apiResult):
                 self.apiResult = apiResult

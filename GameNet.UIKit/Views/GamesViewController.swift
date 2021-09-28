@@ -14,7 +14,8 @@ enum ImageError: Error {
 class GamesViewController: UIViewController {
     // MARK: - Properties
     var presenter: GamePresenterProtocol?
-    var games: [GameViewModel] = []
+    var data: [GameViewModel] = []
+    var searchedGames: [GameViewModel] = []
     var pagedResultViewModel: PagedResultViewModel<GameViewModel>?
     var isLoading: Bool = false
     
@@ -54,7 +55,7 @@ class GamesViewController: UIViewController {
                 self.isLoading = true
                 
                 guard let page = pagedResultViewModel?.page else { return }
-                presenter?.load(page: page + 1)
+                presenter?.load(search: pagedResultViewModel?.search, page: page + 1)
             }
         }
     }
@@ -73,9 +74,7 @@ extension GamesViewController: GamePresenterDelegate {
     func render(pagedResult: PagedResultViewModel<GameViewModel>?) {
         if let pagedResult = pagedResult {
             self.pagedResultViewModel = pagedResult
-            self.games += pagedResult.result
-            
-            print(pagedResult.result)
+            self.data += pagedResult.result
         }
         
         self.isLoading = false
@@ -86,13 +85,13 @@ extension GamesViewController: GamePresenterDelegate {
 extension GamesViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     // MARK: - DataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.games.count
+        return self.data.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "gameViewCell", for: indexPath) as! GameViewCell
         
-        let actualGame = self.games[indexPath.row]
+        let actualGame = self.data[indexPath.row]
         
         cell.gameId = actualGame.id
         cell.gameName = actualGame.name
@@ -109,5 +108,25 @@ extension GamesViewController: UICollectionViewDataSource, UICollectionViewDeleg
         let resultSize = (collectionView.bounds.width / columns) - 15
 
         return CGSize(width: resultSize, height: resultSize)
+    }
+}
+
+extension GamesViewController: UISearchBarDelegate {
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+     
+        let searchView: UICollectionReusableView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SearchBar", for: indexPath)
+        return searchView
+    }
+     
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.data.removeAll()
+        
+        if (searchBar.text!.isEmpty) {
+            presenter?.load()
+        } else {
+            presenter?.load(search: searchBar.text!, page: 0)
+        }
+        
+        self.gamesCollectionView?.reloadData()
     }
 }
