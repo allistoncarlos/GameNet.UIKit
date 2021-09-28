@@ -129,4 +129,12 @@ extension GamesViewController: UISearchBarDelegate {
         
         self.gamesCollectionView?.reloadData()
     }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if (searchBar.text!.isEmpty) {
+            self.data.removeAll()
+            
+            presenter?.load()
+        }
+    }
 }
