@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A522BBB3270F8CFD00D37C18 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A522BBB2270F8CFD00D37C18 /* UserViewModel.swift */; };
 		A53104EA26FBC947006E0BFB /* GameplaySessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53104E926FBC947006E0BFB /* GameplaySessionViewModel.swift */; };
 		A535906A26A35B5B00AB5AFC /* RefreshTokenRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A535906926A35B5B00AB5AFC /* RefreshTokenRequestModel.swift */; };
 		A535906C26A35B6600AB5AFC /* RefreshTokenResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A535906B26A35B6600AB5AFC /* RefreshTokenResponseModel.swift */; };
@@ -15,7 +16,6 @@
 		A56A136F2688D2450099127C /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A136E2688D2450099127C /* UserService.swift */; };
 		A56A13712688D7ED0099127C /* LoginResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A13702688D7ED0099127C /* LoginResponseModel.swift */; };
 		A56A13752688DDED0099127C /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A13742688DDED0099127C /* LoginViewModel.swift */; };
-		A56A13772688DE390099127C /* UserPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A13762688DE390099127C /* UserPresenter.swift */; };
 		A56A13792688E77E0099127C /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A13782688E77E0099127C /* DashboardViewController.swift */; };
 		A56A137C2688E7D70099127C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A137B2688E7D70099127C /* Constants.swift */; };
 		A57E27FF268A440A00EFB503 /* GamesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57E27FE268A440A00EFB503 /* GamesViewController.swift */; };
@@ -68,6 +68,7 @@
 /* Begin PBXFileReference section */
 		50D5C225997AC8F04B948149 /* Pods_GameNet_UIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameNet_UIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		614D9AA234558E6FFAD6F277 /* Pods-GameNet.UIKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameNet.UIKit.release.xcconfig"; path = "Target Support Files/Pods-GameNet.UIKit/Pods-GameNet.UIKit.release.xcconfig"; sourceTree = "<group>"; };
+		A522BBB2270F8CFD00D37C18 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		A53104E926FBC947006E0BFB /* GameplaySessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameplaySessionViewModel.swift; sourceTree = "<group>"; };
 		A535906926A35B5B00AB5AFC /* RefreshTokenRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokenRequestModel.swift; sourceTree = "<group>"; };
 		A535906B26A35B6600AB5AFC /* RefreshTokenResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokenResponseModel.swift; sourceTree = "<group>"; };
@@ -76,7 +77,6 @@
 		A56A136E2688D2450099127C /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		A56A13702688D7ED0099127C /* LoginResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponseModel.swift; sourceTree = "<group>"; };
 		A56A13742688DDED0099127C /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
-		A56A13762688DE390099127C /* UserPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPresenter.swift; sourceTree = "<group>"; };
 		A56A13782688E77E0099127C /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		A56A137B2688E7D70099127C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A57E27FE268A440A00EFB503 /* GamesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesViewController.swift; sourceTree = "<group>"; };
@@ -140,6 +140,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A522BBB1270F8CE000D37C18 /* CorrectViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				A522BBB2270F8CFD00D37C18 /* UserViewModel.swift */,
+			);
+			path = CorrectViewModels;
+			sourceTree = "<group>";
+		};
 		A535906826A35B3F00AB5AFC /* RefreshToken */ = {
 			isa = PBXGroup;
 			children = (
@@ -174,7 +182,6 @@
 		A56A13692688D2060099127C /* Presenters */ = {
 			isa = PBXGroup;
 			children = (
-				A56A13762688DE390099127C /* UserPresenter.swift */,
 				A588896E268B4C110027B7AE /* GamePresenter.swift */,
 				A5936CFA268E301800EC93B7 /* PlatformPresenter.swift */,
 				A5BAF1DF26ADE17600E6BCC6 /* DashboardPresenter.swift */,
@@ -339,6 +346,7 @@
 		A5D24FB12688D11000F8A0DA /* GameNet.UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				A522BBB1270F8CE000D37C18 /* CorrectViewModels */,
 				A5AD4BA726B9B9A5002EBF28 /* Styles */,
 				A535906D26A3623C00AB5AFC /* Network */,
 				A56A137A2688E7CD0099127C /* Utils */,
@@ -492,6 +500,7 @@
 				A5C5C706268B9C5A00B3FE13 /* PagedResultViewModel.swift in Sources */,
 				A56A13792688E77E0099127C /* DashboardViewController.swift in Sources */,
 				A5936D06268E44A600EC93B7 /* PlayingGameModel.swift in Sources */,
+				A522BBB3270F8CFD00D37C18 /* UserViewModel.swift in Sources */,
 				A57E2807268A462200EFB503 /* BaseModel.swift in Sources */,
 				A5936CFD268E312300EC93B7 /* PlatformViewModel.swift in Sources */,
 				A5936CF7268E2FC000EC93B7 /* PlatformModel.swift in Sources */,
@@ -530,7 +539,6 @@
 				A5936CF9268E2FEE00EC93B7 /* PlatformService.swift in Sources */,
 				A5D24FB32688D11000F8A0DA /* AppDelegate.swift in Sources */,
 				A57E27FF268A440A00EFB503 /* GamesViewController.swift in Sources */,
-				A56A13772688DE390099127C /* UserPresenter.swift in Sources */,
 				A588896F268B4C110027B7AE /* GamePresenter.swift in Sources */,
 				A5888971268B505F0027B7AE /* GameViewModel.swift in Sources */,
 				A53104EA26FBC947006E0BFB /* GameplaySessionViewModel.swift in Sources */,

@@ -85,7 +85,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 extension SwinjectStoryboard {
     @objc class func setup() {
         defaultContainer.storyboardInitCompleted(LoginViewController.self) { r, c in
-            c.presenter = UserPresenter(delegate: c, service: r.resolve(UserServiceProtocol.self))
+            c.viewModel = UserViewModel(service: r.resolve(UserServiceProtocol.self))
         }
         defaultContainer.storyboardInitCompleted(DashboardViewController.self) { r, c in
             c.presenter = DashboardPresenter(delegate: c, service: r.resolve(ServiceBox<DashboardService>.self))
