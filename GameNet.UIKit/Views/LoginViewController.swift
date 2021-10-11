@@ -27,23 +27,20 @@ class LoginViewController: UIViewController {
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        viewModel?.loggedIn = { [weak self] in
+            DispatchQueue.main.async {
+                self?.loggedIn()
+            }
+        }
     }
 
     // MARK: - IBActions
     @IBAction func loginTouched(_ sender: Any) {
         guard let username = usernameTextField?.text else { return }
         guard let password = passwordTextField?.text else { return }
-
-//        viewModel?.login(username: username, password: password)
-        viewModel?.login(username: username, password: password, completion: {
-            (result) in
-            switch result {
-            case .success(_):
-                self.loggedIn()
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        })
+        
+        viewModel?.login(username: username, password: password)
     }
 }
 

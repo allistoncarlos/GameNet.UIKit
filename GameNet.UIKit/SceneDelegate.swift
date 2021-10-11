@@ -100,7 +100,7 @@ extension SwinjectStoryboard {
                 gameplaySessionService: r.resolve(ServiceBox<GameplaySessionService>.self))
         }
         defaultContainer.storyboardInitCompleted(PlatformsViewController.self) { r, c in
-            c.presenter = PlatformPresenter(delegate: c, service: r.resolve(ServiceBox<PlatformService>.self))
+            c.viewModel = PlatformsViewModel(service: r.resolve(ServiceBox<PlatformService>.self))
         }
         
         // Services

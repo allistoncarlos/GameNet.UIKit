@@ -8,31 +8,28 @@
 import Foundation
 
 protocol UserViewModelProtocol: AnyObject {
-    func login(username: String,
-               password: String,
-               completion: @escaping (Result<LoginResponseModel, Error>) -> Void
-    )
+    var loggedIn: (() -> Void)? { get set }
+    func login(username: String, password: String)
 }
 
 final class UserViewModel: ObservableObject, UserViewModelProtocol {
     private var service: UserServiceProtocol?
     
+    var loggedIn: (() -> Void)?
+    
     init(service: UserServiceProtocol?) {
         self.service = service
     }
     
-    // MARK: - UserPresenterProtocol
-    func login(username: String,
-               password: String,
-               completion: @escaping (Result<LoginResponseModel, Error>) -> Void
-    ) {
+    // MARK: - UserViewModelProtocol
+    func login(username: String, password: String) {
         service?.login(loginRequestModel: LoginRequestModel(username: username, password: password))
         { (result) in
             switch result {
-                case .success(let loginResult):
-                    completion(.success(loginResult))
-                case .failure(let error):
-                    completion(.failure(error))
+            case .success(_):
+                self.loggedIn?()
+            case .failure(_):
+                print(result)
             }
         }
     }
