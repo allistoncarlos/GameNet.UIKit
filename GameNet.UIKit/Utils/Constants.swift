@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class Constants {
-    static let apiPath = "https://gamenet.azurewebsites.net/api"
+    static let apiPath = Bundle.main.infoDictionary!["API_PATH"]!
     static let userResource = "user"
     static let dashboardResource = "dashboard"
     static let gameResource = "usergame"

@@ -1,0 +1,10 @@
+//
+//  Config.xcconfig
+//  GameNet.UIKit
+//
+//  Created by Alliston Aleixo on 15/10/21.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+API_PATH=https:/$()/gamenet.azurewebsites.net/api
