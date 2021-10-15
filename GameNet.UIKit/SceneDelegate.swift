@@ -91,7 +91,7 @@ extension SwinjectStoryboard {
             c.presenter = DashboardPresenter(delegate: c, service: r.resolve(ServiceBox<DashboardService>.self))
         }
         defaultContainer.storyboardInitCompleted(GamesViewController.self) { r, c in
-            c.presenter = GamePresenter(delegate: c, service: r.resolve(ServiceBox<GameService>.self))
+            c.viewModel = GamesViewModel(service: r.resolve(ServiceBox<GameService>.self))
         }
         defaultContainer.storyboardInitCompleted(GameDetailViewController.self) { r, c in
             c.presenter = GameDetailPresenter(

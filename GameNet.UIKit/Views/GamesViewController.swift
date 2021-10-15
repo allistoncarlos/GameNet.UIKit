@@ -13,11 +13,7 @@ enum ImageError: Error {
 
 class GamesViewController: UIViewController {
     // MARK: - Properties
-    var presenter: GamePresenterProtocol?
-    var data: [GameViewModel] = []
-    var searchedGames: [GameViewModel] = []
-    var pagedResultViewModel: PagedResultViewModel<GameViewModel>?
-    var isLoading: Bool = false
+    var viewModel: GamesViewModelProtocol?
     
     // MARK: - Outlets
     @IBOutlet weak var gamesCollectionView: UICollectionView?
@@ -35,8 +31,13 @@ class GamesViewController: UIViewController {
         self.gamesCollectionView?.dataSource = self
         self.gamesCollectionView?.delegate = self
         
-        self.isLoading = true
-        presenter?.load()
+        viewModel?.renderData = { [weak self] in
+            DispatchQueue.main.async {
+                self?.gamesCollectionView?.reloadData()
+            }
+        }
+        
+        viewModel?.fetchData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -50,12 +51,11 @@ class GamesViewController: UIViewController {
         guard let gamesCollectionView = self.gamesCollectionView else { return }
         
         if gamesCollectionView.contentOffset.y >= (gamesCollectionView.contentSize.height - gamesCollectionView.bounds.size.height) {
-            
-            if !isLoading {
-                self.isLoading = true
-                
-                guard let page = pagedResultViewModel?.page else { return }
-                presenter?.load(search: pagedResultViewModel?.search, page: page + 1)
+            if let isLoading = viewModel?.isLoading {
+                if !isLoading {
+                    guard let page = viewModel?.apiResult?.data.page else { return }
+                    viewModel?.fetchData(search: viewModel?.apiResult?.data.search, page: page + 1)
+                }
             }
         }
     }
@@ -70,34 +70,22 @@ class GamesViewController: UIViewController {
     }
 }
 
-extension GamesViewController: GamePresenterDelegate {
-    func render(pagedResult: PagedResultViewModel<GameViewModel>?) {
-        if let pagedResult = pagedResult {
-            self.pagedResultViewModel = pagedResult
-            self.data += pagedResult.result
-        }
-        
-        self.isLoading = false
-        gamesCollectionView?.reloadData()
-    }
-}
-
 extension GamesViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     // MARK: - DataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.data.count
+        return viewModel?.data.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "gameViewCell", for: indexPath) as! GameViewCell
         
-        let actualGame = self.data[indexPath.row]
-        
-        cell.gameId = actualGame.id
-        cell.gameName = actualGame.name
-        cell.gameImage.load(url: actualGame.cover)
-        cell.layer.borderWidth = 0.5
-        cell.layer.borderColor = CGColor(red: 150 / 255.0, green: 150 / 255.0, blue: 150 / 255.0, alpha: 1)
+        if let actualGame = viewModel?.data[indexPath.row] {
+            cell.gameId = actualGame.id
+            cell.gameName = actualGame.name
+            cell.gameImage.load(url: actualGame.cover)
+            cell.layer.borderWidth = 0.5
+            cell.layer.borderColor = CGColor(red: 150 / 255.0, green: 150 / 255.0, blue: 150 / 255.0, alpha: 1)
+        }
         
         return cell
     }
@@ -119,12 +107,12 @@ extension GamesViewController: UISearchBarDelegate {
     }
      
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        self.data.removeAll()
+        viewModel?.data.removeAll()
         
         if (searchBar.text!.isEmpty) {
-            presenter?.load()
+            viewModel?.fetchData()
         } else {
-            presenter?.load(search: searchBar.text!, page: 0)
+            viewModel?.fetchData(search: searchBar.text!, page: 0)
         }
         
         self.gamesCollectionView?.reloadData()
@@ -132,9 +120,9 @@ extension GamesViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if (searchBar.text!.isEmpty) {
-            self.data.removeAll()
+            viewModel?.data.removeAll()
             
-            presenter?.load()
+            viewModel?.fetchData()
         }
     }
 }
