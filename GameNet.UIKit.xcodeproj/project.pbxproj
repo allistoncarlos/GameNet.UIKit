@@ -68,6 +68,7 @@
 /* Begin PBXFileReference section */
 		50D5C225997AC8F04B948149 /* Pods_GameNet_UIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameNet_UIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		614D9AA234558E6FFAD6F277 /* Pods-GameNet.UIKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameNet.UIKit.release.xcconfig"; path = "Target Support Files/Pods-GameNet.UIKit/Pods-GameNet.UIKit.release.xcconfig"; sourceTree = "<group>"; };
+		A51DFF662719AEDC00B13388 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		A53104E926FBC947006E0BFB /* GameplaySessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameplaySessionViewModel.swift; sourceTree = "<group>"; };
 		A535906926A35B5B00AB5AFC /* RefreshTokenRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokenRequestModel.swift; sourceTree = "<group>"; };
 		A535906B26A35B6600AB5AFC /* RefreshTokenResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokenResponseModel.swift; sourceTree = "<group>"; };
@@ -353,6 +354,7 @@
 				A5D24FBB2688D11000F8A0DA /* Assets.xcassets */,
 				A5D24FBD2688D11000F8A0DA /* LaunchScreen.storyboard */,
 				A5D24FC02688D11000F8A0DA /* Info.plist */,
+				A51DFF662719AEDC00B13388 /* Config.xcconfig */,
 			);
 			path = GameNet.UIKit;
 			sourceTree = "<group>";
@@ -567,6 +569,7 @@
 /* Begin XCBuildConfiguration section */
 		A5D24FC12688D11000F8A0DA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A51DFF662719AEDC00B13388 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -628,6 +631,7 @@
 		};
 		A5D24FC22688D11000F8A0DA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A51DFF662719AEDC00B13388 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
