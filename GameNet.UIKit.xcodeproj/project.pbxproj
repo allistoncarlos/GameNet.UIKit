@@ -126,7 +126,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A522BBB1270F8CE000D37C18 /* CorrectViewModels */ = {
+		A522BBB1270F8CE000D37C18 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
 				A5E2695A2719B36C000E22C5 /* UserViewModel.swift */,
@@ -135,7 +135,7 @@
 				A5FA963A271B6AEA00B76CA6 /* DashboardViewModel.swift */,
 				A5FA963C271B6E7300B76CA6 /* GameDetailViewModel.swift */,
 			);
-			path = CorrectViewModels;
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		A535906826A35B3F00AB5AFC /* RefreshToken */ = {
@@ -312,7 +312,7 @@
 			children = (
 				A5D24FB22688D11000F8A0DA /* AppDelegate.swift */,
 				A5D24FB42688D11000F8A0DA /* SceneDelegate.swift */,
-				A522BBB1270F8CE000D37C18 /* CorrectViewModels */,
+				A522BBB1270F8CE000D37C18 /* ViewModels */,
 				A5AD4BA726B9B9A5002EBF28 /* Styles */,
 				A535906D26A3623C00AB5AFC /* Network */,
 				A56A137A2688E7CD0099127C /* Utils */,
