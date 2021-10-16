@@ -41,10 +41,8 @@ class GamesViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        let statusBarFrame = self.view.window?.windowScene?.statusBarManager?.statusBarFrame ?? CGRect.zero
-        let statusBarView = UIView(frame: statusBarFrame)
-        statusBarView.backgroundColor = Constants.primaryColor
-        view.addSubview(statusBarView)
+        super.viewDidAppear(animated)
+        self.setupStatusBar()
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
