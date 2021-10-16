@@ -10,9 +10,7 @@ import Swinject
 
 class PlatformsViewController: UITableViewController {
     // MARK: - Properties
-    var presenter: PlatformPresenterProtocol?
-    var platforms: [PlatformViewModel] = []
-    var isLoading: Bool = false
+    var viewModel: PlatformsViewModelProtocol?
     
     // MARK: - Init
     required init?(coder aDecoder: NSCoder) {
@@ -25,8 +23,13 @@ class PlatformsViewController: UITableViewController {
         
         self.navigationItem.title = Constants.platformsViewTitle
         
-        self.isLoading = true
-        presenter?.load()
+        viewModel?.renderData = { [weak self] in
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        }
+        
+        viewModel?.fetchData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -37,21 +40,24 @@ class PlatformsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return platforms.count
+        var count = 0
+
+        if let apiResult = viewModel?.apiResult {
+            if apiResult.ok {
+                count = apiResult.data.count
+            }
+        }
+        
+        return count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: "platformViewCell")
-        cell.textLabel?.text = platforms[indexPath.row].name
-        return cell
-    }
-}
-
-extension PlatformsViewController: PlatformPresenterDelegate {
-    func render(platforms: [PlatformViewModel]) {
-        self.platforms = platforms
         
-        self.isLoading = false
-        tableView.reloadData()
+        if let platforms = viewModel?.apiResult?.data.result {
+            cell.textLabel?.text = platforms[indexPath.row].name
+        }
+        
+        return cell
     }
 }
