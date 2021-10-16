@@ -29,7 +29,7 @@ class DashboardViewModel: ObservableObject, DashboardViewModelProtocol {
         self.service = service
     }
     
-    // MARK: - PlatformsViewModelProtocol
+    // MARK: - DashboardViewModelProtocol
     func fetchData() {
         service?.object.get { (result) in
             switch result {
