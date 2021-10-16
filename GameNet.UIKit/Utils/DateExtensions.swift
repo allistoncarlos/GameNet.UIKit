@@ -11,6 +11,7 @@ extension Date {
     func toFormattedString(dateFormat: String? = nil) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: Locale.current.identifier)
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         
         if let dateFormat = dateFormat {
             dateFormatter.dateFormat = dateFormat
