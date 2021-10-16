@@ -323,7 +323,7 @@
         <scene sceneID="S94-cK-JoQ">
             <objects>
                 <navigationController title="Dashboard" automaticallyAdjustsScrollViewInsets="NO" id="V3T-dZ-gGQ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Dashboard" id="yxj-rz-9KV"/>
+                    <tabBarItem key="tabBarItem" title="Dashboard" image="display" catalog="system" id="yxj-rz-9KV"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="bfb-RE-xHW">
                         <rect key="frame" x="0.0" y="44" width="375" height="96"/>
@@ -348,7 +348,7 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="5bw-zX-hvT">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.44313728810000003" green="0.14901961389999999" blue="0.61176472900000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" red="0.4823529412" green="0.1215686275" blue="0.63529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="selectedImageTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -368,7 +368,7 @@
         <scene sceneID="5aR-59-zJt">
             <objects>
                 <navigationController title="Games" automaticallyAdjustsScrollViewInsets="NO" id="hRo-lV-T03" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Games" id="WYB-t6-zNv"/>
+                    <tabBarItem key="tabBarItem" title="Games" image="gamecontroller" catalog="system" id="WYB-t6-zNv"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="GxC-5h-2iT">
                         <rect key="frame" x="0.0" y="44" width="375" height="96"/>
@@ -405,7 +405,7 @@
         <scene sceneID="gRS-yv-YAR">
             <objects>
                 <navigationController title="Plataformas" automaticallyAdjustsScrollViewInsets="NO" id="qax-hn-CT4" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Plataformas" id="Nlb-k7-A5Q"/>
+                    <tabBarItem key="tabBarItem" title="Plataformas" image="laptopcomputer" catalog="system" id="Nlb-k7-A5Q"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Plataformas" largeTitleDisplayMode="always" id="hCA-2N-XiL"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="ikM-xO-ch6">
@@ -571,7 +571,7 @@
         <scene sceneID="rOQ-OK-NtA">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rwW-1l-PGB" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Listas" id="MzL-mA-qTa"/>
+                    <tabBarItem key="tabBarItem" title="Listas" image="list.bullet.rectangle.portrait" catalog="system" id="MzL-mA-qTa"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="vij-kC-DcC">
                         <rect key="frame" x="0.0" y="44" width="375" height="96"/>
@@ -589,9 +589,13 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="tkt-wm-fAR"/>
+        <segue reference="orJ-UM-fWY"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="display" catalog="system" width="128" height="101"/>
+        <image name="gamecontroller" catalog="system" width="128" height="80"/>
+        <image name="laptopcomputer" catalog="system" width="128" height="73"/>
+        <image name="list.bullet.rectangle.portrait" catalog="system" width="115" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
