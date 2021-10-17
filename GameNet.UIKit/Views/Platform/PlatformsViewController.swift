@@ -22,6 +22,10 @@ class PlatformsViewController: UITableViewController {
         super.viewDidLoad()
         
         self.navigationItem.title = Constants.platformsViewTitle
+        let barButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+        barButtonItem.tintColor = UIColor.white
+        
+        self.navigationItem.rightBarButtonItem = barButtonItem
         
         viewModel?.renderData = { [weak self] in
             DispatchQueue.main.async {
@@ -57,5 +61,20 @@ class PlatformsViewController: UITableViewController {
         }
         
         return cell
+    }
+    
+    // MARK: - Navigation Selectors
+    @objc func addTapped(_ sender: UIButton?) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let identifier = String(describing: EditPlatformViewController.self)
+
+        let editPlatformViewController =
+            storyboard.instantiateViewController(identifier: identifier)
+        
+        editPlatformViewController.modalPresentationStyle = .automatic
+        editPlatformViewController.modalTransitionStyle = .crossDissolve
+        
+        present(editPlatformViewController, animated: true, completion: nil)
+        
     }
 }

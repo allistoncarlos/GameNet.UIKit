@@ -24,6 +24,7 @@ class Constants {
     static let dashboardViewTitle = "Dashboard"
     static let gamesViewTitle = "Games"
     static let platformsViewTitle = "Plataformas"
+    static let editPlatformViewTitle = "Nova Plataforma"
     static let listsViewTitle = "Listas"
     
     static let dateFormat = "dd/MM/yyyy HH:mm"

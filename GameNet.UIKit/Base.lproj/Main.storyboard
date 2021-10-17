@@ -319,6 +319,21 @@
             </objects>
             <point key="canvasLocation" x="2876" y="1617"/>
         </scene>
+        <!--Edit Platform View Controller-->
+        <scene sceneID="en6-vD-Rhw">
+            <objects>
+                <viewController storyboardIdentifier="EditPlatformViewController" id="Y4G-Fx-QyZ" customClass="EditPlatformViewController" customModule="GameNet_UIKit" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="u41-HW-JWv">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="kdz-XD-Dd8"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OMt-Qy-Bg6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3927" y="1609"/>
+        </scene>
         <!--Dashboard-->
         <scene sceneID="S94-cK-JoQ">
             <objects>
