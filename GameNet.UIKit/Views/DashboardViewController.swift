@@ -14,7 +14,7 @@ class GameDetailTapGestureRecognizer: UITapGestureRecognizer {
 
 class DashboardViewController: UIViewController {
     // MARK: - Properties
-    var presenter: DashboardPresenterProtocol?
+    var viewModel: DashboardViewModelProtocol?
     
     // MARK: - Outlets
     @IBOutlet weak var scrollView: UIScrollView!
@@ -51,16 +51,23 @@ class DashboardViewController: UIViewController {
         boughtByYearView.translatesAutoresizingMaskIntoConstraints = false
         gameByPlatformView.translatesAutoresizingMaskIntoConstraints = false
         
-        presenter?.fetchData()
+        viewModel?.renderData = renderDashboard()
+        
+        viewModel?.fetchData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        let statusBarFrame = self.view.window?.windowScene?.statusBarManager?.statusBarFrame ?? CGRect.zero
-        let statusBarView = UIView(frame: statusBarFrame)
-        statusBarView.backgroundColor = Constants.primaryColor
-        view.addSubview(statusBarView)
+        super.viewDidAppear(animated)
+        self.setupStatusBar()
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        self.setupStatusBar()
+    }
+    
+    // MARK: - UITableViewDelegate
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return UITableViewCell()
     }
@@ -74,77 +81,75 @@ class DashboardViewController: UIViewController {
     }
 }
 
-extension DashboardViewController: DashboardPresenterDelegate {
-    func renderLoading() {
-        
-    }
-    
-    func render(data: DashboardModel) {
-        guard let playingGames = data.playingGames,
-              let totalGames = data.totalGames,
-              let totalPrice = data.totalPrice,
-              let physicalDigital = data.physicalDigital,
-              let finishedGamesByYear = data.finishedByYear,
-              let boughtGamesByYear = data.boughtByYear,
-              let gamesByPlatform = data.gamesByPlatform?.platforms
-        else { return }
-        
-        // Playing Games
-        for playingGame in playingGames {
-            let titleSubtitleStackView = renderTitleSubtitle(title: playingGame.name, subtitle: playingGame.latestGameplaySession.start.toFormattedString())
-            
-            let gesture = GameDetailTapGestureRecognizer(target: self, action: #selector(self.showGameDetail))
-            gesture.playingGame = playingGame
-            titleSubtitleStackView.addGestureRecognizer(gesture)
-            
-            playingGamesView.addArrangedSubview(titleSubtitleStackView)
-        }
-        
-        // Physical Digital Games
-        totalGamesLabel.text = "\(totalGames) jogos"
-        
-        // TotalPrice
-        let totalPriceLabel = UILabel()
-        totalPriceLabel.font = UIFont.dashboardPlayingGameSubtitle
-        totalPriceLabel.text = "R$ \(totalPrice),00"
-        physicalDigitalGamesView?.addArrangedSubview(totalPriceLabel)
+extension DashboardViewController {
+    fileprivate func renderDashboard() -> () -> () {
+        return { [weak self] in
+            DispatchQueue.main.async {
+                guard let playingGames = self?.viewModel?.apiResult?.data.playingGames,
+                      let totalGames = self?.viewModel?.apiResult?.data.totalGames,
+                      let totalPrice = self?.viewModel?.apiResult?.data.totalPrice,
+                      let physicalDigital = self?.viewModel?.apiResult?.data.physicalDigital,
+                      let finishedGamesByYear = self?.viewModel?.apiResult?.data.finishedByYear,
+                      let boughtGamesByYear = self?.viewModel?.apiResult?.data.boughtByYear,
+                      let gamesByPlatform = self?.viewModel?.apiResult?.data.gamesByPlatform?.platforms
+                else { return }
+                
+                // Playing Games
+                for playingGame in playingGames {
+                    if let titleSubtitleStackView = self?.renderTitleSubtitle(title: playingGame.name, subtitle: playingGame.latestGameplaySession.start.toFormattedString()) {
+                    
+                        let gesture = GameDetailTapGestureRecognizer(target: self, action: #selector(self?.showGameDetail))
+                        gesture.playingGame = playingGame
+                        titleSubtitleStackView.addGestureRecognizer(gesture)
+                        
+                        self?.playingGamesView.addArrangedSubview(titleSubtitleStackView)
+                    }
+                }
+                
+                // Physical Digital Games
+                self?.totalGamesLabel.text = "\(totalGames) jogos"
+                
+                // TotalPrice
+                let totalPriceLabel = UILabel()
+                totalPriceLabel.font = UIFont.dashboardPlayingGameSubtitle
+                totalPriceLabel.text = "R$ \(totalPrice),00"
+                self?.physicalDigitalGamesView?.addArrangedSubview(totalPriceLabel)
 
-        // Digital
-        let digitalStackView = renderBadgeText(badge: physicalDigital.digital, text: "Digitais")
-        physicalDigitalGamesView?.addArrangedSubview(digitalStackView)
-        
-        // Physical
-        let physicalStackView = renderBadgeText(badge: physicalDigital.physical, text: "Físicos")
-        physicalDigitalGamesView?.addArrangedSubview(physicalStackView)
-        
-        // Finished By Year
-        for finishedGameByYear in finishedGamesByYear {
-            let finishedByYearStackView = renderBadgeText(badge: finishedGameByYear.total, text: "\(finishedGameByYear.year)")
-            finishedByYearView?.addArrangedSubview(finishedByYearStackView)
+                // Digital
+                if let digitalStackView = self?.renderBadgeText(badge: physicalDigital.digital, text: "Digitais") {
+                    self?.physicalDigitalGamesView?.addArrangedSubview(digitalStackView)
+                }
+                
+                // Physical
+                if let physicalStackView = self?.renderBadgeText(badge: physicalDigital.physical, text: "Físicos") {
+                    self?.physicalDigitalGamesView?.addArrangedSubview(physicalStackView)
+                }
+                
+                // Finished By Year
+                for finishedGameByYear in finishedGamesByYear {
+                    if let finishedByYearStackView = self?.renderBadgeText(badge: finishedGameByYear.total, text: "\(finishedGameByYear.year)") {
+                        self?.finishedByYearView?.addArrangedSubview(finishedByYearStackView)
+                    }
+                }
+                
+                // Bought By Year
+                for boughtGameByYear in boughtGamesByYear {
+                    if let boughtByYearStackView = self?.renderBadgeText(badge: boughtGameByYear.quantity,
+                                                                         text: "\(boughtGameByYear.year)",
+                                                                         subtitle: "\(boughtGameByYear.total)") {
+                        self?.boughtByYearView?.addArrangedSubview(boughtByYearStackView)
+                    }
+                }
+                
+                // Games By Platform
+                for platform in gamesByPlatform {
+                    if let platformStackView = self?.renderBadgeText(badge: platform.platformGamesTotal,
+                                                               text: "\(platform.name)") {
+                        self?.gameByPlatformView?.addArrangedSubview(platformStackView)
+                    }
+                }
+            }
         }
-        
-        // Bought By Year
-        for boughtGameByYear in boughtGamesByYear {
-            let boughtByYearStackView = renderBadgeText(badge: boughtGameByYear.quantity,
-                                                        text: "\(boughtGameByYear.year)",
-                                                        subtitle: "\(boughtGameByYear.total)")
-            boughtByYearView?.addArrangedSubview(boughtByYearStackView)
-        }
-        
-        // Games By Platform
-        for platform in gamesByPlatform {
-            let platformStackView = renderBadgeText(badge: platform.platformGamesTotal,
-                                                        text: "\(platform.name)")
-            gameByPlatformView?.addArrangedSubview(platformStackView)
-        }
-    }
-    
-    func render(error: Error) {
-        
-    }
-    
-    func render(errors: [String]) {
-        
     }
     
     // MARK: - Private Functions

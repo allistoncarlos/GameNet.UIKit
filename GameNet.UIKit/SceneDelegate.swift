@@ -85,23 +85,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 extension SwinjectStoryboard {
     @objc class func setup() {
         defaultContainer.storyboardInitCompleted(LoginViewController.self) { r, c in
-            c.presenter = UserPresenter(delegate: c, service: r.resolve(UserServiceProtocol.self))
+            c.viewModel = UserViewModel(service: r.resolve(UserServiceProtocol.self))
         }
         defaultContainer.storyboardInitCompleted(DashboardViewController.self) { r, c in
-            c.presenter = DashboardPresenter(delegate: c, service: r.resolve(ServiceBox<DashboardService>.self))
+            c.viewModel = DashboardViewModel(service: r.resolve(ServiceBox<DashboardService>.self))
         }
         defaultContainer.storyboardInitCompleted(GamesViewController.self) { r, c in
-            c.presenter = GamePresenter(delegate: c, service: r.resolve(ServiceBox<GameService>.self))
+            c.viewModel = GamesViewModel(service: r.resolve(ServiceBox<GameService>.self))
         }
         defaultContainer.storyboardInitCompleted(GameDetailViewController.self) { r, c in
-            c.presenter = GameDetailPresenter(
-                delegate: c,
+            c.viewModel = GameDetailViewModel(
                 service: r.resolve(ServiceBox<GameService>.self),
                 gameplaySessionService: r.resolve(ServiceBox<GameplaySessionService>.self))
         }
         defaultContainer.storyboardInitCompleted(PlatformsViewController.self) { r, c in
-            c.presenter = PlatformPresenter(delegate: c, service: r.resolve(ServiceBox<PlatformService>.self))
+            c.viewModel = PlatformsViewModel(service: r.resolve(ServiceBox<PlatformService>.self))
         }
+        defaultContainer.storyboardInitCompleted(EditPlatformViewController.self) { r, c in
+            c.viewModel = EditPlatformViewModel(service: r.resolve(ServiceBox<PlatformService>.self))
+        }
+        
         
         // Services
         defaultContainer.register(UserServiceProtocol.self) { _ in UserService() }

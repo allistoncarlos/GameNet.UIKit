@@ -13,7 +13,7 @@ class LoginViewController: UIViewController {
     static let NotificationLoggedIn = NSNotification.Name(rawValue: "LoggedIn")
     
     // MARK: - Properties
-    var presenter: UserPresenterProtocol?
+    var viewModel: UserViewModelProtocol?
     
     // MARK: - Outlets
     @IBOutlet weak var usernameTextField: UITextField?
@@ -27,18 +27,24 @@ class LoginViewController: UIViewController {
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        viewModel?.loggedIn = { [weak self] in
+            DispatchQueue.main.async {
+                self?.loggedIn()
+            }
+        }
     }
 
     // MARK: - IBActions
     @IBAction func loginTouched(_ sender: Any) {
         guard let username = usernameTextField?.text else { return }
         guard let password = passwordTextField?.text else { return }
-
-        presenter?.login(username: username, password: password)
+        
+        viewModel?.login(username: username, password: password)
     }
 }
 
-extension LoginViewController: UserPresenterDelegate {
+extension LoginViewController {
     func loggedIn() {
         NotificationCenter.default.post(name: LoginViewController.NotificationLoggedIn, object: nil)
     }

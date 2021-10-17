@@ -1,6 +1,0 @@
-framework module Pods_GameNet_UIKit {
-  umbrella header "Pods-GameNet.UIKit-umbrella.h"
-
-  export *
-  module * { export * }
-}

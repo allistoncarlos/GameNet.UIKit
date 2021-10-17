@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GGt-Vu-XKg">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GGt-Vu-XKg">
     <device id="retina5_9" orientation="portrait" appearance="dark"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -299,7 +300,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="MWz-tZ-TZg">
-                                <rect key="frame" x="0.0" y="24.333333969116211" width="375" height="43.666667938232422"/>
+                                <rect key="frame" x="0.0" y="44.666666030883789" width="375" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MWz-tZ-TZg" id="siU-uG-V5R">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
@@ -316,13 +317,28 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l10-FC-7hK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2877" y="1592"/>
+            <point key="canvasLocation" x="2876" y="1617"/>
+        </scene>
+        <!--Edit Platform View Controller-->
+        <scene sceneID="en6-vD-Rhw">
+            <objects>
+                <viewController storyboardIdentifier="EditPlatformViewController" id="Y4G-Fx-QyZ" customClass="EditPlatformViewController" customModule="GameNet_UIKit" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="u41-HW-JWv">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="kdz-XD-Dd8"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OMt-Qy-Bg6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3927" y="1609"/>
         </scene>
         <!--Dashboard-->
         <scene sceneID="S94-cK-JoQ">
             <objects>
                 <navigationController title="Dashboard" automaticallyAdjustsScrollViewInsets="NO" id="V3T-dZ-gGQ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Dashboard" id="yxj-rz-9KV"/>
+                    <tabBarItem key="tabBarItem" title="Dashboard" image="display" catalog="system" id="yxj-rz-9KV"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="bfb-RE-xHW">
                         <rect key="frame" x="0.0" y="44" width="375" height="96"/>
@@ -347,7 +363,7 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="5bw-zX-hvT">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.44313728810000003" green="0.14901961389999999" blue="0.61176472900000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" red="0.4823529412" green="0.1215686275" blue="0.63529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="selectedImageTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -356,6 +372,7 @@
                         <segue destination="V3T-dZ-gGQ" kind="relationship" relationship="viewControllers" id="jKC-Gd-75I"/>
                         <segue destination="hRo-lV-T03" kind="relationship" relationship="viewControllers" id="pzL-D8-rR7"/>
                         <segue destination="qax-hn-CT4" kind="relationship" relationship="viewControllers" id="tyY-Ai-zmS"/>
+                        <segue destination="rwW-1l-PGB" kind="relationship" relationship="viewControllers" id="BP6-TV-KOo"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Pu-qT-BsE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -366,7 +383,7 @@
         <scene sceneID="5aR-59-zJt">
             <objects>
                 <navigationController title="Games" automaticallyAdjustsScrollViewInsets="NO" id="hRo-lV-T03" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Games" id="WYB-t6-zNv"/>
+                    <tabBarItem key="tabBarItem" title="Games" image="gamecontroller" catalog="system" id="WYB-t6-zNv"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="GxC-5h-2iT">
                         <rect key="frame" x="0.0" y="44" width="375" height="96"/>
@@ -383,11 +400,27 @@
             </objects>
             <point key="canvasLocation" x="1965" y="865"/>
         </scene>
+        <!--Lists View Controller-->
+        <scene sceneID="b8I-AD-fg3">
+            <objects>
+                <viewController id="ubl-12-TdS" customClass="ListsViewController" customModule="GameNet_UIKit" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BiB-47-fQe">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="MRN-H6-GjJ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="W98-Rx-vaR"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gis-3x-x8b" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2906.4000000000001" y="2333.497536945813"/>
+        </scene>
         <!--Plataformas-->
         <scene sceneID="gRS-yv-YAR">
             <objects>
                 <navigationController title="Plataformas" automaticallyAdjustsScrollViewInsets="NO" id="qax-hn-CT4" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Plataformas" id="Nlb-k7-A5Q"/>
+                    <tabBarItem key="tabBarItem" title="Plataformas" image="laptopcomputer" catalog="system" id="Nlb-k7-A5Q"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Plataformas" largeTitleDisplayMode="always" id="hCA-2N-XiL"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="ikM-xO-ch6">
@@ -403,7 +436,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y2n-DJ-bQ8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1965" y="1592"/>
+            <point key="canvasLocation" x="1964" y="1618"/>
         </scene>
         <!--Game Detail View Controller-->
         <scene sceneID="kbW-nD-2O0">
@@ -549,11 +582,35 @@
             </objects>
             <point key="canvasLocation" x="4023" y="465"/>
         </scene>
+        <!--Listas-->
+        <scene sceneID="rOQ-OK-NtA">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rwW-1l-PGB" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Listas" image="list.bullet.rectangle.portrait" catalog="system" id="MzL-mA-qTa"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="vij-kC-DcC">
+                        <rect key="frame" x="0.0" y="44" width="375" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.44313728810000003" green="0.14901961389999999" blue="0.61176472900000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ubl-12-TdS" kind="relationship" relationship="rootViewController" id="Gv1-g3-udN"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="orD-sG-HXo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1964" y="2333.497536945813"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="tkt-wm-fAR"/>
+        <segue reference="orJ-UM-fWY"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="display" catalog="system" width="128" height="101"/>
+        <image name="gamecontroller" catalog="system" width="128" height="80"/>
+        <image name="laptopcomputer" catalog="system" width="128" height="73"/>
+        <image name="list.bullet.rectangle.portrait" catalog="system" width="115" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

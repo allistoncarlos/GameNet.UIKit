@@ -20,6 +20,11 @@ protocol ServiceProtocol: AnyObject {
     func get(id: String?, completion: @escaping (Result<APIResult<T>, Error>) -> Void) -> Void
     func load(page: Int?, pageSize: Int?, search: String?, completion: @escaping (Result<APIResult<PagedResult<T>>, Error>) -> Void) -> Void
     func load(completion: @escaping (Result<APIResult<Array<T>>, Error>) -> Void) -> Void
+    
+    func save(
+        id: String?,
+        model: T,
+        completion: @escaping (Result<APIResult<T>, Error>) -> Void) -> Void
 }
 
 struct ServiceBox<T: ServiceProtocol> {
@@ -147,6 +152,39 @@ class Service<T: BaseModel>: ServiceProtocol {
                 case .failure(let error):
                     completion(.failure(error))
             }
+        }
+    }
+    
+    func save(id: String?,
+                                 model: T,
+                                 completion: @escaping (Result<APIResult<T>, Error>) -> Void) -> Void {
+        guard let url = URL(string: "\(Constants.apiPath)/\(apiResource)?") else { return }
+        
+        print(url)
+        
+        do {
+            var request = URLRequest(url: url)
+            request.httpMethod = HTTPMethod.post.rawValue
+            request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
+            request.httpBody = try JSONEncoder().encode(model)
+            
+            let json = String(data: request.httpBody!, encoding: .utf8)
+            print(json!)
+            
+            AF.request(request, interceptor: interceptor).responseDecodable(of: APIResult<T>.self, decoder: decoder) { (response) in
+                switch response.result {
+                    case .success(let value):
+                        completion(.success(value))
+                    case .failure(let error):
+                        completion(.failure(error))
+                }
+            }
+//            AF.request(request, interceptor: interceptor).responseJSON { (response) in
+//                print(response)
+//            }
+        }
+        catch let error {
+            completion(.failure(error))
         }
     }
 }

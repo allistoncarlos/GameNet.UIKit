@@ -13,7 +13,7 @@ import SDWebImage
 
 class GameDetailViewController: UIViewController, UIScrollViewDelegate {
     // MARK: - Properties
-    var presenter: GameDetailPresenterProtocol?
+    var viewModel: GameDetailViewModelProtocol?
     var gameId: String?
     
     // MARK: - Outlets
@@ -39,16 +39,17 @@ class GameDetailViewController: UIViewController, UIScrollViewDelegate {
         super.viewWillAppear(animated)
         
         if let gameId = gameId {
-            presenter?.get(id: gameId)
-            presenter?.getGameplaySessions(id: gameId)
+            viewModel?.renderData = renderData()
+            viewModel?.renderGameplayData = renderGameplayData()
+            
+            viewModel?.get(id: gameId)
+            viewModel?.getGameplaySessions(id: gameId)
         }
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        let statusBarFrame = self.view.window?.windowScene?.statusBarManager?.statusBarFrame ?? CGRect.zero
-        let statusBarView = UIView(frame: statusBarFrame)
-        statusBarView.backgroundColor = Constants.primaryColor
-        view.addSubview(statusBarView)
+        super.viewDidAppear(animated)
+        self.setupStatusBar()
     }
     
     override func viewDidLoad() {
@@ -64,51 +65,61 @@ class GameDetailViewController: UIViewController, UIScrollViewDelegate {
             }
         }
     }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        self.setupStatusBar()
+    }
 }
 
-extension GameDetailViewController: GameDetailPresenterDelegate {
-    func render(result: GameDetailViewModel?) {
-        guard let cover = result?.cover else { return }
-        
-        // ImageView
-        self.imageView.sd_setImage(with: URL(string: cover))
-        
-        self.gameTitle.text = result?.name
-        self.platform.text = result?.platform
-        
-        if let valueDecimal = result?.value {
-            self.price.text = "Preço: R$ \(valueDecimal)"
-        }
-        
-        if let boughtDateValue = result?.boughtDate {
-            self.boughtDate.text = "Data de Compra: \(boughtDateValue.toFormattedString())"
-        }
-        
-        if let latestGameplays = result?.gameplays {
-            
-            if let latestGameplay = latestGameplays.last {
-                self.playingSince.text = "Jogando desde: \(latestGameplay.start.toFormattedString())"
+extension GameDetailViewController {
+    fileprivate func renderData() -> () -> () {
+        return { [weak self] in
+            DispatchQueue.main.async {
+                if let result = self?.viewModel?.apiResult?.data {
+                    // ImageView
+                    self?.imageView.sd_setImage(with: URL(string: result.cover))
+                    
+                    self?.gameTitle.text = result.name
+                    self?.platform.text = result.platform
+                    
+                    self?.price.text = "Preço: R$ \(result.value)"
+                    
+                    self?.boughtDate.text = "Data de Compra: \(result.boughtDate.toFormattedString())"
+                    
+                    if let latestGameplays = result.gameplays {
+                        
+                        if let latestGameplay = latestGameplays.last {
+                            self?.playingSince.text = "Jogando desde: \(latestGameplay.start.toFormattedString())"
+                        }
+                    }
+                }
             }
         }
     }
     
-    func renderGameplays(result: GameplaySessionsViewModel?) {
-        if let result = result {
-            gameplays.isHidden = false
-            
-            renderGameplayLabel(text: "Total de \(result.totalGameplayTime)\nMédia de \(result.averageGameplayTime)", numberOfLines: 2)
-            
-            let sessions = result.sessions.sorted(by: { $0!.start >= $1!.start })
-            
-            for gameplaySession in sessions {
-                if let gameplaySession = gameplaySession {
-                    renderGameplayLabel(
-                        text: "\(gameplaySession.start.toFormattedString(dateFormat: Constants.dateFormat)) até \(gameplaySession.finish.toFormattedString(dateFormat: Constants.dateFormat))\nTotal de \(gameplaySession.totalGameplayTime)",
-                        numberOfLines: 2)
+    fileprivate func renderGameplayData() -> () -> () {
+        return { [weak self] in
+            DispatchQueue.main.async {
+                if let result = self?.viewModel?.apiGameplayResult?.data {
+                    self?.gameplays.isHidden = false
+                    
+                    self?.renderGameplayLabel(text: "Total de \(result.totalGameplayTime)\nMédia de \(result.averageGameplayTime)", numberOfLines: 2)
+                    
+                    let sessions = result.sessions.sorted(by: { $0!.start >= $1!.start })
+                    
+                    for gameplaySession in sessions {
+                        if let gameplaySession = gameplaySession {
+                            self?.renderGameplayLabel(
+                                text: "\(gameplaySession.start.toFormattedString(dateFormat: Constants.dateFormat)) até \(gameplaySession.finish.toFormattedString(dateFormat: Constants.dateFormat))\nTotal de \(gameplaySession.totalGameplayTime)",
+                                numberOfLines: 2)
+                        }
+                    }
+                } else {
+                    self?.gameplays.isHidden = true
                 }
             }
-        } else {
-            gameplays.isHidden = true
         }
     }
     
