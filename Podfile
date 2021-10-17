@@ -11,4 +11,5 @@ target 'GameNet.UIKit' do
   pod 'Swinject'
   pod 'SwinjectStoryboard'
   pod 'SDWebImage'
+  pod 'SwiftyFORM'
 end

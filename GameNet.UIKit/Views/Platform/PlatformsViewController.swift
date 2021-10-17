@@ -69,12 +69,20 @@ class PlatformsViewController: UITableViewController {
         let identifier = String(describing: EditPlatformViewController.self)
 
         let editPlatformViewController =
-            storyboard.instantiateViewController(identifier: identifier)
+            storyboard.instantiateViewController(identifier: identifier) as EditPlatformViewController
+        editPlatformViewController.delegate = self
         
         editPlatformViewController.modalPresentationStyle = .automatic
         editPlatformViewController.modalTransitionStyle = .crossDissolve
         
         present(editPlatformViewController, animated: true, completion: nil)
         
+    }
+}
+
+extension PlatformsViewController: EditPlatformViewControllerDelegate {
+    func savedData() {
+        dismiss(animated: true, completion: nil)
+        self.viewModel?.fetchData()
     }
 }

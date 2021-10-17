@@ -101,6 +101,10 @@ extension SwinjectStoryboard {
         defaultContainer.storyboardInitCompleted(PlatformsViewController.self) { r, c in
             c.viewModel = PlatformsViewModel(service: r.resolve(ServiceBox<PlatformService>.self))
         }
+        defaultContainer.storyboardInitCompleted(EditPlatformViewController.self) { r, c in
+            c.viewModel = EditPlatformViewModel(service: r.resolve(ServiceBox<PlatformService>.self))
+        }
+        
         
         // Services
         defaultContainer.register(UserServiceProtocol.self) { _ in UserService() }

@@ -15,4 +15,17 @@ extension UIViewController {
         statusBarView.backgroundColor = Constants.primaryColor
         view.superview?.addSubview(statusBarView)
     }
+    
+    func setupModalNavigationBar(title: String) {
+        let frame = CGRect(
+                    x: 0,
+                    y: 0,
+                    width: view.frame.size.width,
+                    height: 44)
+        let navigationBar = UINavigationBar(frame: frame)
+        navigationBar.backgroundColor = Constants.primaryColor
+        let navigationItem = UINavigationItem(title: title)
+        navigationBar.setItems([navigationItem], animated: false)
+        view.addSubview(navigationBar)
+    }
 }
