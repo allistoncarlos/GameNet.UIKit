@@ -41,6 +41,13 @@ class PlatformsViewController: UITableViewController {
         self.setupStatusBar()
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        self.setupStatusBar()
+    }
+    
+    // MARK: - UITableViewDelegate
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var count = 0
 

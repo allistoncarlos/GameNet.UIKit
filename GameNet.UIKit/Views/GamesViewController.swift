@@ -45,6 +45,12 @@ class GamesViewController: UIViewController {
         self.setupStatusBar()
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        self.setupStatusBar()
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let gamesCollectionView = self.gamesCollectionView else { return }
         

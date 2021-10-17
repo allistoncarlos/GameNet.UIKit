@@ -65,6 +65,12 @@ class GameDetailViewController: UIViewController, UIScrollViewDelegate {
             }
         }
     }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        self.setupStatusBar()
+    }
 }
 
 extension GameDetailViewController {

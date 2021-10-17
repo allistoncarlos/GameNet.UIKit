@@ -20,4 +20,10 @@ class ListsViewController: UIViewController {
         super.viewDidAppear(animated)
         self.setupStatusBar()
     }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        self.setupStatusBar()
+    }
 }

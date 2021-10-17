@@ -10,8 +10,13 @@ import UIKit
 
 extension UIViewController {
     func setupStatusBar() {
+        if let previousStatusBar = view.superview?.viewWithTag(999) {
+            previousStatusBar.removeFromSuperview()
+        }
+        
         let statusBarFrame = self.view.window?.windowScene?.statusBarManager?.statusBarFrame ?? CGRect.zero
         let statusBarView = UIView(frame: statusBarFrame)
+        statusBarView.tag = 999
         statusBarView.backgroundColor = Constants.primaryColor
         view.superview?.addSubview(statusBarView)
     }
