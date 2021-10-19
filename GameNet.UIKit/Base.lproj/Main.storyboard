@@ -602,6 +602,22 @@
             </objects>
             <point key="canvasLocation" x="1964" y="2333.497536945813"/>
         </scene>
+        <!--Edit Game View Controller-->
+        <scene sceneID="2vr-mX-dLr">
+            <objects>
+                <viewController storyboardIdentifier="EditGameViewController" id="nai-wl-SQh" customClass="EditGameViewController" customModule="GameNet_UIKit" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qFD-TM-KIM">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="6Cn-Gp-XbK"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="6bQ-C4-IR5"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ai3-Ri-NoS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4974" y="465"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="orJ-UM-fWY"/>

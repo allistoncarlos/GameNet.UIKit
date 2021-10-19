@@ -98,6 +98,10 @@ extension SwinjectStoryboard {
                 service: r.resolve(ServiceBox<GameService>.self),
                 gameplaySessionService: r.resolve(ServiceBox<GameplaySessionService>.self))
         }
+        defaultContainer.storyboardInitCompleted(EditGameViewController.self) { r, c in
+            c.viewModel = EditGameViewModel(service: r.resolve(ServiceBox<GameService>.self),
+                                            platformsService: r.resolve(ServiceBox<PlatformService>.self))
+        }
         defaultContainer.storyboardInitCompleted(PlatformsViewController.self) { r, c in
             c.viewModel = PlatformsViewModel(service: r.resolve(ServiceBox<PlatformService>.self))
         }

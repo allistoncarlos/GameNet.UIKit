@@ -22,15 +22,24 @@ extension UIViewController {
     }
     
     func setupModalNavigationBar(title: String) {
-        let frame = CGRect(
-                    x: 0,
-                    y: 0,
-                    width: view.frame.size.width,
-                    height: 44)
-        let navigationBar = UINavigationBar(frame: frame)
-        navigationBar.backgroundColor = Constants.primaryColor
-        let navigationItem = UINavigationItem(title: title)
-        navigationBar.setItems([navigationItem], animated: false)
-        view.addSubview(navigationBar)
+        if let navigationController = self.navigationController {
+            navigationController.navigationBar.backgroundColor = Constants.primaryColor
+            navigationController.topViewController?.title = title
+            navigationController.navigationBar.tintColor = .label
+        }
+//        else {
+//            let frame = CGRect(
+//                        x: 0,
+//                        y: 0,
+//                        width: view.frame.size.width,
+//                        height: 44)
+//            
+//            let navigationBar = UINavigationBar(frame: frame)
+//            navigationBar.backgroundColor = Constants.primaryColor
+//            
+//            let navigationItem = UINavigationItem(title: title)
+//            navigationBar.setItems([navigationItem], animated: false)
+//            view.addSubview(navigationBar)
+//        }
     }
 }

@@ -31,6 +31,11 @@ class GamesViewController: UIViewController {
         self.gamesCollectionView?.dataSource = self
         self.gamesCollectionView?.delegate = self
         
+        let barButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+        barButtonItem.tintColor = UIColor.white
+        
+        self.navigationItem.rightBarButtonItem = barButtonItem
+        
         viewModel?.renderData = { [weak self] in
             DispatchQueue.main.async {
                 self?.gamesCollectionView?.reloadData()
@@ -49,6 +54,11 @@ class GamesViewController: UIViewController {
         super.viewWillTransition(to: size, with: coordinator)
         
         self.setupStatusBar()
+    }
+    
+    // MARK: - Navigation Selectors
+    @objc func addTapped(_ sender: UIButton?) {
+        showEditView()
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -71,6 +81,25 @@ class GamesViewController: UIViewController {
         
         gameDetailViewController.title = gameViewCell?.gameName
         gameDetailViewController.gameId = gameViewCell?.gameId
+    }
+    
+    // MARK: - Private Funcs
+    private func showEditView(id: String? = nil) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let identifier = String(describing: EditGameViewController.self)
+
+        let editGameViewController =
+            storyboard.instantiateViewController(identifier: identifier) as EditGameViewController
+        editGameViewController.delegate = self
+        editGameViewController.gameId = id
+        
+        editGameViewController.modalPresentationStyle = .automatic
+        editGameViewController.modalTransitionStyle = .crossDissolve
+        
+        let navigationController = UINavigationController()
+        navigationController.viewControllers = [editGameViewController]
+        
+        present(navigationController, animated: true, completion: nil)
     }
 }
 
@@ -128,5 +157,12 @@ extension GamesViewController: UISearchBarDelegate {
             
             viewModel?.fetchData()
         }
+    }
+}
+
+extension GamesViewController: EditGameViewControllerDelegate {
+    func savedData() {
+        dismiss(animated: true, completion: nil)
+        self.viewModel?.fetchData()
     }
 }

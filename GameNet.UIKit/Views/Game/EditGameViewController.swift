@@ -1,23 +1,23 @@
 //
-//  EditPlatformViewController.swift
+//  EditGameViewController.swift
 //  GameNet.UIKit
 //
-//  Created by Alliston Aleixo on 17/10/21.
+//  Created by Alliston Aleixo on 19/10/21.
 //
 
 import Foundation
 import UIKit
 import SwiftyFORM
 
-protocol EditPlatformViewControllerDelegate {
+protocol EditGameViewControllerDelegate {
     func savedData()
 }
 
-class EditPlatformViewController: FormViewController {
+class EditGameViewController: FormViewController {
     // MARK: - Properties
-    var platformId: String?
-    var viewModel: EditPlatformViewModelProtocol?
-    var delegate: EditPlatformViewControllerDelegate?
+    var gameId: String?
+    var viewModel: EditGameViewModelProtocol?
+    var delegate: EditGameViewControllerDelegate?
     
     // MARK: - FormFields
     lazy var nameFormItem: TextFieldFormItem = {
@@ -25,6 +25,13 @@ class EditPlatformViewController: FormViewController {
         instance.required("Nome é obrigatório")
         instance.title = "Nome"
         
+        return instance
+    }()
+    
+    lazy var platformPickerFormItem: OptionPickerFormItem = {
+        let instance = OptionPickerFormItem()
+        instance.title = "Plataforma"
+
         return instance
     }()
     
@@ -40,21 +47,33 @@ class EditPlatformViewController: FormViewController {
             }
         }
         
-        if let platformId = platformId {
+        viewModel?.renderPlatformsData = { [weak self] in
+            DispatchQueue.main.async {
+                if let data = self?.viewModel?.platformsResult?.data.result {
+                    self?.platformPickerFormItem.options = data.map({ (platform) -> OptionRowModel in
+                        return OptionRowModel(platform.name, platform.id!)
+                    })
+                }
+            }
+        }
+        
+        if let gameId = gameId {
             viewModel?.renderData = { [weak self] in
                 DispatchQueue.main.async {
                     if let data = self?.viewModel?.apiResult?.data {
                         self?.nameFormItem.value = data.name
-                        
+
                         self?.setupModalNavigationBar(title: data.name)
                     }
                 }
             }
             
-            viewModel?.fetchData(id: platformId)
+            viewModel?.fetchData(id: gameId)
         } else {
-            self.setupModalNavigationBar(title: Constants.editPlatformViewTitle)
+            self.setupModalNavigationBar(title: Constants.editGameViewTitle)
         }
+        
+        viewModel?.fetchPlatforms()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -75,6 +94,7 @@ class EditPlatformViewController: FormViewController {
         }()
         
         builder += nameFormItem
+        builder += platformPickerFormItem
         builder += SectionFooterViewFormItem()
         
         builder += saveButton
@@ -87,9 +107,13 @@ class EditPlatformViewController: FormViewController {
         
         switch result {
         case .valid:
-            viewModel?.save(id: platformId, data: PlatformModel(
-                id: platformId,
-                name: nameFormItem.value))
+//            viewModel?.save(id: gameId, data: GameModel(
+//                id: gameId,
+//                name: T##String,
+//                cover: T##String,
+//                platformId: T##String,
+//                platform: T##String))
+            break
         case .invalid:
             break
         }

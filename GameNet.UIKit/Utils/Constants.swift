@@ -23,6 +23,7 @@ class Constants {
     
     static let dashboardViewTitle = "Dashboard"
     static let gamesViewTitle = "Games"
+    static let editGameViewTitle = "Novo Game"
     static let platformsViewTitle = "Plataformas"
     static let editPlatformViewTitle = "Nova Plataforma"
     static let listsViewTitle = "Listas"

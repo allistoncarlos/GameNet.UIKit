@@ -94,7 +94,10 @@ class PlatformsViewController: UITableViewController {
         editPlatformViewController.modalPresentationStyle = .automatic
         editPlatformViewController.modalTransitionStyle = .crossDissolve
         
-        present(editPlatformViewController, animated: true, completion: nil)
+        let navigationController = UINavigationController()
+        navigationController.viewControllers = [editPlatformViewController]
+        
+        present(navigationController, animated: true, completion: nil)
     }
 }
 
