@@ -96,7 +96,9 @@ extension DashboardViewController {
                 
                 // Playing Games
                 for playingGame in playingGames {
-                    if let titleSubtitleStackView = self?.renderTitleSubtitle(title: playingGame.name, subtitle: playingGame.latestGameplaySession.start.toFormattedString()) {
+                    if let titleSubtitleStackView = self?.renderTitleSubtitle(
+                        title: playingGame.name,
+                        subtitle: playingGame.latestGameplaySession?.start.toFormattedString() ?? "") {
                     
                         let gesture = GameDetailTapGestureRecognizer(target: self, action: #selector(self?.showGameDetail))
                         gesture.playingGame = playingGame
