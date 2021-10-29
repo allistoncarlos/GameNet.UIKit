@@ -114,7 +114,14 @@ extension DashboardViewController {
                 // TotalPrice
                 let totalPriceLabel = UILabel()
                 totalPriceLabel.font = UIFont.dashboardPlayingGameSubtitle
-                totalPriceLabel.text = "R$ \(totalPrice),00"
+                
+                let numberFormatter = NumberFormatter()
+                numberFormatter.numberStyle = .currency
+                if let formattedTotalPrice = numberFormatter.string(from: NSNumber.init(value: totalPrice)) {
+                    totalPriceLabel.text = formattedTotalPrice
+                }
+                
+                
                 self?.physicalDigitalGamesView?.addArrangedSubview(totalPriceLabel)
 
                 // Digital
