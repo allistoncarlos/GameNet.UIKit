@@ -18,8 +18,22 @@ class EditGameViewController: FormViewController {
     var gameId: String?
     var viewModel: EditGameViewModelProtocol?
     var delegate: EditGameViewControllerDelegate?
+    var imagePickerController = UIImagePickerController()
+    var cell: GameCoverCell?
     
     // MARK: - FormFields
+    lazy var imageFormItem: CustomFormItem = {
+        let instance = CustomFormItem()
+        instance.createCell = { [weak self] _ in
+            self?.cell = try GameCoverCell.createCell()
+            self?.cell?.selectImageDelegate = self
+            
+            return self?.cell ?? UITableViewCell()
+        }
+        
+        return instance
+    }()
+    
     lazy var nameFormItem: TextFieldFormItem = {
         let instance = TextFieldFormItem()
         instance.required("Nome é obrigatório")
@@ -93,6 +107,8 @@ class EditGameViewController: FormViewController {
             return instance
         }()
         
+        builder += imageFormItem
+        builder += SectionHeaderViewFormItem()
         builder += nameFormItem
         builder += platformPickerFormItem
         builder += SectionFooterViewFormItem()
@@ -116,6 +132,28 @@ class EditGameViewController: FormViewController {
             break
         case .invalid:
             break
+        }
+    }
+}
+
+extension EditGameViewController: SelectImageDelegate {
+    func didTapSelect() {
+        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
+            imagePickerController.delegate = self
+            imagePickerController.sourceType = .savedPhotosAlbum
+            imagePickerController.allowsEditing = false
+
+            present(imagePickerController, animated: true, completion: nil)
+        }
+    }
+}
+
+extension EditGameViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        self.dismiss(animated: true, completion: nil)
+
+        if let chosenImage = info[.originalImage] as? UIImage{
+            cell?.cover.image = chosenImage
         }
     }
 }

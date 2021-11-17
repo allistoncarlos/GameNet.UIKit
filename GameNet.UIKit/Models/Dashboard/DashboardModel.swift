@@ -14,7 +14,7 @@ struct DashboardModel: BaseModel {
     var playingGames: [PlayingGameModel]?
     var physicalDigital: PhysicalDigitalModel?
     var gamesByPlatform: PlatformGamesModel?
-    var totalPrice: Decimal?
+    var totalPrice: Double?
     var totalGames: Int?
     
     enum CodingKeys: String, CodingKey {
