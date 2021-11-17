@@ -14,4 +14,8 @@ class GameViewCell: UICollectionViewCell {
     
     var gameId: String?
     var gameName: String?
+    
+    override func prepareForReuse() {
+        self.gameImage!.image = UIImage()
+    }
 }
