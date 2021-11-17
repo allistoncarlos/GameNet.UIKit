@@ -96,7 +96,9 @@ extension DashboardViewController {
                 
                 // Playing Games
                 for playingGame in playingGames {
-                    if let titleSubtitleStackView = self?.renderTitleSubtitle(title: playingGame.name, subtitle: playingGame.latestGameplaySession.start.toFormattedString()) {
+                    if let titleSubtitleStackView = self?.renderTitleSubtitle(
+                        title: playingGame.name,
+                        subtitle: playingGame.latestGameplaySession?.start.toFormattedString() ?? "") {
                     
                         let gesture = GameDetailTapGestureRecognizer(target: self, action: #selector(self?.showGameDetail))
                         gesture.playingGame = playingGame
@@ -112,7 +114,14 @@ extension DashboardViewController {
                 // TotalPrice
                 let totalPriceLabel = UILabel()
                 totalPriceLabel.font = UIFont.dashboardPlayingGameSubtitle
-                totalPriceLabel.text = "R$ \(totalPrice),00"
+                
+                let numberFormatter = NumberFormatter()
+                numberFormatter.numberStyle = .currency
+                if let formattedTotalPrice = numberFormatter.string(from: NSNumber.init(value: totalPrice)) {
+                    totalPriceLabel.text = formattedTotalPrice
+                }
+                
+                
                 self?.physicalDigitalGamesView?.addArrangedSubview(totalPriceLabel)
 
                 // Digital

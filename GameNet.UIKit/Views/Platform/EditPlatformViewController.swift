@@ -74,9 +74,6 @@ class EditPlatformViewController: FormViewController {
             return instance
         }()
         
-        builder += SectionHeaderTitleFormItem().title("")
-        builder += SectionHeaderTitleFormItem().title("")
-        
         builder += nameFormItem
         builder += SectionFooterViewFormItem()
         

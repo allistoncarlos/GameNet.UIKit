@@ -56,6 +56,7 @@ class GameDetailViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         
         self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.gameTitle.numberOfLines = 0
     
         if UIDevice.current.userInterfaceIdiom != .phone {
             imageHeightConstraint.constant = 450

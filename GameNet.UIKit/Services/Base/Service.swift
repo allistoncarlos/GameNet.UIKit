@@ -156,15 +156,25 @@ class Service<T: BaseModel>: ServiceProtocol {
     }
     
     func save(id: String?,
-                                 model: T,
-                                 completion: @escaping (Result<APIResult<T>, Error>) -> Void) -> Void {
-        guard let url = URL(string: "\(Constants.apiPath)/\(apiResource)?") else { return }
-        
-        print(url)
-        
+              model: T,
+              completion: @escaping (Result<APIResult<T>, Error>) -> Void) -> Void {
         do {
-            var request = URLRequest(url: url)
-            request.httpMethod = HTTPMethod.post.rawValue
+            let urlString = "\(Constants.apiPath)/\(apiResource)?"
+            
+            var request: URLRequest
+            
+            if let id = id {
+                guard let url = URL(string: urlString + "id=\(id)") else { return }
+                
+                request = URLRequest(url: url)
+                request.httpMethod = HTTPMethod.put.rawValue
+            } else {
+                guard let url = URL(string: urlString) else { return }
+                
+                request = URLRequest(url: url)
+                request.httpMethod = HTTPMethod.post.rawValue
+            }
+            
             request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
             request.httpBody = try JSONEncoder().encode(model)
             
@@ -179,9 +189,6 @@ class Service<T: BaseModel>: ServiceProtocol {
                         completion(.failure(error))
                 }
             }
-//            AF.request(request, interceptor: interceptor).responseJSON { (response) in
-//                print(response)
-//            }
         }
         catch let error {
             completion(.failure(error))
