@@ -17,7 +17,7 @@ protocol EditGameViewModelProtocol: AnyObject {
     
     func fetchData(id: String)
     func fetchPlatforms()
-    func save(id: String?, data: GameModel)
+    func save(data: GameEditModel)
 }
 
 class EditGameViewModel: ObservableObject, EditGameViewModelProtocol {
@@ -70,13 +70,13 @@ class EditGameViewModel: ObservableObject, EditGameViewModelProtocol {
         })
     }
     
-    func save(id: String?, data: GameModel) {
-        service?.object.save(id: id, model: data, completion: { (result) in
+    func save(data: GameEditModel) {
+        service?.object.save(model: data, completion: { [weak self] result in
             switch result {
             case .success(_):
-                self.savedData!()
+                self?.savedData?()
             case .failure(let error):
-                print(error.localizedDescription)
+                print(error)
             }
         })
     }

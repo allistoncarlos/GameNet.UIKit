@@ -65,7 +65,7 @@ class EditGameViewController: FormViewController {
             DispatchQueue.main.async {
                 if let data = self?.viewModel?.platformsResult?.data.result {
                     self?.platformPickerFormItem.options = data.map({ (platform) -> OptionRowModel in
-                        return OptionRowModel(platform.name, platform.id!)
+                        return OptionRowModel(platform.name ?? "", platform.id!)
                     })
                 }
             }
@@ -123,12 +123,20 @@ class EditGameViewController: FormViewController {
         
         switch result {
         case .valid:
-//            viewModel?.save(id: gameId, data: GameModel(
-//                id: gameId,
-//                name: T##String,
-//                cover: T##String,
-//                platformId: T##String,
-//                platform: T##String))
+            let name = nameFormItem.value
+            guard
+                let platformId = platformPickerFormItem.selected?.identifier,
+                let imageData = cell?.cover.image?.jpegData(compressionQuality: 0.0)
+            else { return}
+            
+            let model = GameEditModel(
+                id: gameId,
+                name: name,
+                cover: imageData,
+                platformId: platformId)
+            
+            viewModel?.save(data: model)
+            
             break
         case .invalid:
             break

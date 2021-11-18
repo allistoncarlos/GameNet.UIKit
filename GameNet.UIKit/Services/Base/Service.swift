@@ -41,9 +41,10 @@ struct ServiceBox<T: ServiceProtocol> {
 
 class Service<T: BaseModel>: ServiceProtocol {
     typealias T = T
-    private let apiResource: String
-    private let decoder = JSONDecoder()
-    private let interceptor: AuthenticationInterceptor<OAuthAuthenticator>?
+    
+    let apiResource: String
+    let decoder = JSONDecoder()
+    let interceptor: AuthenticationInterceptor<OAuthAuthenticator>?
     
     init(apiResource: String) {
         self.apiResource = apiResource
