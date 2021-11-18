@@ -9,7 +9,7 @@ import Foundation
 
 struct PlatformModel: BaseModel {
     var id: String?
-    var name: String
+    var name: String?
     
     enum CodingKeys: String, CodingKey {
         case id

@@ -43,10 +43,11 @@ class EditPlatformViewController: FormViewController {
         if let platformId = platformId {
             viewModel?.renderData = { [weak self] in
                 DispatchQueue.main.async {
-                    if let data = self?.viewModel?.apiResult?.data {
-                        self?.nameFormItem.value = data.name
+                    if let data = self?.viewModel?.apiResult?.data,
+                        let name = data.name {
+                        self?.nameFormItem.value = name
                         
-                        self?.setupModalNavigationBar(title: data.name)
+                        self?.setupModalNavigationBar(title: name)
                     }
                 }
             }
