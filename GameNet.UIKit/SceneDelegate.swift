@@ -110,6 +110,9 @@ extension SwinjectStoryboard {
         defaultContainer.storyboardInitCompleted(EditPlatformViewController.self) { r, c in
             c.viewModel = EditPlatformViewModel(service: r.resolve(ServiceBox<PlatformService>.self))
         }
+        defaultContainer.storyboardInitCompleted(ListsViewController.self) { r, c in
+            c.viewModel = ListsViewModel(service: r.resolve(ServiceBox<ListService>.self))
+        }
         
         
         // Services
@@ -125,6 +128,9 @@ extension SwinjectStoryboard {
         }
         defaultContainer.register(ServiceBox.self) { _ in
             ServiceBox<PlatformService>(object: PlatformService(apiResource: Constants.platformResource))
+        }
+        defaultContainer.register(ServiceBox.self) { _ in
+            ServiceBox<ListService>(object: ListService(apiResource: Constants.listResource))
         }
     }
 }

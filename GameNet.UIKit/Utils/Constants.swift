@@ -15,6 +15,7 @@ class Constants {
     static let gameResource = "usergame"
     static let gameplaySessionResource = "gameplaysession"
     static let platformResource = "platform"
+    static let listResource = "list"
     
     static let keychainIdentifier = "gamenet.azurewebsites.net"
     static let userIdIdentifier = "id"

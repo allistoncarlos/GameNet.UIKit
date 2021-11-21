@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GGt-Vu-XKg">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GGt-Vu-XKg">
     <device id="retina6_0" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -403,22 +403,6 @@
             </objects>
             <point key="canvasLocation" x="1965" y="865"/>
         </scene>
-        <!--Lists View Controller-->
-        <scene sceneID="b8I-AD-fg3">
-            <objects>
-                <viewController id="ubl-12-TdS" customClass="ListsViewController" customModule="GameNet_UIKit" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="BiB-47-fQe">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="761"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="MRN-H6-GjJ"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="W98-Rx-vaR"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gis-3x-x8b" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2906.4000000000001" y="2333.497536945813"/>
-        </scene>
         <!--Plataformas-->
         <scene sceneID="gRS-yv-YAR">
             <objects>
@@ -598,12 +582,41 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="ubl-12-TdS" kind="relationship" relationship="rootViewController" id="Gv1-g3-udN"/>
+                        <segue destination="xUa-6T-jnh" kind="relationship" relationship="rootViewController" id="I5W-HP-AiH"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="orD-sG-HXo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1964" y="2333.497536945813"/>
+        </scene>
+        <!--Lists View Controller-->
+        <scene sceneID="w41-Gh-Exo">
+            <objects>
+                <tableViewController storyboardIdentifier="listsViewController" id="xUa-6T-jnh" customClass="ListsViewController" customModule="GameNet_UIKit" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="sR9-eL-Ism">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="761"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="listViewCell" id="Sl0-2d-zCl">
+                                <rect key="frame" x="0.0" y="44.666666030883789" width="390" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Sl0-2d-zCl" id="yX2-dG-DKp">
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="xUa-6T-jnh" id="AlT-1K-YT8"/>
+                            <outlet property="delegate" destination="xUa-6T-jnh" id="LuT-Fr-Fan"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="ZsI-P4-7e9"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="l7i-Jk-K1s" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2875" y="2333"/>
         </scene>
         <!--Edit Game View Controller-->
         <scene sceneID="2vr-mX-dLr">
