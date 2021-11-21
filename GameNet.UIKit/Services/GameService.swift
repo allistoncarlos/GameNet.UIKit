@@ -53,4 +53,38 @@ class GameService: Service<GameModel>, GameServiceProtocol {
                 }
             }
         }
+    
+    func saveUserGame(model: UserGameEditModel, completion: @escaping (Result<APIResult<UserGameEditResponseModel>, Error>) -> Void) -> Void {
+        do {
+            let urlString = "\(Constants.apiPath)/\(apiResource)?"
+            
+            var request: URLRequest
+            
+            guard let url = URL(string: urlString) else { return }
+            
+            request = URLRequest(url: url)
+            request.httpMethod = HTTPMethod.post.rawValue
+            
+            let encoder = JSONEncoder()
+            encoder.dateEncodingStrategy = .iso8601
+            
+            request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
+            request.httpBody = try encoder.encode(model)
+            
+            let json = String(data: request.httpBody!, encoding: .utf8)
+            print(json!)
+            
+            AF.request(request, interceptor: interceptor).responseDecodable(of: APIResult<UserGameEditResponseModel>.self, decoder: decoder) { (response) in
+                switch response.result {
+                    case .success(let value):
+                        completion(.success(value))
+                    case .failure(let error):
+                        completion(.failure(error))
+                }
+            }
+        }
+        catch let error {
+            completion(.failure(error))
+        }
+    }
 }
