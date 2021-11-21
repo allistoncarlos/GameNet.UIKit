@@ -60,7 +60,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let keychain = Keychain(service: Constants.keychainIdentifier)
         
         // ESSA VERIFICAÇÃO É TEMPORÁRIA
-        guard let _ = keychain[Constants.accessTokenIdentifier],
+        guard let _ = keychain[Constants.userIdIdentifier],
+              let _ = keychain[Constants.accessTokenIdentifier],
               let _ = keychain[Constants.refreshTokenIdentifier],
               let expiresIn = keychain[Constants.expiresInIdentifier]?.toDate() else { return false }
         
@@ -68,6 +69,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return true
         }
         
+        keychain[Constants.userIdIdentifier] = nil
         keychain[Constants.accessTokenIdentifier] = nil
         keychain[Constants.refreshTokenIdentifier] = nil
         keychain[Constants.expiresInIdentifier] = nil

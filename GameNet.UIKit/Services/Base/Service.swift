@@ -52,7 +52,8 @@ class Service<T: BaseModel>: ServiceProtocol {
         
         let keychain = Keychain(service: Constants.keychainIdentifier)
         
-        guard let accessToken = keychain[Constants.accessTokenIdentifier],
+        guard let id = keychain[Constants.userIdIdentifier],
+              let accessToken = keychain[Constants.accessTokenIdentifier],
               let refreshToken = keychain[Constants.refreshTokenIdentifier],
               let expiresIn = keychain[Constants.expiresInIdentifier] else {
             interceptor = nil
@@ -63,9 +64,11 @@ class Service<T: BaseModel>: ServiceProtocol {
         
         guard let expiresInDate = dateFormatter.date(from: expiresIn) else { interceptor = nil; return }
         
-        let authCredentials = OAuthCredential(accessToken: accessToken,
-                                              refreshToken: refreshToken,
-                                              expiration: Date.init(timeInterval: 60 * 5, since: expiresInDate))
+        let authCredentials = OAuthCredential(
+            id: id,
+            accessToken: accessToken,
+            refreshToken: refreshToken,
+            expiration: Date.init(timeInterval: 60 * 5, since: expiresInDate))
         
         let container = Container()
         let userService = container.resolve(UserServiceProtocol.self)

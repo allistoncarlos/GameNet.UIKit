@@ -38,6 +38,8 @@ class EditGameViewController: FormViewController {
         let instance = TextFieldFormItem()
         instance.required("Nome é obrigatório")
         instance.title = "Nome"
+        instance.textAlignment = .right
+        instance.autocapitalizationType = .words
         
         return instance
     }()
@@ -46,6 +48,51 @@ class EditGameViewController: FormViewController {
         let instance = OptionPickerFormItem()
         instance.title = "Plataforma"
 
+        return instance
+    }()
+    
+    lazy var priceItem: TextFieldFormItem = {
+        let instance = TextFieldFormItem()
+        instance.required("Preço é obrigatório")
+        instance.title = "Preço"
+        instance.keyboardType = .decimalPad
+        instance.textAlignment = .right
+        
+        return instance
+    }()
+    
+    lazy var boughtDateItem: DatePickerFormItem = {
+        let instance = DatePickerFormItem()
+        instance.locale = Locale(identifier: Locale.current.identifier)
+        instance.datePickerMode = .date
+        instance.title = "Data de Compra"
+        instance.value = Date()
+        return instance
+    }()
+    
+    lazy var haveItem: SwitchFormItem = {
+        let instance = SwitchFormItem()
+        instance.title = "Tenho"
+        instance.value = true
+        return instance
+    }()
+    
+    lazy var wantItem: SwitchFormItem = {
+        let instance = SwitchFormItem()
+        instance.title = "Quero"
+        return instance
+    }()
+    
+    lazy var digitalItem: SwitchFormItem = {
+        let instance = SwitchFormItem()
+        instance.title = "Digital"
+        return instance
+    }()
+    
+    lazy var originalItem: SwitchFormItem = {
+        let instance = SwitchFormItem()
+        instance.title = "Original"
+        instance.value = true
         return instance
     }()
     
@@ -111,6 +158,13 @@ class EditGameViewController: FormViewController {
         builder += SectionHeaderViewFormItem()
         builder += nameFormItem
         builder += platformPickerFormItem
+        builder += priceItem
+        builder += boughtDateItem
+        builder += haveItem
+        builder += wantItem
+        builder += digitalItem
+        builder += originalItem
+        
         builder += SectionFooterViewFormItem()
         
         builder += saveButton
@@ -118,6 +172,8 @@ class EditGameViewController: FormViewController {
     
     // MARK: - Private funcs
     private func save() {
+        priceItem.value = priceItem.value == "" ? "0" : priceItem.value
+        
         formBuilder.validateAndUpdateUI()
         let result = formBuilder.validate()
         
@@ -126,16 +182,36 @@ class EditGameViewController: FormViewController {
             let name = nameFormItem.value
             guard
                 let platformId = platformPickerFormItem.selected?.identifier,
-                let imageData = cell?.cover.image?.jpegData(compressionQuality: 0.0)
-            else { return}
+                let imageData = cell?.cover.image?.jpegData(compressionQuality: 0.0),
+                let price = Double(priceItem.value)
+            else { return }
             
-            let model = GameEditModel(
+            let boughtDate = boughtDateItem.value
+            let have = haveItem.value
+            let want = wantItem.value
+            let digital = digitalItem.value
+            let original = originalItem.value
+            
+            let gameModel = GameEditModel(
                 id: gameId,
                 name: name,
                 cover: imageData,
-                platformId: platformId)
+                platformId: platformId
+            )
             
-            viewModel?.save(data: model)
+            let userGameModel = UserGameEditModel(
+                id: nil,
+                gameId: "",
+                userId: "",
+                price: price,
+                boughtDate: boughtDate,
+                have: have,
+                want: want,
+                digital: digital,
+                original: original
+            )
+            
+            viewModel?.save(gameModel: gameModel, userGameModel: userGameModel)
             
             break
         case .invalid:

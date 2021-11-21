@@ -10,6 +10,7 @@ import Alamofire
 import KeychainAccess
 
 struct OAuthCredential: AuthenticationCredential {
+    let id: String
     let accessToken: String
     let refreshToken: String
     let expiration: Date
@@ -43,9 +44,11 @@ class OAuthAuthenticator: Authenticator {
             switch result {
                 case .success(let response):
                 let newCredentials = OAuthCredential(
-                        accessToken: response.accessToken,
-                        refreshToken: response.refreshToken,
-                        expiration: response.expiresIn)
+                    id: response.id,
+                    accessToken: response.accessToken,
+                    refreshToken: response.refreshToken,
+                    expiration: response.expiresIn)
+                
                     completion(.success(newCredentials))
                 case .failure(let error):
                     print(error.localizedDescription)

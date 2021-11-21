@@ -39,9 +39,10 @@ class UserService: UserServiceProtocol {
             AF.request(request).responseDecodable(of: LoginResponseModel.self, decoder: decoder) { (response) in
                 switch response.result {
                     case .success(let value):
-                        self.saveToken(accessToken: value.accessToken,
-                                       refreshToken: value.refreshToken,
-                                       expiresIn: value.expiresIn)
+                    self.saveToken(userId: value.id,
+                                   accessToken: value.accessToken,
+                                   refreshToken: value.refreshToken,
+                                   expiresIn: value.expiresIn)
                         completion(.success(value))
                     case .failure(let error):
                         completion(.failure(error))
@@ -77,9 +78,10 @@ class UserService: UserServiceProtocol {
                 
                 switch response.result {
                     case .success(let value):
-                        self.saveToken(accessToken: value.accessToken,
-                                       refreshToken: value.refreshToken,
-                                       expiresIn: value.expiresIn)
+                    self.saveToken(userId: value.id,
+                                   accessToken: value.accessToken,
+                                   refreshToken: value.refreshToken,
+                                   expiresIn: value.expiresIn)
                         completion(.success(value))
                     case .failure(let error):
                         completion(.failure(error))
@@ -92,13 +94,18 @@ class UserService: UserServiceProtocol {
     }
     
     // MARK: - Private funcs
-    private func saveToken(accessToken: String, refreshToken: String, expiresIn: Date) {
-        let keychain = Keychain(service: Constants.keychainIdentifier)
-        keychain[Constants.accessTokenIdentifier] = accessToken
-        keychain[Constants.refreshTokenIdentifier] = refreshToken
-    
-        let dateFormatter = ISO8601DateFormatter()
+    private func saveToken(
+        userId: String,
+        accessToken: String,
+        refreshToken: String,
+        expiresIn: Date) {
+            let keychain = Keychain(service: Constants.keychainIdentifier)
+            keychain[Constants.userIdIdentifier] = userId
+            keychain[Constants.accessTokenIdentifier] = accessToken
+            keychain[Constants.refreshTokenIdentifier] = refreshToken
         
-        keychain[Constants.expiresInIdentifier] = dateFormatter.string(from: expiresIn)
+            let dateFormatter = ISO8601DateFormatter()
+            
+            keychain[Constants.expiresInIdentifier] = dateFormatter.string(from: expiresIn)
     }
 }

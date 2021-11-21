@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import KeychainAccess
 
 protocol EditGameViewModelProtocol: AnyObject {
     var renderData: (() -> Void)? { get set }
@@ -17,7 +18,7 @@ protocol EditGameViewModelProtocol: AnyObject {
     
     func fetchData(id: String)
     func fetchPlatforms()
-    func save(data: GameEditModel)
+    func save(gameModel: GameEditModel, userGameModel: UserGameEditModel)
 }
 
 class EditGameViewModel: ObservableObject, EditGameViewModelProtocol {
@@ -70,11 +71,40 @@ class EditGameViewModel: ObservableObject, EditGameViewModelProtocol {
         })
     }
     
-    func save(data: GameEditModel) {
-        service?.object.save(model: data, completion: { [weak self] result in
+    func save(gameModel: GameEditModel, userGameModel: UserGameEditModel) {
+        service?.object.save(model: gameModel, completion: { [weak self] result in
+            switch result {
+            case .success(let resultGameModel):
+                let keychain = Keychain(service: Constants.keychainIdentifier)
+                
+                guard let userId = keychain[Constants.userIdIdentifier],
+                      let gameId = resultGameModel.data.id else { return }
+                
+                let resultUserGameModel = UserGameEditModel(
+                    id: nil,
+                    gameId: gameId,
+                    userId: userId,
+                    price: userGameModel.price,
+                    boughtDate: userGameModel.boughtDate,
+                    have: userGameModel.have,
+                    want: userGameModel.want,
+                    digital: userGameModel.digital,
+                    original: userGameModel.original)
+                
+                
+                self?.saveUserGame(data: resultUserGameModel)
+            case .failure(let error):
+                print(error)
+            }
+        })
+    }
+    
+    private func saveUserGame(data: UserGameEditModel) {
+        service?.object.saveUserGame(model: data, completion: { [weak self] result in
             switch result {
             case .success(_):
                 self?.savedData?()
+                break
             case .failure(let error):
                 print(error)
             }
