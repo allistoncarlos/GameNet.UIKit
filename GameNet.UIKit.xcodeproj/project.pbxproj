@@ -15,6 +15,8 @@
 		A535906A26A35B5B00AB5AFC /* RefreshTokenRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A535906926A35B5B00AB5AFC /* RefreshTokenRequestModel.swift */; };
 		A535906C26A35B6600AB5AFC /* RefreshTokenResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A535906B26A35B6600AB5AFC /* RefreshTokenResponseModel.swift */; };
 		A535906F26A3624F00AB5AFC /* OAuthAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A535906E26A3624F00AB5AFC /* OAuthAuthenticator.swift */; };
+		A559CD4C274BCC8300DEC732 /* EditListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A559CD4B274BCC8300DEC732 /* EditListViewModel.swift */; };
+		A559CD4F274BCCEC00DEC732 /* EditListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A559CD4E274BCCEC00DEC732 /* EditListViewController.swift */; };
 		A56A136D2688D22B0099127C /* LoginRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A136C2688D22B0099127C /* LoginRequestModel.swift */; };
 		A56A136F2688D2450099127C /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A136E2688D2450099127C /* UserService.swift */; };
 		A56A13712688D7ED0099127C /* LoginResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A13702688D7ED0099127C /* LoginResponseModel.swift */; };
@@ -83,6 +85,8 @@
 		A535906926A35B5B00AB5AFC /* RefreshTokenRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokenRequestModel.swift; sourceTree = "<group>"; };
 		A535906B26A35B6600AB5AFC /* RefreshTokenResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokenResponseModel.swift; sourceTree = "<group>"; };
 		A535906E26A3624F00AB5AFC /* OAuthAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthAuthenticator.swift; sourceTree = "<group>"; };
+		A559CD4B274BCC8300DEC732 /* EditListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditListViewModel.swift; sourceTree = "<group>"; };
+		A559CD4E274BCCEC00DEC732 /* EditListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditListViewController.swift; sourceTree = "<group>"; };
 		A56A136C2688D22B0099127C /* LoginRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequestModel.swift; sourceTree = "<group>"; };
 		A56A136E2688D2450099127C /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		A56A13702688D7ED0099127C /* LoginResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponseModel.swift; sourceTree = "<group>"; };
@@ -170,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				A52E6A8D274AEFB000D9E07D /* ListsViewModel.swift */,
+				A559CD4B274BCC8300DEC732 /* EditListViewModel.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -199,6 +204,15 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		A559CD4D274BCCE100DEC732 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				A5FA963E271B7F6B00B76CA6 /* ListsViewController.swift */,
+				A559CD4E274BCCEC00DEC732 /* EditListViewController.swift */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
 		A56A13682688D2010099127C /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -217,12 +231,12 @@
 		A56A136A2688D20D0099127C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A559CD4D274BCCE100DEC732 /* List */,
 				A5888972268B568F0027B7AE /* Cells */,
 				A5A55C32271C5D0F003E412A /* Platform */,
 				A5AD9F45271EF7AD00B1E41C /* Game */,
 				A5D24FB62688D11000F8A0DA /* LoginViewController.swift */,
 				A56A13782688E77E0099127C /* DashboardViewController.swift */,
-				A5FA963E271B7F6B00B76CA6 /* ListsViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -572,6 +586,7 @@
 				A57E280D268A4CB600EFB503 /* APIResult.swift in Sources */,
 				A5EC5A8426CBFEE200AE910D /* GameDetailModel.swift in Sources */,
 				A5936CF3268E2EB400EC93B7 /* PlatformsViewController.swift in Sources */,
+				A559CD4C274BCC8300DEC732 /* EditListViewModel.swift in Sources */,
 				A5936D08268E46C300EC93B7 /* FinishedGameByYearTotalModel.swift in Sources */,
 				A5AD9F4B271EFD1C00B1E41C /* EditGameViewModel.swift in Sources */,
 				A52E6A90274AF08B00D9E07D /* ListService.swift in Sources */,
@@ -589,6 +604,7 @@
 				A5AD4BA926B9B9B1002EBF28 /* FontExtensions.swift in Sources */,
 				A5936D0E268E485E00EC93B7 /* DashboardService.swift in Sources */,
 				A5FA9641271B814300B76CA6 /* UIViewControllerExtensions.swift in Sources */,
+				A559CD4F274BCCEC00DEC732 /* EditListViewController.swift in Sources */,
 				A5AD4BAB26B9BB8F002EBF28 /* DateExtensions.swift in Sources */,
 				A56A136D2688D22B0099127C /* LoginRequestModel.swift in Sources */,
 				A5C5D48B26FBC49600E1C86A /* GameplaySessionModel.swift in Sources */,

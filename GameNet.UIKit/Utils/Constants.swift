@@ -29,6 +29,7 @@ class Constants {
     static let platformsViewTitle = "Plataformas"
     static let editPlatformViewTitle = "Nova Plataforma"
     static let listsViewTitle = "Listas"
+    static let editListViewTitle = "Nova Lista"
     
     static let dateFormat = "dd/MM/yyyy HH:mm"
     

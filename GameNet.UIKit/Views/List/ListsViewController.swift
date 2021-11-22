@@ -56,17 +56,17 @@ class ListsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: "listViewCell")
         
-        if let platforms = viewModel?.apiResult?.data.result {
-            cell.textLabel?.text = platforms[indexPath.row].name
+        if let lists = viewModel?.apiResult?.data.result {
+            cell.textLabel?.text = lists[indexPath.row].name
         }
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let currentPlatform = viewModel?.apiResult?.data.result[indexPath.row]
+        let currentList = viewModel?.apiResult?.data.result[indexPath.row]
         
-        showEditView(id: currentPlatform?.id)
+        showEditView(id: currentList?.id)
     }
     
     // MARK: - Navigation Selectors
@@ -76,27 +76,27 @@ class ListsViewController: UITableViewController {
     
     // MARK: - Private Funcs
     private func showEditView(id: String? = nil) {
-        /*let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let identifier = String(describing: EditPlatformViewController.self)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let identifier = String(describing: EditListViewController.self)
 
-        let editPlatformViewController =
-            storyboard.instantiateViewController(identifier: identifier) as EditPlatformViewController
-        editPlatformViewController.delegate = self
-        editPlatformViewController.platformId = id
+        let editListViewController =
+            storyboard.instantiateViewController(identifier: identifier) as EditListViewController
+        editListViewController.delegate = self
+        editListViewController.listId = id
         
-        editPlatformViewController.modalPresentationStyle = .automatic
-        editPlatformViewController.modalTransitionStyle = .crossDissolve
+        editListViewController.modalPresentationStyle = .automatic
+        editListViewController.modalTransitionStyle = .crossDissolve
         
         let navigationController = UINavigationController()
-        navigationController.viewControllers = [editPlatformViewController]
+        navigationController.viewControllers = [editListViewController]
         
-        present(navigationController, animated: true, completion: nil)*/
+        present(navigationController, animated: true, completion: nil)
     }
 }
 
-//extension PlatformsViewController: EditListViewControllerDelegate {
-//    func savedData() {
-//        dismiss(animated: true, completion: nil)
-//        self.viewModel?.fetchData()
-//    }
-//}
+extension ListsViewController: EditListViewControllerDelegate {
+    func savedData() {
+        dismiss(animated: true, completion: nil)
+        self.viewModel?.fetchData()
+    }
+}

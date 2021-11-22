@@ -618,6 +618,21 @@
             </objects>
             <point key="canvasLocation" x="2875" y="2333"/>
         </scene>
+        <!--Edit List View Controller-->
+        <scene sceneID="tyf-pV-F3c">
+            <objects>
+                <viewController storyboardIdentifier="EditListViewController" id="1o5-uD-kbZ" customClass="EditListViewController" customModule="GameNet_UIKit" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Sox-av-hW5">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="i4M-11-Cr5"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QDB-84-Ug4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3926" y="2332"/>
+        </scene>
         <!--Edit Game View Controller-->
         <scene sceneID="2vr-mX-dLr">
             <objects>
