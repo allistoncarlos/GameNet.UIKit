@@ -45,14 +45,7 @@ class GamesViewController: UIViewController {
         viewModel?.fetchData()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        self.setupStatusBar()
-    }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        
+    override func viewWillLayoutSubviews() {
         self.setupStatusBar()
     }
     

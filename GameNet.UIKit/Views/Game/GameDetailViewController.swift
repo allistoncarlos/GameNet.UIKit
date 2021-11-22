@@ -47,8 +47,7 @@ class GameDetailViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillLayoutSubviews() {
         self.setupStatusBar()
     }
     
@@ -65,12 +64,6 @@ class GameDetailViewController: UIViewController, UIScrollViewDelegate {
                 imageHeightConstraint.constant = 600
             }
         }
-    }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        
-        self.setupStatusBar()
     }
 }
 
