@@ -15,18 +15,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var coordinator: LoginCoordinator?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        NotificationCenter.default.addObserver(self, selector:#selector(loggedIn(notification:)),name:LoginViewController.NotificationLoggedIn,object: nil)
-        
         if !hasValidToken() {
             guard let windowScene = scene as? UIWindowScene else { return }
             
-            let navigationController = UINavigationController()
+            let loginViewController = LoginViewController()
 
-            coordinator = LoginCoordinator(navigationController: navigationController)
+            coordinator = LoginCoordinator(rootViewController: loginViewController)
             coordinator?.start()
 
             window = UIWindow(windowScene: windowScene)
-            window?.rootViewController = navigationController
+            window?.rootViewController = coordinator?.rootViewController
             window?.makeKeyAndVisible()
         }
     }
@@ -79,12 +77,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         keychain[Constants.expiresInIdentifier] = nil
         
         return false
-    }
-    
-    // MARK: - NotificationCenter
-    @objc func loggedIn(notification: Notification) {
-        let storyboard = UIStoryboard(name: "Main", bundle: Bundle(for: type(of: self)))
-        self.window?.rootViewController = storyboard.instantiateInitialViewController()
     }
 }
 

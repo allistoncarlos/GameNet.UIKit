@@ -9,20 +9,30 @@ import UIKit
 
 class LoginCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
-    var navigationController: UINavigationController
+    var rootViewController: UIViewController
 
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
+    init(rootViewController: UIViewController) {
+        self.rootViewController = rootViewController
     }
 
     func start() {
         let vc = LoginViewController.instantiate()
-        navigationController.pushViewController(vc, animated: false)
+        vc.coordinator = self
+        
+        self.rootViewController = vc
     }
     
     func loggedIn() {
+        let tabBarCoordinator = TabBarCoordinator(rootViewController: MainTabBarViewController())
+        
         let vc = MainTabBarViewController.instantiate()
-        navigationController.pushViewController(vc, animated: false)
-        navigationController.viewControllers.removeAll()
+        vc.coordinator = tabBarCoordinator
+        vc.modalPresentationStyle = .fullScreen
+        vc.modalTransitionStyle = .crossDissolve
+        
+        self.rootViewController.show(vc, sender: self)
+        
+        self.childCoordinators.append(TabBarCoordinator(rootViewController: vc))
+        tabBarCoordinator.start()
     }
 }

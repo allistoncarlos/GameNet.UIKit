@@ -8,5 +8,5 @@
 import UIKit
 
 class MainTabBarViewController: UITabBarController, StoryboardCoordinated {
-    
+    var coordinator: TabBarCoordinator?
 }

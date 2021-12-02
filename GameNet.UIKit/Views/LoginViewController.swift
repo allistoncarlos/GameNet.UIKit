@@ -9,10 +9,8 @@ import UIKit
 import Swinject
 
 class LoginViewController: UIViewController, StoryboardCoordinated {
-    // MARK: - Static Properties
-    static let NotificationLoggedIn = NSNotification.Name(rawValue: "LoggedIn")
-    
     // MARK: - Properties
+    var coordinator: LoginCoordinator?
     var viewModel: UserViewModelProtocol?
     
     // MARK: - Outlets
@@ -57,7 +55,7 @@ class LoginViewController: UIViewController, StoryboardCoordinated {
 
 extension LoginViewController {
     func loggedIn() {
-        NotificationCenter.default.post(name: LoginViewController.NotificationLoggedIn, object: nil)
+        self.coordinator?.loggedIn()
     }
 }
 

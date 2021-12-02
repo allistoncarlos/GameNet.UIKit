@@ -43,6 +43,7 @@
 		A5936D0C268E474400EC93B7 /* DashboardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5936D0B268E474400EC93B7 /* DashboardModel.swift */; };
 		A5936D0E268E485E00EC93B7 /* DashboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5936D0D268E485E00EC93B7 /* DashboardService.swift */; };
 		A599DFBC275904A9004ABEBA /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A599DFBB275904A9004ABEBA /* MainTabBarViewController.swift */; };
+		A599DFBE275921A3004ABEBA /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A599DFBD275921A3004ABEBA /* TabBarCoordinator.swift */; };
 		A59E9A012714B5AF00ED21A9 /* PlatformsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59E9A002714B5AF00ED21A9 /* PlatformsViewModel.swift */; };
 		A5A2B754271F4FC4007CAD11 /* GameCoverCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A2B753271F4FC4007CAD11 /* GameCoverCell.swift */; };
 		A5A2B756271F541E007CAD11 /* GameCoverCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5A2B755271F541E007CAD11 /* GameCoverCell.xib */; };
@@ -117,6 +118,7 @@
 		A5936D0B268E474400EC93B7 /* DashboardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardModel.swift; sourceTree = "<group>"; };
 		A5936D0D268E485E00EC93B7 /* DashboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardService.swift; sourceTree = "<group>"; };
 		A599DFBB275904A9004ABEBA /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
+		A599DFBD275921A3004ABEBA /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
 		A59E9A002714B5AF00ED21A9 /* PlatformsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformsViewModel.swift; sourceTree = "<group>"; };
 		A5A2B753271F4FC4007CAD11 /* GameCoverCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCoverCell.swift; sourceTree = "<group>"; };
 		A5A2B755271F541E007CAD11 /* GameCoverCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameCoverCell.xib; sourceTree = "<group>"; };
@@ -448,6 +450,7 @@
 				A5ED37C62758FB2E00D56391 /* Coordinator.swift */,
 				A5ED37C82758FB9300D56391 /* LoginCoordinator.swift */,
 				A5ED37C42758FAC200D56391 /* StoryboardCoordinated.swift */,
+				A599DFBD275921A3004ABEBA /* TabBarCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -607,6 +610,7 @@
 				A5C5D48626FBB8CE00E1C86A /* GameplaySessionService.swift in Sources */,
 				A57E280D268A4CB600EFB503 /* APIResult.swift in Sources */,
 				A5EC5A8426CBFEE200AE910D /* GameDetailModel.swift in Sources */,
+				A599DFBE275921A3004ABEBA /* TabBarCoordinator.swift in Sources */,
 				A5936CF3268E2EB400EC93B7 /* PlatformsViewController.swift in Sources */,
 				A559CD4C274BCC8300DEC732 /* EditListViewModel.swift in Sources */,
 				A5ED37C72758FB2E00D56391 /* Coordinator.swift in Sources */,
