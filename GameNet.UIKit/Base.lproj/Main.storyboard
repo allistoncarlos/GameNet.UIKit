@@ -73,6 +73,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="loginButton" destination="QzC-j0-jq6" id="0eN-if-NEY"/>
                         <outlet property="passwordTextField" destination="fFG-sM-SyI" id="kDP-u2-UYz"/>
                         <outlet property="usernameTextField" destination="RGn-R3-aGY" id="7AO-MB-AMb"/>
                     </connections>
@@ -358,10 +359,10 @@
             </objects>
             <point key="canvasLocation" x="1965.217391304348" y="137.94642857142856"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Main Tab Bar View Controller-->
         <scene sceneID="cVE-M8-KdI">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="GGt-Vu-XKg" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainTabBarViewController" automaticallyAdjustsScrollViewInsets="NO" id="GGt-Vu-XKg" customClass="MainTabBarViewController" customModule="GameNet_UIKit" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="5bw-zX-hvT">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>

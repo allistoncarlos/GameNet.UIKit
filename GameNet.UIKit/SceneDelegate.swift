@@ -12,7 +12,7 @@ import SwinjectStoryboard
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
-    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    var coordinator: LoginCoordinator?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         NotificationCenter.default.addObserver(self, selector:#selector(loggedIn(notification:)),name:LoginViewController.NotificationLoggedIn,object: nil)
@@ -20,9 +20,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if !hasValidToken() {
             guard let windowScene = scene as? UIWindowScene else { return }
             
-            let viewController = storyboard.instantiateViewController (withIdentifier: "LoginViewController")
+            let navigationController = UINavigationController()
+
+            coordinator = LoginCoordinator(navigationController: navigationController)
+            coordinator?.start()
+
             window = UIWindow(windowScene: windowScene)
-            window?.rootViewController = viewController
+            window?.rootViewController = navigationController
             window?.makeKeyAndVisible()
         }
     }

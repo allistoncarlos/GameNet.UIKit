@@ -8,7 +8,7 @@
 import UIKit
 import Swinject
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, StoryboardCoordinated {
     // MARK: - Static Properties
     static let NotificationLoggedIn = NSNotification.Name(rawValue: "LoggedIn")
     
@@ -18,8 +18,13 @@ class LoginViewController: UIViewController {
     // MARK: - Outlets
     @IBOutlet weak var usernameTextField: UITextField?
     @IBOutlet weak var passwordTextField: UITextField?
+    @IBOutlet weak var loginButton: UIButton?
     
     // MARK: - Init
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -33,12 +38,18 @@ class LoginViewController: UIViewController {
                 self?.loggedIn()
             }
         }
+        
+        viewModel?.loginFailed = { [weak self] in
+            self?.loginButton?.isEnabled = true
+        }
     }
 
     // MARK: - IBActions
     @IBAction func loginTouched(_ sender: Any) {
         guard let username = usernameTextField?.text else { return }
         guard let password = passwordTextField?.text else { return }
+        
+        loginButton?.isEnabled = false
         
         viewModel?.login(username: username, password: password)
     }
