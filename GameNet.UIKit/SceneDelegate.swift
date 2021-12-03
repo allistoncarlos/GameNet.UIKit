@@ -18,9 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if !hasValidToken() {
             guard let windowScene = scene as? UIWindowScene else { return }
             
-            let loginViewController = LoginViewController()
-
-            coordinator = LoginCoordinator(rootViewController: loginViewController)
+            coordinator = LoginCoordinator()
             coordinator?.start()
 
             window = UIWindow(windowScene: windowScene)

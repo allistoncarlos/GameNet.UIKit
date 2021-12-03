@@ -297,7 +297,7 @@
         <!--Plataformas-->
         <scene sceneID="qP9-EX-w91">
             <objects>
-                <tableViewController title="Plataformas" id="0n6-ed-qcf" customClass="PlatformsViewController" customModule="GameNet_UIKit" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="PlatformsViewController" title="Plataformas" id="0n6-ed-qcf" customClass="PlatformsViewController" customModule="GameNet_UIKit" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="GZm-hy-JVN">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="761"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
