@@ -25,6 +25,19 @@ class MainTabBarCoordinator: Coordinator {
         
         if let viewControllers = tabBarViewController.viewControllers {
             // Dashboard
+            
+            // Games
+            let gameNavigationController = viewControllers[1] as? UINavigationController
+            let gamesVC = gameNavigationController?.viewControllers.first as? GamesViewController
+
+            if let gameNavigationController = gameNavigationController {
+                let coordinator = GameCoordinator(rootViewController: gameNavigationController)
+                coordinator.start()
+
+                gamesVC?.coordinator = coordinator
+
+                self.childCoordinators.append(coordinator)
+            }
 
             // Platforms
             let platformNavigationController = viewControllers[2] as? UINavigationController

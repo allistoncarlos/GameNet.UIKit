@@ -11,9 +11,10 @@ enum ImageError: Error {
     case couldNotLoadImage
 }
 
-class GamesViewController: UIViewController {
+class GamesViewController: UIViewController, StoryboardCoordinated {
     // MARK: - Properties
     var viewModel: GamesViewModelProtocol?
+    var coordinator: GameCoordinator?
     
     // MARK: - Outlets
     @IBOutlet weak var gamesCollectionView: UICollectionView?
@@ -51,7 +52,7 @@ class GamesViewController: UIViewController {
     
     // MARK: - Navigation Selectors
     @objc func addTapped(_ sender: UIButton?) {
-        showEditView()
+        coordinator?.showGame()
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -65,34 +66,6 @@ class GamesViewController: UIViewController {
                 }
             }
         }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let gameDetailViewController = segue.destination as? GameDetailViewController else { return }
-        
-        let gameViewCell = sender as? GameViewCell
-        
-        gameDetailViewController.title = gameViewCell?.gameName
-        gameDetailViewController.gameId = gameViewCell?.gameId
-    }
-    
-    // MARK: - Private Funcs
-    private func showEditView(id: String? = nil) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let identifier = String(describing: EditGameViewController.self)
-
-        let editGameViewController =
-            storyboard.instantiateViewController(identifier: identifier) as EditGameViewController
-        editGameViewController.delegate = self
-        editGameViewController.gameId = id
-        
-        editGameViewController.modalPresentationStyle = .automatic
-        editGameViewController.modalTransitionStyle = .crossDissolve
-        
-        let navigationController = UINavigationController()
-        navigationController.viewControllers = [editGameViewController]
-        
-        present(navigationController, animated: true, completion: nil)
     }
 }
 
@@ -114,6 +87,12 @@ extension GamesViewController: UICollectionViewDataSource, UICollectionViewDeleg
         }
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let currentGame = viewModel?.apiResult?.data.result[indexPath.row] {
+            coordinator?.showGameDetail(id: currentGame.id!, name: currentGame.name)
+        }
     }
     
     // MARK: - FlowLayoutDelegate

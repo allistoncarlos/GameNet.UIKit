@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GGt-Vu-XKg">
     <device id="retina6_0" orientation="portrait" appearance="dark"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -246,7 +245,6 @@
                                         <size key="customSize" width="135" height="135"/>
                                         <connections>
                                             <outlet property="gameImage" destination="6JZ-Ts-KiA" id="NHp-YH-azy"/>
-                                            <segue destination="dYP-8f-xut" kind="show" identifier="ShowGameDetailSegue" id="tkt-wm-fAR"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -429,7 +427,7 @@
         <!--Game Detail View Controller-->
         <scene sceneID="kbW-nD-2O0">
             <objects>
-                <viewController id="dYP-8f-xut" customClass="GameDetailViewController" customModule="GameNet_UIKit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GameDetailViewController" id="dYP-8f-xut" customClass="GameDetailViewController" customModule="GameNet_UIKit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6YE-z8-4cc">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="761"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -651,9 +649,6 @@
             <point key="canvasLocation" x="4974" y="465"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="orJ-UM-fWY"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="display" catalog="system" width="128" height="101"/>
         <image name="gamecontroller" catalog="system" width="128" height="80"/>
