@@ -30,6 +30,6 @@ class PlatformCoordinator: Coordinator {
         editPlatformViewController.delegate = platformsViewController
         editPlatformViewController.platformId = id
         
-        platformsViewController.present(editPlatformViewController, animated: true, completion: nil)
+        platformsViewController.present(UINavigationController(rootViewController: editPlatformViewController), animated: true, completion: nil)
     }
 }
