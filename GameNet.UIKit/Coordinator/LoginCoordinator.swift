@@ -19,8 +19,10 @@ class LoginCoordinator: Coordinator {
     }
     
     func loggedIn() {
-        let tabBarCoordinator = MainTabBarCoordinator(rootViewController: self.rootViewController)
+        let tabBarCoordinator = MainTabBarCoordinator()
         tabBarCoordinator.start()
+
+        self.rootViewController.show(tabBarCoordinator.rootViewController, sender: nil)
         
         childCoordinators.append(tabBarCoordinator)
     }

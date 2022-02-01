@@ -9,19 +9,16 @@ import UIKit
 
 class MainTabBarCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
-    var rootViewController: UIViewController
-
-    init(rootViewController: UIViewController) {
-        self.rootViewController = rootViewController
-    }
+    var rootViewController: UIViewController = UIViewController()
     
     func start() {
         let tabBarViewController = MainTabBarViewController.instantiate()
         tabBarViewController.coordinator = self
+      
         tabBarViewController.modalPresentationStyle = .fullScreen
         tabBarViewController.modalTransitionStyle = .crossDissolve
         
-        self.rootViewController.show(tabBarViewController, sender: self)
+        self.rootViewController = tabBarViewController
         
         if let viewControllers = tabBarViewController.viewControllers {
             // Dashboard

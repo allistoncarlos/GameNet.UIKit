@@ -12,19 +12,17 @@ import SwinjectStoryboard
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
-    var coordinator: LoginCoordinator?
+    var coordinator: Coordinator?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        if !hasValidToken() {
-            guard let windowScene = scene as? UIWindowScene else { return }
-            
-            coordinator = LoginCoordinator()
-            coordinator?.start()
-
-            window = UIWindow(windowScene: windowScene)
-            window?.rootViewController = coordinator?.rootViewController
-            window?.makeKeyAndVisible()
-        }
+        guard let windowScene = scene as? UIWindowScene else { return }
+      
+        coordinator = !hasValidToken() ? LoginCoordinator() : MainTabBarCoordinator()
+        coordinator?.start()
+      
+        window = UIWindow(windowScene: windowScene)
+        window?.rootViewController = coordinator?.rootViewController
+        window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
