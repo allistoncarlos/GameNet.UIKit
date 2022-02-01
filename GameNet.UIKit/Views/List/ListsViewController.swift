@@ -11,6 +11,7 @@ import UIKit
 class ListsViewController: UITableViewController {
     // MARK: - Properties
     var viewModel: ListsViewModelProtocol?
+    var coordinator: ListCoordinator?
     
     // MARK: - Init
     required init?(coder aDecoder: NSCoder) {
@@ -65,32 +66,13 @@ class ListsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let currentList = viewModel?.apiResult?.data.result[indexPath.row]
-        
-        showEditView(id: currentList?.id)
+
+        coordinator?.showList(id: currentList?.id)
     }
     
     // MARK: - Navigation Selectors
     @objc func addTapped(_ sender: UIButton?) {
-        showEditView()
-    }
-    
-    // MARK: - Private Funcs
-    private func showEditView(id: String? = nil) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let identifier = String(describing: EditListViewController.self)
-
-        let editListViewController =
-            storyboard.instantiateViewController(identifier: identifier) as EditListViewController
-        editListViewController.delegate = self
-        editListViewController.listId = id
-        
-        editListViewController.modalPresentationStyle = .automatic
-        editListViewController.modalTransitionStyle = .crossDissolve
-        
-        let navigationController = UINavigationController()
-        navigationController.viewControllers = [editListViewController]
-        
-        present(navigationController, animated: true, completion: nil)
+        coordinator?.showList()
     }
 }
 

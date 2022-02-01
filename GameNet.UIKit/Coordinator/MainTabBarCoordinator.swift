@@ -51,6 +51,19 @@ class MainTabBarCoordinator: Coordinator {
 
                 self.childCoordinators.append(coordinator)
             }
+          
+            // Lists
+            let listNavigationController = viewControllers[3] as? UINavigationController
+            let listsVC = listNavigationController?.viewControllers.first as? ListsViewController
+
+            if let listNavigationController = listNavigationController {
+                let coordinator = ListCoordinator(rootViewController: listNavigationController)
+                coordinator.start()
+
+                listsVC?.coordinator = coordinator
+
+                self.childCoordinators.append(coordinator)
+            }
         }
     }
 }
