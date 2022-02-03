@@ -12,9 +12,10 @@ class GameDetailTapGestureRecognizer: UITapGestureRecognizer {
     var playingGame: PlayingGameModel?
 }
 
-class DashboardViewController: UIViewController {
+class DashboardViewController: UIViewController, StoryboardCoordinated {
     // MARK: - Properties
     var viewModel: DashboardViewModelProtocol?
+    var coordinator: DashboardCoordinator?
     
     // MARK: - Outlets
     @IBOutlet weak var scrollView: UIScrollView!
@@ -56,28 +57,13 @@ class DashboardViewController: UIViewController {
         viewModel?.fetchData()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        self.setupStatusBar()
-    }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        
+    override func viewWillLayoutSubviews() {
         self.setupStatusBar()
     }
     
     // MARK: - UITableViewDelegate
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return UITableViewCell()
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let gameDetailViewController = segue.destination as? GameDetailViewController else { return }
-        
-        let playingGame = sender as? PlayingGameModel
-        gameDetailViewController.title = playingGame?.name
-        gameDetailViewController.gameId = playingGame?.id
     }
 }
 
@@ -209,6 +195,8 @@ extension DashboardViewController {
     
     // MARK: - Actions
     @objc func showGameDetail(sender : GameDetailTapGestureRecognizer) {
-        performSegue(withIdentifier: "ShowGameDetailSegue", sender: sender.playingGame)
+        if let id = sender.playingGame?.id, let name = sender.playingGame?.name {
+            coordinator?.showGameDetail(id: id, name: name)
+        }
     }
 }

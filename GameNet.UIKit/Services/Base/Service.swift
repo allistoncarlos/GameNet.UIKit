@@ -179,8 +179,11 @@ class Service<T: BaseModel>: ServiceProtocol {
                 request.httpMethod = HTTPMethod.post.rawValue
             }
             
+            let encoder = JSONEncoder()
+            encoder.dateEncodingStrategy = .iso8601
+            
             request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
-            request.httpBody = try JSONEncoder().encode(model)
+            request.httpBody = try encoder.encode(model)
             
             let json = String(data: request.httpBody!, encoding: .utf8)
             print(json!)

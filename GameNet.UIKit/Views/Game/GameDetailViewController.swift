@@ -11,7 +11,7 @@ import SDWebImage
 import UIKit
 import SDWebImage
 
-class GameDetailViewController: UIViewController, UIScrollViewDelegate {
+class GameDetailViewController: UIViewController, UIScrollViewDelegate, StoryboardCoordinated {
     // MARK: - Properties
     var viewModel: GameDetailViewModelProtocol?
     var gameId: String?
@@ -29,11 +29,6 @@ class GameDetailViewController: UIViewController, UIScrollViewDelegate {
     
     @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint!
     
-    // MARK: - Init
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
     // MARK: - Override functions
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -47,8 +42,7 @@ class GameDetailViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillLayoutSubviews() {
         self.setupStatusBar()
     }
     
@@ -65,12 +59,6 @@ class GameDetailViewController: UIViewController, UIScrollViewDelegate {
                 imageHeightConstraint.constant = 600
             }
         }
-    }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        
-        self.setupStatusBar()
     }
 }
 

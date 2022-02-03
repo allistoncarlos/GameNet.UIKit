@@ -13,7 +13,7 @@ protocol EditGameViewControllerDelegate {
     func savedData()
 }
 
-class EditGameViewController: FormViewController {
+class EditGameViewController: FormViewController, StoryboardCoordinated {
     // MARK: - Properties
     var gameId: String?
     var viewModel: EditGameViewModelProtocol?

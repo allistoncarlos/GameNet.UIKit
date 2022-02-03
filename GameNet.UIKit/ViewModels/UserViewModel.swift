@@ -9,6 +9,7 @@ import Foundation
 
 protocol UserViewModelProtocol: AnyObject {
     var loggedIn: (() -> Void)? { get set }
+    var loginFailed: (() -> Void)? { get set }
     func login(username: String, password: String)
 }
 
@@ -16,6 +17,7 @@ final class UserViewModel: ObservableObject, UserViewModelProtocol {
     private var service: UserServiceProtocol?
     
     var loggedIn: (() -> Void)?
+    var loginFailed: (() -> Void)?
     
     init(service: UserServiceProtocol?) {
         self.service = service
@@ -29,7 +31,7 @@ final class UserViewModel: ObservableObject, UserViewModelProtocol {
             case .success(_):
                 self.loggedIn?()
             case .failure(_):
-                print(result)
+                self.loginFailed?()
             }
         }
     }

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GGt-Vu-XKg">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_0" orientation="portrait" appearance="dark"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -73,6 +72,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="loginButton" destination="QzC-j0-jq6" id="0eN-if-NEY"/>
                         <outlet property="passwordTextField" destination="fFG-sM-SyI" id="kDP-u2-UYz"/>
                         <outlet property="usernameTextField" destination="RGn-R3-aGY" id="7AO-MB-AMb"/>
                     </connections>
@@ -199,7 +199,6 @@
                         <outlet property="playingGamesView" destination="qfo-Kj-wwO" id="dNB-an-vIX"/>
                         <outlet property="scrollView" destination="ugT-ZM-P5i" id="jjf-yz-5nJ"/>
                         <outlet property="totalGamesLabel" destination="bVB-Qb-cDK" id="fMr-Qt-0kX"/>
-                        <segue destination="dYP-8f-xut" kind="show" identifier="ShowGameDetailSegue" id="orJ-UM-fWY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NoB-nG-FkN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -245,7 +244,6 @@
                                         <size key="customSize" width="135" height="135"/>
                                         <connections>
                                             <outlet property="gameImage" destination="6JZ-Ts-KiA" id="NHp-YH-azy"/>
-                                            <segue destination="dYP-8f-xut" kind="show" identifier="ShowGameDetailSegue" id="tkt-wm-fAR"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -296,7 +294,7 @@
         <!--Plataformas-->
         <scene sceneID="qP9-EX-w91">
             <objects>
-                <tableViewController title="Plataformas" id="0n6-ed-qcf" customClass="PlatformsViewController" customModule="GameNet_UIKit" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="PlatformsViewController" title="Plataformas" id="0n6-ed-qcf" customClass="PlatformsViewController" customModule="GameNet_UIKit" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="GZm-hy-JVN">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="761"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -358,10 +356,10 @@
             </objects>
             <point key="canvasLocation" x="1965.217391304348" y="137.94642857142856"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Main Tab Bar View Controller-->
         <scene sceneID="cVE-M8-KdI">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="GGt-Vu-XKg" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainTabBarViewController" automaticallyAdjustsScrollViewInsets="NO" id="GGt-Vu-XKg" customClass="MainTabBarViewController" customModule="GameNet_UIKit" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="5bw-zX-hvT">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -403,22 +401,6 @@
             </objects>
             <point key="canvasLocation" x="1965" y="865"/>
         </scene>
-        <!--Lists View Controller-->
-        <scene sceneID="b8I-AD-fg3">
-            <objects>
-                <viewController id="ubl-12-TdS" customClass="ListsViewController" customModule="GameNet_UIKit" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="BiB-47-fQe">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="761"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="MRN-H6-GjJ"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="W98-Rx-vaR"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gis-3x-x8b" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2906.4000000000001" y="2333.497536945813"/>
-        </scene>
         <!--Plataformas-->
         <scene sceneID="gRS-yv-YAR">
             <objects>
@@ -444,13 +426,13 @@
         <!--Game Detail View Controller-->
         <scene sceneID="kbW-nD-2O0">
             <objects>
-                <viewController id="dYP-8f-xut" customClass="GameDetailViewController" customModule="GameNet_UIKit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GameDetailViewController" id="dYP-8f-xut" customClass="GameDetailViewController" customModule="GameNet_UIKit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6YE-z8-4cc">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="761"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W9U-px-INi">
-                                <rect key="frame" x="0.0" y="140" width="390" height="621"/>
+                                <rect key="frame" x="0.0" y="44" width="390" height="766"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="9Zt-BQ-2Ek">
                                         <rect key="frame" x="0.0" y="15" width="390" height="649.33333333333337"/>
@@ -598,12 +580,56 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="ubl-12-TdS" kind="relationship" relationship="rootViewController" id="Gv1-g3-udN"/>
+                        <segue destination="xUa-6T-jnh" kind="relationship" relationship="rootViewController" id="I5W-HP-AiH"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="orD-sG-HXo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1964" y="2333.497536945813"/>
+        </scene>
+        <!--Lists View Controller-->
+        <scene sceneID="w41-Gh-Exo">
+            <objects>
+                <tableViewController storyboardIdentifier="listsViewController" id="xUa-6T-jnh" customClass="ListsViewController" customModule="GameNet_UIKit" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="sR9-eL-Ism">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="761"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="listViewCell" id="Sl0-2d-zCl">
+                                <rect key="frame" x="0.0" y="44.666666030883789" width="390" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Sl0-2d-zCl" id="yX2-dG-DKp">
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="xUa-6T-jnh" id="AlT-1K-YT8"/>
+                            <outlet property="delegate" destination="xUa-6T-jnh" id="LuT-Fr-Fan"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="ZsI-P4-7e9"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="l7i-Jk-K1s" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2875" y="2333"/>
+        </scene>
+        <!--Edit List View Controller-->
+        <scene sceneID="tyf-pV-F3c">
+            <objects>
+                <viewController storyboardIdentifier="EditListViewController" id="1o5-uD-kbZ" customClass="EditListViewController" customModule="GameNet_UIKit" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Sox-av-hW5">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="i4M-11-Cr5"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QDB-84-Ug4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3926" y="2332"/>
         </scene>
         <!--Edit Game View Controller-->
         <scene sceneID="2vr-mX-dLr">
@@ -622,9 +648,6 @@
             <point key="canvasLocation" x="4974" y="465"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="orJ-UM-fWY"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="display" catalog="system" width="128" height="101"/>
         <image name="gamecontroller" catalog="system" width="128" height="80"/>

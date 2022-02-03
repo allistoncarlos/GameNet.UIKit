@@ -1,23 +1,23 @@
 //
-//  EditPlatformViewController.swift
+//  EditListViewController.swift
 //  GameNet.UIKit
 //
-//  Created by Alliston Aleixo on 17/10/21.
+//  Created by Alliston Aleixo on 22/11/21.
 //
 
 import Foundation
 import UIKit
 import SwiftyFORM
 
-protocol EditPlatformViewControllerDelegate {
+protocol EditListViewControllerDelegate {
     func savedData()
 }
 
-class EditPlatformViewController: FormViewController, StoryboardCoordinated {
+class EditListViewController: FormViewController, StoryboardCoordinated {
     // MARK: - Properties
-    var platformId: String?
-    var viewModel: EditPlatformViewModelProtocol?
-    var delegate: EditPlatformViewControllerDelegate?
+    var listId: String?
+    var viewModel: EditListViewModelProtocol?
+    var delegate: EditListViewControllerDelegate?
     
     // MARK: - FormFields
     lazy var nameFormItem: TextFieldFormItem = {
@@ -40,7 +40,7 @@ class EditPlatformViewController: FormViewController, StoryboardCoordinated {
             }
         }
         
-        if let platformId = platformId {
+        if let listId = listId {
             viewModel?.renderData = { [weak self] in
                 DispatchQueue.main.async {
                     if let data = self?.viewModel?.apiResult?.data,
@@ -52,9 +52,9 @@ class EditPlatformViewController: FormViewController, StoryboardCoordinated {
                 }
             }
             
-            viewModel?.fetchData(id: platformId)
+            viewModel?.fetchData(id: listId)
         } else {
-            self.setupModalNavigationBar(title: Constants.editPlatformViewTitle)
+            self.setupModalNavigationBar(title: Constants.editListViewTitle)
         }
     }
     
@@ -88,8 +88,8 @@ class EditPlatformViewController: FormViewController, StoryboardCoordinated {
         
         switch result {
         case .valid:
-            viewModel?.save(id: platformId, data: PlatformModel(
-                id: platformId,
+            viewModel?.save(id: listId, data: ListModel(
+                id: listId,
                 name: nameFormItem.value))
         case .invalid:
             break

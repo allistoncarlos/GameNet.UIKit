@@ -12,19 +12,17 @@ import SwinjectStoryboard
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
-    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    var coordinator: Coordinator?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        NotificationCenter.default.addObserver(self, selector:#selector(loggedIn(notification:)),name:LoginViewController.NotificationLoggedIn,object: nil)
-        
-        if !hasValidToken() {
-            guard let windowScene = scene as? UIWindowScene else { return }
-            
-            let viewController = storyboard.instantiateViewController (withIdentifier: "LoginViewController")
-            window = UIWindow(windowScene: windowScene)
-            window?.rootViewController = viewController
-            window?.makeKeyAndVisible()
-        }
+        guard let windowScene = scene as? UIWindowScene else { return }
+      
+        coordinator = !hasValidToken() ? LoginCoordinator() : MainTabBarCoordinator()
+        coordinator?.start()
+      
+        window = UIWindow(windowScene: windowScene)
+        window?.rootViewController = coordinator?.rootViewController
+        window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -76,12 +74,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         return false
     }
-    
-    // MARK: - NotificationCenter
-    @objc func loggedIn(notification: Notification) {
-        let storyboard = UIStoryboard(name: "Main", bundle: Bundle(for: type(of: self)))
-        self.window?.rootViewController = storyboard.instantiateInitialViewController()
-    }
 }
 
 extension SwinjectStoryboard {
@@ -110,6 +102,12 @@ extension SwinjectStoryboard {
         defaultContainer.storyboardInitCompleted(EditPlatformViewController.self) { r, c in
             c.viewModel = EditPlatformViewModel(service: r.resolve(ServiceBox<PlatformService>.self))
         }
+        defaultContainer.storyboardInitCompleted(ListsViewController.self) { r, c in
+            c.viewModel = ListsViewModel(service: r.resolve(ServiceBox<ListService>.self))
+        }
+        defaultContainer.storyboardInitCompleted(EditListViewController.self) { r, c in
+            c.viewModel = EditListViewModel(service: r.resolve(ServiceBox<ListService>.self))
+        }
         
         
         // Services
@@ -125,6 +123,9 @@ extension SwinjectStoryboard {
         }
         defaultContainer.register(ServiceBox.self) { _ in
             ServiceBox<PlatformService>(object: PlatformService(apiResource: Constants.platformResource))
+        }
+        defaultContainer.register(ServiceBox.self) { _ in
+            ServiceBox<ListService>(object: ListService(apiResource: Constants.listResource))
         }
     }
 }

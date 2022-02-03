@@ -1,23 +1,28 @@
 //
-//  PlatformsViewController.swift
+//  ListsViewModel.swift
 //  GameNet.UIKit
 //
-//  Created by Alliston Aleixo on 01/07/21.
+//  Created by Alliston Aleixo on 16/10/21.
 //
 
+import Foundation
 import UIKit
-import Swinject
 
-class PlatformsViewController: UITableViewController, StoryboardCoordinated {
+class ListsViewController: UITableViewController {
     // MARK: - Properties
-    var viewModel: PlatformsViewModelProtocol?
-    var coordinator: PlatformCoordinator?
+    var viewModel: ListsViewModelProtocol?
+    var coordinator: ListCoordinator?
+    
+    // MARK: - Init
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
     
     // MARK: - Override funcs
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = Constants.platformsViewTitle
+        self.navigationItem.title = Constants.listsViewTitle
         let barButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         barButtonItem.tintColor = UIColor.white
         
@@ -50,28 +55,28 @@ class PlatformsViewController: UITableViewController, StoryboardCoordinated {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "platformViewCell")
+        let cell = UITableViewCell(style: .default, reuseIdentifier: "listViewCell")
         
-        if let platforms = viewModel?.apiResult?.data.result {
-            cell.textLabel?.text = platforms[indexPath.row].name
+        if let lists = viewModel?.apiResult?.data.result {
+            cell.textLabel?.text = lists[indexPath.row].name
         }
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let currentPlatform = viewModel?.apiResult?.data.result[indexPath.row]
+        let currentList = viewModel?.apiResult?.data.result[indexPath.row]
 
-        coordinator?.showPlatform(id: currentPlatform?.id)
+        coordinator?.showList(id: currentList?.id)
     }
     
     // MARK: - Navigation Selectors
     @objc func addTapped(_ sender: UIButton?) {
-        coordinator?.showPlatform()
+        coordinator?.showList()
     }
 }
 
-extension PlatformsViewController: EditPlatformViewControllerDelegate {
+extension ListsViewController: EditListViewControllerDelegate {
     func savedData() {
         dismiss(animated: true, completion: nil)
         self.viewModel?.fetchData()
