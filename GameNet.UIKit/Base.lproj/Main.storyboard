@@ -199,7 +199,6 @@
                         <outlet property="playingGamesView" destination="qfo-Kj-wwO" id="dNB-an-vIX"/>
                         <outlet property="scrollView" destination="ugT-ZM-P5i" id="jjf-yz-5nJ"/>
                         <outlet property="totalGamesLabel" destination="bVB-Qb-cDK" id="fMr-Qt-0kX"/>
-                        <segue destination="dYP-8f-xut" kind="show" identifier="ShowGameDetailSegue" id="orJ-UM-fWY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NoB-nG-FkN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -429,11 +428,11 @@
             <objects>
                 <viewController storyboardIdentifier="GameDetailViewController" id="dYP-8f-xut" customClass="GameDetailViewController" customModule="GameNet_UIKit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6YE-z8-4cc">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="761"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W9U-px-INi">
-                                <rect key="frame" x="0.0" y="140" width="390" height="621"/>
+                                <rect key="frame" x="0.0" y="44" width="390" height="766"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="9Zt-BQ-2Ek">
                                         <rect key="frame" x="0.0" y="15" width="390" height="649.33333333333337"/>
