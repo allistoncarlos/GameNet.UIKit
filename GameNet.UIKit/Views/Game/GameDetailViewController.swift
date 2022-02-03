@@ -11,7 +11,7 @@ import SDWebImage
 import UIKit
 import SDWebImage
 
-class GameDetailViewController: UIViewController, UIScrollViewDelegate {
+class GameDetailViewController: UIViewController, UIScrollViewDelegate, StoryboardCoordinated {
     // MARK: - Properties
     var viewModel: GameDetailViewModelProtocol?
     var gameId: String?
@@ -28,11 +28,6 @@ class GameDetailViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var gameplays: UIStackView!
     
     @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint!
-    
-    // MARK: - Init
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
     
     // MARK: - Override functions
     override func viewWillAppear(_ animated: Bool) {

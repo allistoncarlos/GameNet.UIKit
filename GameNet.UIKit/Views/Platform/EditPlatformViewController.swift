@@ -13,7 +13,7 @@ protocol EditPlatformViewControllerDelegate {
     func savedData()
 }
 
-class EditPlatformViewController: FormViewController {
+class EditPlatformViewController: FormViewController, StoryboardCoordinated {
     // MARK: - Properties
     var platformId: String?
     var viewModel: EditPlatformViewModelProtocol?

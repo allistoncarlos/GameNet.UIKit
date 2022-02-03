@@ -8,14 +8,10 @@
 import UIKit
 import Swinject
 
-class PlatformsViewController: UITableViewController {
+class PlatformsViewController: UITableViewController, StoryboardCoordinated {
     // MARK: - Properties
     var viewModel: PlatformsViewModelProtocol?
-    
-    // MARK: - Init
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
+    var coordinator: PlatformCoordinator?
     
     // MARK: - Override funcs
     override func viewDidLoad() {
@@ -65,32 +61,13 @@ class PlatformsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let currentPlatform = viewModel?.apiResult?.data.result[indexPath.row]
-        
-        showEditView(id: currentPlatform?.id)
+
+        coordinator?.showPlatform(id: currentPlatform?.id)
     }
     
     // MARK: - Navigation Selectors
     @objc func addTapped(_ sender: UIButton?) {
-        showEditView()
-    }
-    
-    // MARK: - Private Funcs
-    private func showEditView(id: String? = nil) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let identifier = String(describing: EditPlatformViewController.self)
-
-        let editPlatformViewController =
-            storyboard.instantiateViewController(identifier: identifier) as EditPlatformViewController
-        editPlatformViewController.delegate = self
-        editPlatformViewController.platformId = id
-        
-        editPlatformViewController.modalPresentationStyle = .automatic
-        editPlatformViewController.modalTransitionStyle = .crossDissolve
-        
-        let navigationController = UINavigationController()
-        navigationController.viewControllers = [editPlatformViewController]
-        
-        present(navigationController, animated: true, completion: nil)
+        coordinator?.showPlatform()
     }
 }
 
