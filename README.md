@@ -1,6 +1,6 @@
 # GameNet
 App created in UIKit in order to control users' games library. 
-It's developed in Swift 5, and relies in a ASP.Net API backend.
+It's developed in Swift 5 with Storyboard, and relies in a ASP.Net API backend.
 
 Those are some features:
 
@@ -33,3 +33,27 @@ Helps the user to create some lists. Example: Best The Legend of Zelda games, Bu
 <img src="https://github.com/allistoncarlos/GameNet.UIKit/blob/master/Screenshots/Lists.png" alt="Lists" width="200"/>
 <img src="https://github.com/allistoncarlos/GameNet.UIKit/blob/master/Screenshots/NewList.png" alt="New List" width="200"/>
 </p>
+
+### Pods
+It uses some pods
+* [Alamofire 5.4](https://github.com/Alamofire/Alamofire)
+* [Keychain Access](https://github.com/kishikawakatsumi/KeychainAccess)
+* [Swinject](https://github.com/Swinject/Swinject)
+* [SDWebImage](https://github.com/SDWebImage/SDWebImage)
+* [SwiftyFORM](https://github.com/neoneye/SwiftyFORM)
+
+### Architecture and design patterns
+MVVM (previously used MVP), Coordinator, DI (using Swinject)
+
+### Known bugs
+* Status bar glitches
+* Not prepared for light mode
+* Pagination in games' view crashes the app when the user tries to select another game
+
+### Next steps
+- [ ] Finish lists feature
+- [ ] Correct the bugs
+- [ ] Unit Tests
+- [ ] Migrate to CleanArchitecture
+- [ ] Get rid of Storyboard, migrating it to Viewcode
+- [ ] Use iCloud
