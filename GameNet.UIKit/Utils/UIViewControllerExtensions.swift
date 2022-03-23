@@ -10,15 +10,13 @@ import UIKit
 
 extension UIViewController {
     func setupStatusBar() {
-        if let previousStatusBar = view.superview?.viewWithTag(999) {
-            previousStatusBar.removeFromSuperview()
-        }
-        
-        let statusBarFrame = self.view.window?.windowScene?.statusBarManager?.statusBarFrame ?? CGRect.zero
-        let statusBarView = UIView(frame: statusBarFrame)
-        statusBarView.tag = 999
-        statusBarView.backgroundColor = Constants.primaryColor
-        view.superview?.addSubview(statusBarView)
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithOpaqueBackground()
+        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+        navBarAppearance.backgroundColor = Constants.primaryColor
+        self.navigationController?.navigationBar.standardAppearance = navBarAppearance
+        self.navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
     }
     
     func setupModalNavigationBar(title: String) {
