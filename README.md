@@ -46,7 +46,6 @@ It uses some pods
 MVVM (previously used MVP), Coordinator, DI (using Swinject)
 
 ### Known bugs
-* Status bar glitches
 * Not prepared for light mode
 * Pagination in games' view crashes the app when the user tries to select another game
 
