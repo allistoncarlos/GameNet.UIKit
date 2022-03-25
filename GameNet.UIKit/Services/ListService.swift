@@ -8,7 +8,7 @@
 import Foundation
 
 protocol ListServiceProtocol: ServiceProtocol {
-    
+
 }
 
 class ListService: Service<ListModel>, ListServiceProtocol {

@@ -16,7 +16,7 @@ struct DashboardModel: BaseModel {
     var gamesByPlatform: PlatformGamesModel?
     var totalPrice: Double?
     var totalGames: Int?
-    
+
     enum CodingKeys: String, CodingKey {
         case id
         case boughtByYear

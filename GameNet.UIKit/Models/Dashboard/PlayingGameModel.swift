@@ -12,7 +12,7 @@ struct PlayingGameModel: BaseModel {
     var name: String
     var platform: String
     var latestGameplaySession: LatestGameplaySessionModel?
-    
+
     enum CodingKeys: String, CodingKey {
         case id
         case name

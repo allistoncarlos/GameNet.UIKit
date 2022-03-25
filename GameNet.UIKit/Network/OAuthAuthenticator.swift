@@ -25,7 +25,7 @@ class OAuthAuthenticator: Authenticator {
     init (userService: UserServiceProtocol?) {
         self.userService = userService
     }
-    
+
     func apply(_ credential: OAuthCredential, to urlRequest: inout URLRequest) {
         urlRequest.headers.add(.authorization(bearerToken: credential.accessToken))
     }
@@ -34,28 +34,28 @@ class OAuthAuthenticator: Authenticator {
                  for session: Session,
                  completion: @escaping (Result<OAuthCredential, Error>) -> Void) {
         print("VAI DAR REFRESH")
-        
+
         let refreshTokenRequestModel = RefreshTokenRequestModel(
             accessToken: credential.accessToken,
             refreshToken: credential.refreshToken)
-        
+
         userService?.refreshToken(refreshTokenRequestModel: refreshTokenRequestModel,
                                   completion: { (result) in
             switch result {
-                case .success(let response):
-                let newCredentials = OAuthCredential(
-                    id: response.id,
-                    accessToken: response.accessToken,
-                    refreshToken: response.refreshToken,
-                    expiration: response.expiresIn)
-                
-                    completion(.success(newCredentials))
-                case .failure(let error):
-                    print(error.localizedDescription)
-                    completion(.failure(error))
+            case .success(let response):
+            let newCredentials = OAuthCredential(
+                id: response.id,
+                accessToken: response.accessToken,
+                refreshToken: response.refreshToken,
+                expiration: response.expiresIn)
+
+                completion(.success(newCredentials))
+            case .failure(let error):
+                print(error.localizedDescription)
+                completion(.failure(error))
             }
         })
-    
+
         // Refresh the credential using the refresh token...then call completion with the new credential.
         //
         // The new credential will automatically be stored within the `AuthenticationInterceptor`. Future requests will

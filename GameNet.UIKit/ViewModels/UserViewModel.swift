@@ -15,22 +15,21 @@ protocol UserViewModelProtocol: AnyObject {
 
 final class UserViewModel: ObservableObject, UserViewModelProtocol {
     private var service: UserServiceProtocol?
-    
+
     var loggedIn: (() -> Void)?
     var loginFailed: (() -> Void)?
-    
+
     init(service: UserServiceProtocol?) {
         self.service = service
     }
-    
+
     // MARK: - UserViewModelProtocol
     func login(username: String, password: String) {
-        service?.login(loginRequestModel: LoginRequestModel(username: username, password: password))
-        { (result) in
+        service?.login(loginRequestModel: LoginRequestModel(username: username, password: password)) { (result) in
             switch result {
-            case .success(_):
+            case .success:
                 self.loggedIn?()
-            case .failure(_):
+            case .failure:
                 self.loginFailed?()
             }
         }

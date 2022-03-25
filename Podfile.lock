@@ -4,6 +4,7 @@ PODS:
   - SDWebImage (5.11.1):
     - SDWebImage/Core (= 5.11.1)
   - SDWebImage/Core (5.11.1)
+  - SwiftLint (0.47.0)
   - SwiftyFORM (1.8.6)
   - Swinject (2.7.1)
   - SwinjectStoryboard (2.2.1):
@@ -13,6 +14,7 @@ DEPENDENCIES:
   - Alamofire (~> 5.4)
   - KeychainAccess
   - SDWebImage
+  - SwiftLint
   - SwiftyFORM
   - Swinject
   - SwinjectStoryboard
@@ -22,6 +24,7 @@ SPEC REPOS:
     - Alamofire
     - KeychainAccess
     - SDWebImage
+    - SwiftLint
     - SwiftyFORM
     - Swinject
     - SwinjectStoryboard
@@ -30,10 +33,11 @@ SPEC CHECKSUMS:
   Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
   KeychainAccess: c0c4f7f38f6fc7bbe58f5702e25f7bd2f65abf51
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
+  SwiftLint: d41cc46a2ae58ac6d9f26954bc89f1d72e71fdef
   SwiftyFORM: 9e8693193e626cf70940641433c810ba1ef3f53b
   Swinject: ddf78b8486dd9b71a667b852cad919ab4484478e
   SwinjectStoryboard: fe54ea9494a75348b1f3126e5e278e674f5684ad
 
-PODFILE CHECKSUM: b760da1bc548be16b172982a8a7d07792441f3fa
+PODFILE CHECKSUM: 6fe7d059e883900c035ad1cad293ebd2f024cc0f
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3

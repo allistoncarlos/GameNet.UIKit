@@ -11,7 +11,7 @@ struct APIResult<T: Codable>: Codable {
     var ok: Bool
     var errors: [String]
     var data: T
-    
+
     enum CodingKeys: String, CodingKey {
         case ok
         case errors

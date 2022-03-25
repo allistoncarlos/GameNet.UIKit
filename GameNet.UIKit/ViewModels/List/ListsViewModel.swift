@@ -10,25 +10,25 @@ import Foundation
 protocol ListsViewModelProtocol: AnyObject {
     var renderData: (() -> Void)? { get set }
     var apiResult: APIResult<PagedResult<ListModel>>? { get set }
-    
+
     func fetchData()
 }
 
 class ListsViewModel: ObservableObject, ListsViewModelProtocol {
     private var service: ServiceBox<ListService>?
-    
+
     var apiResult: APIResult<PagedResult<ListModel>>? {
         didSet {
             renderData?()
         }
     }
-    
+
     var renderData: (() -> Void)?
-    
+
     init(service: ServiceBox<ListService>?) {
         self.service = service
     }
-    
+
     // MARK: - ListsViewModelProtocol
     func fetchData() {
         service?.object.load(page: nil, pageSize: nil, completion: { (result) in

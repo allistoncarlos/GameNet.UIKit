@@ -13,10 +13,10 @@ struct PagedResult<T: Codable>: Codable {
     var page: Int?
     var pageSize: Int?
     var search: String?
-    var result: Array<T>
-    
+    var result: [T]
+
     var totalPages: Int
-    
+
     enum CodingKeys: String, CodingKey {
         case count
         case totalCount
@@ -24,7 +24,7 @@ struct PagedResult<T: Codable>: Codable {
         case pageSize
         case search
         case result
-        
+
         case totalPages
     }
 }

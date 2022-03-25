@@ -8,7 +8,7 @@
 import Foundation
 
 protocol DashboardServiceProtocol: ServiceProtocol {
-    
+
 }
 
 class DashboardService: Service<DashboardModel>, DashboardServiceProtocol {

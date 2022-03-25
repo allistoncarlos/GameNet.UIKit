@@ -11,7 +11,7 @@ struct BoughtGamesByYearTotalModel: Codable {
     var year: Int
     var total: Decimal
     var quantity: Int
-    
+
     enum CodingKeys: String, CodingKey {
         case year
         case total

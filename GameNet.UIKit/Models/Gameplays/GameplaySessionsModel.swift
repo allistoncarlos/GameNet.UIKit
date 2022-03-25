@@ -12,7 +12,7 @@ struct GameplaySessionsModel: BaseModel {
     var sessions: [GameplaySessionModel?]
     var totalGameplayTime: String
     var averageGameplayTime: String
-    
+
     enum CodingKeys: String, CodingKey {
         case sessions
         case totalGameplayTime

@@ -10,7 +10,7 @@ import Foundation
 struct FinishedGameByYearTotalModel: Codable {
     var year: Int
     var total: Int
-    
+
     enum CodingKeys: String, CodingKey {
         case year
         case total

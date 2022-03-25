@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import SwiftyFORM
 
-protocol EditGameViewControllerDelegate {
+protocol EditGameViewControllerDelegate: AnyObject {
     func savedData()
 }
 
@@ -20,47 +20,47 @@ class EditGameViewController: FormViewController, StoryboardCoordinated {
     var delegate: EditGameViewControllerDelegate?
     var imagePickerController = UIImagePickerController()
     var cell: GameCoverCell?
-    
+
     // MARK: - FormFields
     lazy var imageFormItem: CustomFormItem = {
         let instance = CustomFormItem()
         instance.createCell = { [weak self] _ in
             self?.cell = try GameCoverCell.createCell()
             self?.cell?.selectImageDelegate = self
-            
+
             return self?.cell ?? UITableViewCell()
         }
-        
+
         return instance
     }()
-    
+
     lazy var nameFormItem: TextFieldFormItem = {
         let instance = TextFieldFormItem()
         instance.required("Nome é obrigatório")
         instance.title = "Nome"
         instance.textAlignment = .right
         instance.autocapitalizationType = .words
-        
+
         return instance
     }()
-    
+
     lazy var platformPickerFormItem: OptionPickerFormItem = {
         let instance = OptionPickerFormItem()
         instance.title = "Plataforma"
 
         return instance
     }()
-    
+
     lazy var priceItem: TextFieldFormItem = {
         let instance = TextFieldFormItem()
         instance.required("Preço é obrigatório")
         instance.title = "Preço"
         instance.keyboardType = .decimalPad
         instance.textAlignment = .right
-        
+
         return instance
     }()
-    
+
     lazy var boughtDateItem: DatePickerFormItem = {
         let instance = DatePickerFormItem()
         instance.locale = Locale(identifier: Locale.current.identifier)
@@ -69,45 +69,45 @@ class EditGameViewController: FormViewController, StoryboardCoordinated {
         instance.value = Date()
         return instance
     }()
-    
+
     lazy var haveItem: SwitchFormItem = {
         let instance = SwitchFormItem()
         instance.title = "Tenho"
         instance.value = true
         return instance
     }()
-    
+
     lazy var wantItem: SwitchFormItem = {
         let instance = SwitchFormItem()
         instance.title = "Quero"
         return instance
     }()
-    
+
     lazy var digitalItem: SwitchFormItem = {
         let instance = SwitchFormItem()
         instance.title = "Digital"
         return instance
     }()
-    
+
     lazy var originalItem: SwitchFormItem = {
         let instance = SwitchFormItem()
         instance.title = "Original"
         instance.value = true
         return instance
     }()
-    
+
     // MARK: - Override funcs
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         viewModel?.savedData = { [weak self] in
             DispatchQueue.main.async {
                 self?.delegate?.savedData()
             }
         }
-        
+
         viewModel?.renderPlatformsData = { [weak self] in
             DispatchQueue.main.async {
                 if let data = self?.viewModel?.platformsResult?.data.result {
@@ -117,7 +117,7 @@ class EditGameViewController: FormViewController, StoryboardCoordinated {
                 }
             }
         }
-        
+
         if let gameId = gameId {
             viewModel?.renderData = { [weak self] in
                 DispatchQueue.main.async {
@@ -128,19 +128,19 @@ class EditGameViewController: FormViewController, StoryboardCoordinated {
                     }
                 }
             }
-            
+
             viewModel?.fetchData(id: gameId)
         } else {
             self.setupModalNavigationBar(title: Constants.editGameViewTitle)
         }
-        
+
         viewModel?.fetchPlatforms()
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
-    
+
     // MARK: - FormViewController
     override func populate(_ builder: FormBuilder) {
         lazy var saveButton: ButtonFormItem = {
@@ -150,10 +150,10 @@ class EditGameViewController: FormViewController, StoryboardCoordinated {
             instance.action = { [weak self] in
                 self?.save()
             }
-            
+
             return instance
         }()
-        
+
         builder += imageFormItem
         builder += SectionHeaderViewFormItem()
         builder += nameFormItem
@@ -164,19 +164,19 @@ class EditGameViewController: FormViewController, StoryboardCoordinated {
         builder += wantItem
         builder += digitalItem
         builder += originalItem
-        
+
         builder += SectionFooterViewFormItem()
-        
+
         builder += saveButton
     }
-    
+
     // MARK: - Private funcs
     private func save() {
         priceItem.value = priceItem.value == "" ? "0" : priceItem.value
-        
+
         formBuilder.validateAndUpdateUI()
         let result = formBuilder.validate()
-        
+
         switch result {
         case .valid:
             let name = nameFormItem.value
@@ -185,20 +185,20 @@ class EditGameViewController: FormViewController, StoryboardCoordinated {
                 let imageData = cell?.cover.image?.jpegData(compressionQuality: 0.0),
                 let price = Double(priceItem.value)
             else { return }
-            
+
             let boughtDate = boughtDateItem.value
             let have = haveItem.value
             let want = wantItem.value
             let digital = digitalItem.value
             let original = originalItem.value
-            
+
             let gameModel = GameEditModel(
                 id: gameId,
                 name: name,
                 cover: imageData,
                 platformId: platformId
             )
-            
+
             let userGameModel = UserGameEditModel(
                 id: nil,
                 gameId: "",
@@ -210,10 +210,8 @@ class EditGameViewController: FormViewController, StoryboardCoordinated {
                 digital: digital,
                 original: original
             )
-            
+
             viewModel?.save(gameModel: gameModel, userGameModel: userGameModel)
-            
-            break
         case .invalid:
             break
         }
@@ -222,7 +220,7 @@ class EditGameViewController: FormViewController, StoryboardCoordinated {
 
 extension EditGameViewController: SelectImageDelegate {
     func didTapSelect() {
-        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
+        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
             imagePickerController.delegate = self
             imagePickerController.sourceType = .savedPhotosAlbum
             imagePickerController.allowsEditing = false
@@ -233,10 +231,12 @@ extension EditGameViewController: SelectImageDelegate {
 }
 
 extension EditGameViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    func imagePickerController(
+        _ picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         self.dismiss(animated: true, completion: nil)
 
-        if let chosenImage = info[.originalImage] as? UIImage{
+        if let chosenImage = info[.originalImage] as? UIImage {
             cell?.cover.image = chosenImage
         }
     }

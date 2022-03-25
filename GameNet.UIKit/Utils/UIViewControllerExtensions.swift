@@ -18,7 +18,7 @@ extension UIViewController {
         self.navigationController?.navigationBar.standardAppearance = navBarAppearance
         self.navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
     }
-    
+
     func setupModalNavigationBar(title: String) {
         if let navigationController = self.navigationController {
             navigationController.navigationBar.backgroundColor = Constants.primaryColor

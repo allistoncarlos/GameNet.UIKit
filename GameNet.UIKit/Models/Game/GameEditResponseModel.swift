@@ -12,7 +12,7 @@ struct GameEditResponseModel: BaseModel {
     var name: String
     var coverURL: String
     var platform: PlatformModel
-    
+
     enum CodingKeys: String, CodingKey {
         case id
         case name

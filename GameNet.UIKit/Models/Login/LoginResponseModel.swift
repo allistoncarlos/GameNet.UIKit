@@ -14,7 +14,7 @@ struct LoginResponseModel: Codable {
     var accessToken: String
     var refreshToken: String
     var expiresIn: Date
-    
+
     enum CodingKeys: String, CodingKey {
         case id
         case firstName

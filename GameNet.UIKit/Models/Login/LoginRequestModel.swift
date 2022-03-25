@@ -10,7 +10,7 @@ import Foundation
 struct LoginRequestModel: Codable {
     var username: String
     var password: String
-    
+
     enum CodingKeys: String, CodingKey {
         case username
         case password

@@ -8,7 +8,7 @@
 import Foundation
 
 protocol PlatformServiceProtocol: ServiceProtocol {
-    
+
 }
 
 class PlatformService: Service<PlatformModel>, PlatformServiceProtocol {
