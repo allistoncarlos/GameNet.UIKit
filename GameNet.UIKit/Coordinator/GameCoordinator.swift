@@ -14,31 +14,35 @@ class GameCoordinator: Coordinator {
     init(rootViewController: UINavigationController) {
         self.rootViewController = rootViewController
     }
-    
+
     func start() {
-        let navigationViewController = rootViewController as! UINavigationController
-        let gamesViewController = navigationViewController.children.first as! GamesViewController
-        gamesViewController.coordinator = self
+        if let navigationViewController = rootViewController as? UINavigationController,
+           let gamesViewController = navigationViewController.children.first as? GamesViewController {
+            gamesViewController.coordinator = self
+        }
     }
-    
+
     func showGameDetail(id: String, name: String) {
-        let navigationViewController = rootViewController as! UINavigationController
-        let gameDetailViewController = GameDetailViewController.instantiate()
-        gameDetailViewController.gameId = id
-        gameDetailViewController.title = name
-        
-        navigationViewController.pushViewController(gameDetailViewController, animated: true)
+        if let navigationViewController = rootViewController as? UINavigationController,
+           let gameDetailViewController = GameDetailViewController.instantiate() {
+            gameDetailViewController.gameId = id
+            gameDetailViewController.title = name
+
+            navigationViewController.pushViewController(gameDetailViewController, animated: true)
+        }
     }
-    
+
     func showGame(id: String? = nil) {
-        let navigationController = self.rootViewController as! UINavigationController
-        let gamesViewController = navigationController.children.first as! GamesViewController
-        let editGameViewController = EditGameViewController.instantiate()
-        editGameViewController.modalPresentationStyle = .automatic
-        editGameViewController.modalTransitionStyle = .crossDissolve
-        editGameViewController.delegate = gamesViewController
-        editGameViewController.gameId = id
-        
-        gamesViewController.present(UINavigationController(rootViewController: editGameViewController), animated: true, completion: nil)
+        if let navigationController = self.rootViewController as? UINavigationController,
+           let gamesViewController = navigationController.children.first as? GamesViewController,
+           let editGameViewController = EditGameViewController.instantiate() {
+            editGameViewController.modalPresentationStyle = .automatic
+            editGameViewController.modalTransitionStyle = .crossDissolve
+            editGameViewController.delegate = gamesViewController
+            editGameViewController.gameId = id
+
+            gamesViewController.present(UINavigationController(rootViewController: editGameViewController),
+                                        animated: true, completion: nil)
+        }
     }
 }

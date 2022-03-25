@@ -11,7 +11,7 @@ struct ListModel: BaseModel {
     var id: String?
     var name: String?
     var creationDate: Date?
-    
+
     enum CodingKeys: String, CodingKey {
         case id
         case name

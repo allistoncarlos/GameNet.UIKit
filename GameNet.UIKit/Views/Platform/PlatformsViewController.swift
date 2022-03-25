@@ -12,30 +12,30 @@ class PlatformsViewController: UITableViewController, StoryboardCoordinated {
     // MARK: - Properties
     var viewModel: PlatformsViewModelProtocol?
     var coordinator: PlatformCoordinator?
-    
+
     // MARK: - Override funcs
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.navigationItem.title = Constants.platformsViewTitle
         let barButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         barButtonItem.tintColor = UIColor.white
-        
+
         self.navigationItem.rightBarButtonItem = barButtonItem
-        
+
         viewModel?.renderData = { [weak self] in
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
         }
-        
+
         viewModel?.fetchData()
     }
-    
+
     override func viewWillLayoutSubviews() {
         self.setupStatusBar()
     }
-    
+
     // MARK: - UITableViewDelegate
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var count = 0
@@ -45,26 +45,26 @@ class PlatformsViewController: UITableViewController, StoryboardCoordinated {
                 count = apiResult.data.count
             }
         }
-        
+
         return count
     }
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: "platformViewCell")
-        
+
         if let platforms = viewModel?.apiResult?.data.result {
             cell.textLabel?.text = platforms[indexPath.row].name
         }
-        
+
         return cell
     }
-    
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let currentPlatform = viewModel?.apiResult?.data.result[indexPath.row]
 
         coordinator?.showPlatform(id: currentPlatform?.id)
     }
-    
+
     // MARK: - Navigation Selectors
     @objc func addTapped(_ sender: UIButton?) {
         coordinator?.showPlatform()

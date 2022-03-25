@@ -12,8 +12,7 @@ struct GameEditModel: BaseModel {
     var name: String
     var cover: Data
     var platformId: String
-    
-    
+
     enum CodingKeys: String, CodingKey {
         case id
         case name = "gameName"
@@ -32,7 +31,7 @@ struct UserGameEditModel: BaseModel {
     var want: Bool
     var digital: Bool
     var original: Bool
-    
+
     enum CodingKeys: String, CodingKey {
         case id
         case gameId

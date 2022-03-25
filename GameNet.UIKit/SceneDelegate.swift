@@ -14,12 +14,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     var coordinator: Coordinator?
 
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+    func scene(_ scene: UIScene,
+               willConnectTo session: UISceneSession,
+               options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = scene as? UIWindowScene else { return }
-      
+
         coordinator = !hasValidToken() ? LoginCoordinator() : MainTabBarCoordinator()
         coordinator?.start()
-      
+
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = coordinator?.rootViewController
         window?.makeKeyAndVisible()
@@ -29,7 +31,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.
         // Release any resources associated with this scene that can be re-created the next time the scene connects.
-        // The scene may re-connect later, as its session was not necessarily discarded (see `application:didDiscardSceneSessions` instead).
+        // The scene may re-connect later, as its session was not necessarily discarded
+        // (see `application:didDiscardSceneSessions` instead).
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
@@ -56,60 +59,62 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // MARK: - Private methods
     private func hasValidToken() -> Bool {
         let keychain = Keychain(service: Constants.keychainIdentifier)
-        
+
         // ESSA VERIFICAÇÃO É TEMPORÁRIA
-        guard let _ = keychain[Constants.userIdIdentifier],
-              let _ = keychain[Constants.accessTokenIdentifier],
-              let _ = keychain[Constants.refreshTokenIdentifier],
-              let expiresIn = keychain[Constants.expiresInIdentifier]?.toDate() else { return false }
-        
+        if keychain[Constants.userIdIdentifier] != nil &&
+            keychain[Constants.accessTokenIdentifier] != nil &&
+            keychain[Constants.refreshTokenIdentifier] != nil {
+            return false
+        }
+
+        guard let expiresIn = keychain[Constants.expiresInIdentifier]?.toDate() else { return false }
+
         if expiresIn > NSDate.init() as Date {
             return true
         }
-        
+
         keychain[Constants.userIdIdentifier] = nil
         keychain[Constants.accessTokenIdentifier] = nil
         keychain[Constants.refreshTokenIdentifier] = nil
         keychain[Constants.expiresInIdentifier] = nil
-        
+
         return false
     }
 }
 
 extension SwinjectStoryboard {
     @objc class func setup() {
-        defaultContainer.storyboardInitCompleted(LoginViewController.self) { r, c in
-            c.viewModel = UserViewModel(service: r.resolve(UserServiceProtocol.self))
+        defaultContainer.storyboardInitCompleted(LoginViewController.self) { resolver, container in
+            container.viewModel = UserViewModel(service: resolver.resolve(UserServiceProtocol.self))
         }
-        defaultContainer.storyboardInitCompleted(DashboardViewController.self) { r, c in
-            c.viewModel = DashboardViewModel(service: r.resolve(ServiceBox<DashboardService>.self))
+        defaultContainer.storyboardInitCompleted(DashboardViewController.self) { resolver, container in
+            container.viewModel = DashboardViewModel(service: resolver.resolve(ServiceBox<DashboardService>.self))
         }
-        defaultContainer.storyboardInitCompleted(GamesViewController.self) { r, c in
-            c.viewModel = GamesViewModel(service: r.resolve(ServiceBox<GameService>.self))
+        defaultContainer.storyboardInitCompleted(GamesViewController.self) { resolver, container in
+            container.viewModel = GamesViewModel(service: resolver.resolve(ServiceBox<GameService>.self))
         }
-        defaultContainer.storyboardInitCompleted(GameDetailViewController.self) { r, c in
-            c.viewModel = GameDetailViewModel(
-                service: r.resolve(ServiceBox<GameService>.self),
-                gameplaySessionService: r.resolve(ServiceBox<GameplaySessionService>.self))
+        defaultContainer.storyboardInitCompleted(GameDetailViewController.self) { resolver, container in
+            container.viewModel = GameDetailViewModel(
+                service: resolver.resolve(ServiceBox<GameService>.self),
+                gameplaySessionService: resolver.resolve(ServiceBox<GameplaySessionService>.self))
         }
-        defaultContainer.storyboardInitCompleted(EditGameViewController.self) { r, c in
-            c.viewModel = EditGameViewModel(service: r.resolve(ServiceBox<GameService>.self),
-                                            platformsService: r.resolve(ServiceBox<PlatformService>.self))
+        defaultContainer.storyboardInitCompleted(EditGameViewController.self) { resolver, container in
+            container.viewModel = EditGameViewModel(service: resolver.resolve(ServiceBox<GameService>.self),
+                                            platformsService: resolver.resolve(ServiceBox<PlatformService>.self))
         }
-        defaultContainer.storyboardInitCompleted(PlatformsViewController.self) { r, c in
-            c.viewModel = PlatformsViewModel(service: r.resolve(ServiceBox<PlatformService>.self))
+        defaultContainer.storyboardInitCompleted(PlatformsViewController.self) { resolver, container in
+            container.viewModel = PlatformsViewModel(service: resolver.resolve(ServiceBox<PlatformService>.self))
         }
-        defaultContainer.storyboardInitCompleted(EditPlatformViewController.self) { r, c in
-            c.viewModel = EditPlatformViewModel(service: r.resolve(ServiceBox<PlatformService>.self))
+        defaultContainer.storyboardInitCompleted(EditPlatformViewController.self) { resolver, container in
+            container.viewModel = EditPlatformViewModel(service: resolver.resolve(ServiceBox<PlatformService>.self))
         }
-        defaultContainer.storyboardInitCompleted(ListsViewController.self) { r, c in
-            c.viewModel = ListsViewModel(service: r.resolve(ServiceBox<ListService>.self))
+        defaultContainer.storyboardInitCompleted(ListsViewController.self) { resolver, container in
+            container.viewModel = ListsViewModel(service: resolver.resolve(ServiceBox<ListService>.self))
         }
-        defaultContainer.storyboardInitCompleted(EditListViewController.self) { r, c in
-            c.viewModel = EditListViewModel(service: r.resolve(ServiceBox<ListService>.self))
+        defaultContainer.storyboardInitCompleted(EditListViewController.self) { resolver, container in
+            container.viewModel = EditListViewModel(service: resolver.resolve(ServiceBox<ListService>.self))
         }
-        
-        
+
         // Services
         defaultContainer.register(UserServiceProtocol.self) { _ in UserService() }
         defaultContainer.register(ServiceBox.self) { _ in
@@ -119,7 +124,8 @@ extension SwinjectStoryboard {
             ServiceBox<GameService>(object: GameService(apiResource: Constants.gameResource))
         }
         defaultContainer.register(ServiceBox.self) { _ in
-            ServiceBox<GameplaySessionService>(object: GameplaySessionService(apiResource: Constants.gameplaySessionResource))
+            ServiceBox<GameplaySessionService>(object: GameplaySessionService(
+                apiResource: Constants.gameplaySessionResource))
         }
         defaultContainer.register(ServiceBox.self) { _ in
             ServiceBox<PlatformService>(object: PlatformService(apiResource: Constants.platformResource))

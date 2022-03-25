@@ -16,13 +16,13 @@ class Constants {
     static let gameplaySessionResource = "gameplaysession"
     static let platformResource = "platform"
     static let listResource = "list"
-    
+
     static let keychainIdentifier = "gamenet.azurewebsites.net"
     static let userIdIdentifier = "id"
     static let accessTokenIdentifier = "access_token"
     static let refreshTokenIdentifier = "refresh_token"
     static let expiresInIdentifier = "expires_in"
-    
+
     static let dashboardViewTitle = "Dashboard"
     static let gamesViewTitle = "Games"
     static let editGameViewTitle = "Novo Game"
@@ -30,13 +30,13 @@ class Constants {
     static let editPlatformViewTitle = "Nova Plataforma"
     static let listsViewTitle = "Listas"
     static let editListViewTitle = "Nova Lista"
-    
+
     static let dateFormat = "dd/MM/yyyy HH:mm"
-    
+
     static let pageSizePhone = 21
     static let pageSizePad = 30
-    
+
     static let primaryColor = UIColor(red: 0.48, green: 0.12, blue: 0.64, alpha: 1.00)
-    
+
     static let pageSize = UIDevice.current.userInterfaceIdiom == .phone ? pageSizePhone : pageSizePad
 }

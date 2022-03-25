@@ -13,7 +13,7 @@ struct LatestGameplaySessionModel: BaseModel {
     var userGameId: String
     var start: Date
     var finish: Date
-    
+
     enum CodingKeys: String, CodingKey {
         case id
         case userId

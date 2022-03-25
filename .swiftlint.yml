@@ -1,0 +1,9 @@
+identifier_name:
+    min_length:
+        warning: 2
+disabled_rules:
+  - type_name
+included:
+  - GameNet.UIKit
+excluded:
+  - Pods

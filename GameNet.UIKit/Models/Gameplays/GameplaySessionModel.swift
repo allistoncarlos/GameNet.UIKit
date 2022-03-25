@@ -14,7 +14,7 @@ struct GameplaySessionModel: BaseModel {
     var start: Date
     var finish: Date
     var totalGameplayTime: String
-    
+
     enum CodingKeys: String, CodingKey {
         case id
         case userId

@@ -15,7 +15,7 @@ struct UserGameEditResponseModel: BaseModel {
     var cover: String?
     var platformId: String?
     var platform: String?
-    
+
     enum CodingKeys: String, CodingKey {
         case id
         case userId

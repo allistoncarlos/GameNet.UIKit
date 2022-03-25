@@ -11,10 +11,10 @@ import Foundation
 class GameViewCell: UICollectionViewCell {
     // MARK: - Outlets
     @IBOutlet weak var gameImage: UIImageView!
-    
+
     var gameId: String?
     var gameName: String?
-    
+
     override func prepareForReuse() {
         self.gameImage!.image = UIImage()
     }
