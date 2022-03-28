@@ -10,6 +10,11 @@ import Alamofire
 import KeychainAccess
 import Swinject
 
+#if !PRODUCTION
+import Logging
+import Pulse
+#endif
+
 enum ServiceError: Error {
     case invalidToken
 }
@@ -48,6 +53,19 @@ class Service<T: BaseModel>: ServiceProtocol {
     let apiResource: String
     let decoder = JSONDecoder()
     let interceptor: AuthenticationInterceptor<OAuthAuthenticator>?
+    
+    let sessionManager: Session = {
+        var configuration = URLSessionConfiguration.af.default
+        configuration.timeoutIntervalForRequest = 60
+        configuration.waitsForConnectivity = true
+        #if !PRODUCTION
+            let logger = NetworkLogger()
+            return Session(configuration: configuration, eventMonitors: [NetworkLoggerEventMonitor(logger: logger)])
+        #elseif PRODUCTION
+            return Session(configuration: configuration)
+        #endif
+
+    }()
 
     init(apiResource: String) {
         self.apiResource = apiResource
@@ -100,15 +118,15 @@ class Service<T: BaseModel>: ServiceProtocol {
         request.httpMethod = HTTPMethod.get.rawValue
         request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
 
-        AF.request(request, interceptor: interceptor)
+        sessionManager.request(request, interceptor: interceptor)
             .responseDecodable(of: APIResult<TModel>.self, decoder: decoder) { (response) in
-            switch response.result {
-            case .success(let value):
-                completion(.success(value))
-            case .failure(let error):
-                completion(.failure(error))
+                switch response.result {
+                case .success(let value):
+                    completion(.success(value))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
             }
-        }
     }
 
     func get(id: String? = nil, completion: @escaping (Result<APIResult<T>, Error>) -> Void) {
@@ -139,7 +157,7 @@ class Service<T: BaseModel>: ServiceProtocol {
         request.httpMethod = HTTPMethod.get.rawValue
         request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
 
-        AF.request(request, interceptor: interceptor)
+        sessionManager.request(request, interceptor: interceptor)
             .responseDecodable(of: APIResult<PagedResult<T>>.self, decoder: decoder) { (response) in
             switch response.result {
             case .success(let value):
@@ -159,7 +177,7 @@ class Service<T: BaseModel>: ServiceProtocol {
         request.httpMethod = HTTPMethod.get.rawValue
         request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
 
-        AF.request(request, interceptor: interceptor)
+        sessionManager.request(request, interceptor: interceptor)
             .responseDecodable(of: APIResult<[T]>.self, decoder: decoder) { (response) in
             switch response.result {
             case .success(let value):
@@ -199,7 +217,7 @@ class Service<T: BaseModel>: ServiceProtocol {
             let json = String(data: request.httpBody!, encoding: .utf8)
             print(json!)
 
-            AF.request(request, interceptor: interceptor)
+            sessionManager.request(request, interceptor: interceptor)
                 .responseDecodable(of: APIResult<T>.self, decoder: decoder) { (response) in
                 switch response.result {
                 case .success(let value):

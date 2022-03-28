@@ -3,11 +3,17 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		A504F13B27AB38D4006D4DD4 /* DashboardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A504F13A27AB38D4006D4DD4 /* DashboardCoordinator.swift */; };
+		A520B7E927F1E7140023179B /* Pulse in Frameworks */ = {isa = PBXBuildFile; productRef = A520B7E827F1E7140023179B /* Pulse */; };
+		A520B7EB27F1E7140023179B /* PulseCore in Frameworks */ = {isa = PBXBuildFile; productRef = A520B7EA27F1E7140023179B /* PulseCore */; };
+		A520B7ED27F1E7140023179B /* PulseUI in Frameworks */ = {isa = PBXBuildFile; productRef = A520B7EC27F1E7140023179B /* PulseUI */; };
+		A520B7F227F1E84E0023179B /* AppLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A520B7F127F1E84E0023179B /* AppLogger.swift */; };
+		A520B7F727F1EF720023179B /* NetworkLoggerEventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A520B7F627F1EF720023179B /* NetworkLoggerEventMonitor.swift */; };
+		A520B7FA27F22B770023179B /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A520B7F927F22B770023179B /* BaseViewController.swift */; };
 		A522BBB3270F8CFD00D37C18 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		A52E6A8B274AE8B100D9E07D /* UserGameEditResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52E6A8A274AE8B100D9E07D /* UserGameEditResponseModel.swift */; };
 		A52E6A8E274AEFB000D9E07D /* ListsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52E6A8D274AEFB000D9E07D /* ListsViewModel.swift */; };
@@ -31,6 +37,7 @@
 		A57E280D268A4CB600EFB503 /* APIResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57E280C268A4CB600EFB503 /* APIResult.swift */; };
 		A57E280F268A4E7600EFB503 /* PagedResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57E280E268A4E7600EFB503 /* PagedResult.swift */; };
 		A5888974268B56CA0027B7AE /* GameViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5888973268B56CA0027B7AE /* GameViewCell.swift */; };
+		A58D254327F23CB900D0C752 /* BaseFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58D254227F23CB900D0C752 /* BaseFormViewController.swift */; };
 		A58F65A726C9992300E1ABA4 /* GameDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58F65A626C9992300E1ABA4 /* GameDetailViewController.swift */; };
 		A5936CF3268E2EB400EC93B7 /* PlatformsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5936CF2268E2EB400EC93B7 /* PlatformsViewController.swift */; };
 		A5936CF7268E2FC000EC93B7 /* PlatformModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5936CF6268E2FC000EC93B7 /* PlatformModel.swift */; };
@@ -88,6 +95,9 @@
 		614D9AA234558E6FFAD6F277 /* Pods-GameNet.UIKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameNet.UIKit.release.xcconfig"; path = "Target Support Files/Pods-GameNet.UIKit/Pods-GameNet.UIKit.release.xcconfig"; sourceTree = "<group>"; };
 		A504F13A27AB38D4006D4DD4 /* DashboardCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCoordinator.swift; sourceTree = "<group>"; };
 		A51DFF662719AEDC00B13388 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		A520B7F127F1E84E0023179B /* AppLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogger.swift; sourceTree = "<group>"; };
+		A520B7F627F1EF720023179B /* NetworkLoggerEventMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLoggerEventMonitor.swift; sourceTree = "<group>"; };
+		A520B7F927F22B770023179B /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		A52E6A8A274AE8B100D9E07D /* UserGameEditResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGameEditResponseModel.swift; sourceTree = "<group>"; };
 		A52E6A8D274AEFB000D9E07D /* ListsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsViewModel.swift; sourceTree = "<group>"; };
 		A52E6A8F274AF08B00D9E07D /* ListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListService.swift; sourceTree = "<group>"; };
@@ -110,6 +120,7 @@
 		A57E280C268A4CB600EFB503 /* APIResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResult.swift; sourceTree = "<group>"; };
 		A57E280E268A4E7600EFB503 /* PagedResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagedResult.swift; sourceTree = "<group>"; };
 		A5888973268B56CA0027B7AE /* GameViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewCell.swift; sourceTree = "<group>"; };
+		A58D254227F23CB900D0C752 /* BaseFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseFormViewController.swift; sourceTree = "<group>"; };
 		A58F65A626C9992300E1ABA4 /* GameDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailViewController.swift; sourceTree = "<group>"; };
 		A5936CF2268E2EB400EC93B7 /* PlatformsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformsViewController.swift; sourceTree = "<group>"; };
 		A5936CF6268E2FC000EC93B7 /* PlatformModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformModel.swift; sourceTree = "<group>"; };
@@ -169,6 +180,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A520B7EB27F1E7140023179B /* PulseCore in Frameworks */,
+				A520B7E927F1E7140023179B /* Pulse in Frameworks */,
+				A520B7ED27F1E7140023179B /* PulseUI in Frameworks */,
 				C458DCD3742C3F1B4FFB1165 /* Pods_GameNet_UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -176,6 +190,64 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A520B7EE27F1E8270023179B /* App */ = {
+			isa = PBXGroup;
+			children = (
+				A520B7F327F1EF530023179B /* DataProviders */,
+				A520B7EF27F1E82B0023179B /* Resources */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		A520B7EF27F1E82B0023179B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A520B7F027F1E82F0023179B /* Logger */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		A520B7F027F1E82F0023179B /* Logger */ = {
+			isa = PBXGroup;
+			children = (
+				A520B7F127F1E84E0023179B /* AppLogger.swift */,
+			);
+			path = Logger;
+			sourceTree = "<group>";
+		};
+		A520B7F327F1EF530023179B /* DataProviders */ = {
+			isa = PBXGroup;
+			children = (
+				A520B7F427F1EF5D0023179B /* API */,
+			);
+			path = DataProviders;
+			sourceTree = "<group>";
+		};
+		A520B7F427F1EF5D0023179B /* API */ = {
+			isa = PBXGroup;
+			children = (
+				A520B7F527F1EF610023179B /* EventMonitor */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		A520B7F527F1EF610023179B /* EventMonitor */ = {
+			isa = PBXGroup;
+			children = (
+				A520B7F627F1EF720023179B /* NetworkLoggerEventMonitor.swift */,
+			);
+			path = EventMonitor;
+			sourceTree = "<group>";
+		};
+		A520B7F827F22B640023179B /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				A520B7F927F22B770023179B /* BaseViewController.swift */,
+				A58D254227F23CB900D0C752 /* BaseFormViewController.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
 		A522BBB1270F8CE000D37C18 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -249,6 +321,7 @@
 		A56A136A2688D20D0099127C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A520B7F827F22B640023179B /* Base */,
 				A559CD4D274BCCE100DEC732 /* List */,
 				A5888972268B568F0027B7AE /* Cells */,
 				A5A55C32271C5D0F003E412A /* Platform */,
@@ -433,6 +506,7 @@
 		A5D24FB12688D11000F8A0DA /* GameNet.UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				A520B7EE27F1E8270023179B /* App */,
 				A5D24FB22688D11000F8A0DA /* AppDelegate.swift */,
 				A5D24FB42688D11000F8A0DA /* SceneDelegate.swift */,
 				A5ED37C32758FA8D00D56391 /* Coordinator */,
@@ -503,6 +577,11 @@
 			dependencies = (
 			);
 			name = GameNet.UIKit;
+			packageProductDependencies = (
+				A520B7E827F1E7140023179B /* Pulse */,
+				A520B7EA27F1E7140023179B /* PulseCore */,
+				A520B7EC27F1E7140023179B /* PulseUI */,
+			);
 			productName = GameNet.UIKit;
 			productReference = A5D24FAF2688D11000F8A0DA /* GameNet.UIKit.app */;
 			productType = "com.apple.product-type.application";
@@ -530,6 +609,9 @@
 				Base,
 			);
 			mainGroup = A5D24FA62688D11000F8A0DA;
+			packageReferences = (
+				A520B7E727F1E7140023179B /* XCRemoteSwiftPackageReference "Pulse" */,
+			);
 			productRefGroup = A5D24FB02688D11000F8A0DA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -622,6 +704,7 @@
 				A5E2695D2719B425000E22C5 /* GamesViewModel.swift in Sources */,
 				A56A13792688E77E0099127C /* DashboardViewController.swift in Sources */,
 				A52E6A8B274AE8B100D9E07D /* UserGameEditResponseModel.swift in Sources */,
+				A520B7FA27F22B770023179B /* BaseViewController.swift in Sources */,
 				A5936D06268E44A600EC93B7 /* PlayingGameModel.swift in Sources */,
 				A5ED37C92758FB9300D56391 /* LoginCoordinator.swift in Sources */,
 				A5E2695B2719B36C000E22C5 /* UserViewModel.swift in Sources */,
@@ -664,10 +747,12 @@
 				A5AD4BA926B9B9B1002EBF28 /* FontExtensions.swift in Sources */,
 				A599DFBC275904A9004ABEBA /* MainTabBarViewController.swift in Sources */,
 				A5936D0E268E485E00EC93B7 /* DashboardService.swift in Sources */,
+				A520B7F727F1EF720023179B /* NetworkLoggerEventMonitor.swift in Sources */,
 				A5FA9641271B814300B76CA6 /* UIViewControllerExtensions.swift in Sources */,
 				A559CD4F274BCCEC00DEC732 /* EditListViewController.swift in Sources */,
 				A5AD4BAB26B9BB8F002EBF28 /* DateExtensions.swift in Sources */,
 				A56A136D2688D22B0099127C /* LoginRequestModel.swift in Sources */,
+				A58D254327F23CB900D0C752 /* BaseFormViewController.swift in Sources */,
 				A5C5D48B26FBC49600E1C86A /* GameplaySessionModel.swift in Sources */,
 				A5F30393276508840021F3B8 /* GameCoordinator.swift in Sources */,
 				A5936D00268E42FE00EC93B7 /* PlatformGamesModel.swift in Sources */,
@@ -678,6 +763,7 @@
 				A5936CF9268E2FEE00EC93B7 /* PlatformService.swift in Sources */,
 				A5ECEE0B2746F6310085F6E5 /* GameEditModel.swift in Sources */,
 				A5D24FB32688D11000F8A0DA /* AppDelegate.swift in Sources */,
+				A520B7F227F1E84E0023179B /* AppLogger.swift in Sources */,
 				A5A55C34271C5D26003E412A /* EditPlatformViewController.swift in Sources */,
 				A57E27FF268A440A00EFB503 /* GamesViewController.swift in Sources */,
 				A52E6A8E274AEFB000D9E07D /* ListsViewModel.swift in Sources */,
@@ -893,6 +979,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A520B7E727F1E7140023179B /* XCRemoteSwiftPackageReference "Pulse" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/Pulse";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.9;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A520B7E827F1E7140023179B /* Pulse */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A520B7E727F1E7140023179B /* XCRemoteSwiftPackageReference "Pulse" */;
+			productName = Pulse;
+		};
+		A520B7EA27F1E7140023179B /* PulseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A520B7E727F1E7140023179B /* XCRemoteSwiftPackageReference "Pulse" */;
+			productName = PulseCore;
+		};
+		A520B7EC27F1E7140023179B /* PulseUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A520B7E727F1E7140023179B /* XCRemoteSwiftPackageReference "Pulse" */;
+			productName = PulseUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A5D24FA72688D11000F8A0DA /* Project object */;
 }
