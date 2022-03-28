@@ -12,7 +12,7 @@ class GameDetailTapGestureRecognizer: UITapGestureRecognizer {
     var playingGame: PlayingGameModel?
 }
 
-class DashboardViewController: UIViewController, StoryboardCoordinated {
+class DashboardViewController: BaseViewController, StoryboardCoordinated {
     // MARK: - Properties
     var viewModel: DashboardViewModelProtocol?
     var coordinator: DashboardCoordinator?

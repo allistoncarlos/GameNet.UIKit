@@ -8,7 +8,13 @@
 import UIKit
 import Swinject
 
-class PlatformsViewController: UITableViewController, StoryboardCoordinated {
+class PlatformsViewController: BaseViewController,
+                               StoryboardCoordinated,
+                               UITableViewDelegate,
+                               UITableViewDataSource {
+    // MARK: - Outlets
+    @IBOutlet weak var tableView: UITableView!
+
     // MARK: - Properties
     var viewModel: PlatformsViewModelProtocol?
     var coordinator: PlatformCoordinator?
@@ -16,6 +22,9 @@ class PlatformsViewController: UITableViewController, StoryboardCoordinated {
     // MARK: - Override funcs
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
 
         self.navigationItem.title = Constants.platformsViewTitle
         let barButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
@@ -37,7 +46,7 @@ class PlatformsViewController: UITableViewController, StoryboardCoordinated {
     }
 
     // MARK: - UITableViewDelegate
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var count = 0
 
         if let apiResult = viewModel?.apiResult {
@@ -49,7 +58,7 @@ class PlatformsViewController: UITableViewController, StoryboardCoordinated {
         return count
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: "platformViewCell")
 
         if let platforms = viewModel?.apiResult?.data.result {
@@ -59,7 +68,7 @@ class PlatformsViewController: UITableViewController, StoryboardCoordinated {
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let currentPlatform = viewModel?.apiResult?.data.result[indexPath.row]
 
         coordinator?.showPlatform(id: currentPlatform?.id)
