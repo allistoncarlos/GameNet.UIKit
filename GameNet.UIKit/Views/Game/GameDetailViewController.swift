@@ -8,7 +8,7 @@
 import UIKit
 import SDWebImage
 
-class GameDetailViewController: UIViewController, UIScrollViewDelegate, StoryboardCoordinated {
+class GameDetailViewController: BaseViewController, UIScrollViewDelegate, StoryboardCoordinated {
     // MARK: - Properties
     var viewModel: GameDetailViewModelProtocol?
     var gameId: String?

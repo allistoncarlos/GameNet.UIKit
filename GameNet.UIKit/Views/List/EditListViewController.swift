@@ -13,7 +13,7 @@ protocol EditListViewControllerDelegate: AnyObject {
     func savedData()
 }
 
-class EditListViewController: FormViewController, StoryboardCoordinated {
+class EditListViewController: BaseFormViewController, StoryboardCoordinated {
     // MARK: - Properties
     var listId: String?
     var viewModel: EditListViewModelProtocol?

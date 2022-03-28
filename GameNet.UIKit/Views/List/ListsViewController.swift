@@ -8,7 +8,12 @@
 import Foundation
 import UIKit
 
-class ListsViewController: UITableViewController {
+class ListsViewController: BaseViewController,
+                            UITableViewDelegate,
+                            UITableViewDataSource {
+    // MARK: - Outlets
+    @IBOutlet weak var tableView: UITableView!
+
     // MARK: - Properties
     var viewModel: ListsViewModelProtocol?
     var coordinator: ListCoordinator?
@@ -21,6 +26,9 @@ class ListsViewController: UITableViewController {
     // MARK: - Override funcs
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
 
         self.navigationItem.title = Constants.listsViewTitle
         let barButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
@@ -42,7 +50,7 @@ class ListsViewController: UITableViewController {
     }
 
     // MARK: - UITableViewDelegate
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var count = 0
 
         if let apiResult = viewModel?.apiResult {
@@ -54,7 +62,7 @@ class ListsViewController: UITableViewController {
         return count
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: "listViewCell")
 
         if let lists = viewModel?.apiResult?.data.result {
@@ -64,7 +72,7 @@ class ListsViewController: UITableViewController {
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let currentList = viewModel?.apiResult?.data.result[indexPath.row]
 
         coordinator?.showList(id: currentList?.id)

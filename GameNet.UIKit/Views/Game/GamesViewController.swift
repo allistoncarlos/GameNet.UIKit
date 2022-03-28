@@ -11,7 +11,7 @@ enum ImageError: Error {
     case couldNotLoadImage
 }
 
-class GamesViewController: UIViewController, StoryboardCoordinated {
+class GamesViewController: BaseViewController, StoryboardCoordinated {
     // MARK: - Properties
     var viewModel: GamesViewModelProtocol?
     var coordinator: GameCoordinator?
