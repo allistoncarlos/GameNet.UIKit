@@ -130,8 +130,14 @@ extension SwinjectStoryboard {
         defaultContainer.register(ServiceBox.self) { _ in
             ServiceBox<PlatformService>(object: PlatformService(apiResource: Constants.platformResource))
         }
-        defaultContainer.register(ServiceBox.self) { _ in
-            ServiceBox<ListService>(object: ListService(apiResource: Constants.listResource))
+
+        defaultContainer.register(ListServiceProtocol.self) { _ in
+            ListService(apiResource: Constants.listResource)
+        }
+
+        // ViewModels
+        defaultContainer.register(ListDetailViewModelProtocol.self) { resolver in
+            ListDetailViewModel(service: resolver.resolve(ListServiceProtocol.self))
         }
     }
 }
