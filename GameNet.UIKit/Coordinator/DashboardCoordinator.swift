@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwinjectStoryboard
 
 class DashboardCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
@@ -29,6 +30,27 @@ class DashboardCoordinator: Coordinator {
             gameDetailViewController.title = name
 
             navigationViewController.pushViewController(gameDetailViewController, animated: true)
+        }
+    }
+
+    func showListDetail(id: String, listType: ListType) {
+        if let navigationViewController = rootViewController as? UINavigationController,
+           let mainTabBarViewController = navigationViewController
+                .topViewController?.tabBarController as? MainTabBarViewController {
+            let listDetailViewController = ListDetailViewController()
+            let viewModel = SwinjectStoryboard.defaultContainer.resolve(ListDetailViewModelProtocol.self)
+
+            let listCoordinator = mainTabBarViewController.coordinator?.childCoordinators.first {
+                $0 is ListCoordinator
+            } as? ListCoordinator
+
+            listCoordinator?.parentCoordinator = self
+            listDetailViewController.coordinator = listCoordinator
+            listDetailViewController.viewModel = viewModel
+            listDetailViewController.listId = id
+            listDetailViewController.listType = listType
+
+            navigationViewController.pushViewController(listDetailViewController, animated: true)
         }
     }
 }

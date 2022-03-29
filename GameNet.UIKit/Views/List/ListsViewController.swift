@@ -73,9 +73,10 @@ class ListsViewController: BaseViewController,
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let currentList = viewModel?.apiResult?.data.result[indexPath.row]
-
-        coordinator?.showList(id: currentList?.id)
+        if let currentList = viewModel?.apiResult?.data.result[indexPath.row],
+           let id = currentList.id {
+            coordinator?.showListDetail(id: id, listType: .custom)
+        }
     }
 
     // MARK: - Navigation Selectors
