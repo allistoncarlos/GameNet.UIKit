@@ -53,7 +53,7 @@ class Service<T: BaseModel>: ServiceProtocol {
     let apiResource: String
     let decoder = JSONDecoder()
     let interceptor: AuthenticationInterceptor<OAuthAuthenticator>?
-    
+
     let sessionManager: Session = {
         var configuration = URLSessionConfiguration.af.default
         configuration.timeoutIntervalForRequest = 60
@@ -120,6 +120,27 @@ class Service<T: BaseModel>: ServiceProtocol {
 
         sessionManager.request(request, interceptor: interceptor)
             .responseDecodable(of: APIResult<TModel>.self, decoder: decoder) { (response) in
+                switch response.result {
+                case .success(let value):
+                    completion(.success(value))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+    }
+
+    func get<TModel: BaseModel>(relativeUrl: String,
+                                completion: @escaping (Result<APIResult<[TModel]>, Error>) -> Void) {
+        let urlString = "\(Constants.apiPath)/\(apiResource)\(relativeUrl)"
+
+        guard let url = URL(string: urlString) else { return }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = HTTPMethod.get.rawValue
+        request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
+
+        sessionManager.request(request, interceptor: interceptor)
+            .responseDecodable(of: APIResult<[TModel]>.self, decoder: decoder) { (response) in
                 switch response.result {
                 case .success(let value):
                     completion(.success(value))

@@ -12,6 +12,11 @@ class GameDetailTapGestureRecognizer: UITapGestureRecognizer {
     var playingGame: PlayingGameModel?
 }
 
+class ListDetailTapGestureRecognizer: UITapGestureRecognizer {
+    var listType: ListType = .custom
+    var id: String = ""
+}
+
 class DashboardViewController: BaseViewController, StoryboardCoordinated {
     // MARK: - Properties
     var viewModel: DashboardViewModelProtocol?
@@ -125,6 +130,14 @@ extension DashboardViewController {
                 for finishedGameByYear in finishedGamesByYear {
                     if let finishedByYearStackView =
                         self?.renderBadgeText(badge: finishedGameByYear.total, text: "\(finishedGameByYear.year)") {
+
+                        let gesture = ListDetailTapGestureRecognizer(
+                            target: self,
+                            action: #selector(self?.showListDetail))
+                        gesture.id = String(finishedGameByYear.year)
+                        gesture.listType = .finishedByYear
+                        finishedByYearStackView.addGestureRecognizer(gesture)
+
                         self?.finishedByYearView?.addArrangedSubview(finishedByYearStackView)
                     }
                 }
@@ -134,6 +147,13 @@ extension DashboardViewController {
                     if let boughtByYearStackView = self?.renderBadgeText(badge: boughtGameByYear.quantity,
                                                                          text: "\(boughtGameByYear.year)",
                                                                          subtitle: "\(boughtGameByYear.total)") {
+                        let gesture = ListDetailTapGestureRecognizer(
+                            target: self,
+                            action: #selector(self?.showListDetail))
+                        gesture.id = String(boughtGameByYear.year)
+                        gesture.listType = .boughtByYear
+                        boughtByYearStackView.addGestureRecognizer(gesture)
+
                         self?.boughtByYearView?.addArrangedSubview(boughtByYearStackView)
                     }
                 }
@@ -200,5 +220,9 @@ extension DashboardViewController {
         if let id = sender.playingGame?.id, let name = sender.playingGame?.name {
             coordinator?.showGameDetail(id: id, name: name)
         }
+    }
+
+    @objc func showListDetail(sender: ListDetailTapGestureRecognizer) {
+        coordinator?.showListDetail(id: sender.id, listType: sender.listType)
     }
 }
