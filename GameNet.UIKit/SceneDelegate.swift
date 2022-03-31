@@ -63,14 +63,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // ESSA VERIFICAÇÃO É TEMPORÁRIA
         if keychain[Constants.userIdIdentifier] != nil &&
             keychain[Constants.accessTokenIdentifier] != nil &&
-            keychain[Constants.refreshTokenIdentifier] != nil {
-            return false
-        }
-
-        guard let expiresIn = keychain[Constants.expiresInIdentifier]?.toDate() else { return false }
-
-        if expiresIn > NSDate.init() as Date {
-            return true
+            keychain[Constants.refreshTokenIdentifier] != nil,
+           let expiresIn = keychain[Constants.expiresInIdentifier]?.toDate() {
+            if expiresIn > NSDate.init() as Date {
+                return true
+            }
         }
 
         keychain[Constants.userIdIdentifier] = nil
