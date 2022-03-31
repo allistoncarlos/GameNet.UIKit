@@ -58,3 +58,24 @@ extension LoginViewController {
         self.coordinator?.loggedIn()
     }
 }
+
+#if DEBUG
+import SwiftUI
+
+struct LoginViewControllerRepresentable: UIViewControllerRepresentable {
+    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
+        // leave this empty
+    }
+
+    func makeUIViewController(context: Context) -> UIViewController {
+        LoginViewController.instantiate()!
+    }
+}
+
+struct LoginViewControllerPreview: PreviewProvider {
+    static var previews: some View {
+       LoginViewControllerRepresentable()
+            .preferredColorScheme(.dark)
+    }
+}
+#endif
