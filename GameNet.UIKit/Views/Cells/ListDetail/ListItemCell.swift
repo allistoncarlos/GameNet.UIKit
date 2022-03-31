@@ -27,6 +27,7 @@ final class ListItemCell: UITableViewCell, ViewCode {
         didSet {
             if !detail.isEmpty {
                 detailLabel.text = detail
+                detailLabel.sizeToFit()
                 verticalStackView.addArrangedSubview(detailLabel)
             }
         }
@@ -42,22 +43,35 @@ final class ListItemCell: UITableViewCell, ViewCode {
 
     private var nameLabel: UILabel = {
         let nameLabel = UILabel()
+        nameLabel.numberOfLines = 2
+        nameLabel.setContentHuggingPriority(.required, for: .vertical)
+        nameLabel.setContentCompressionResistancePriority(.required, for: .vertical)
+        nameLabel.font = UIFont.listItemCellGameName
+        nameLabel.translatesAutoresizingMaskIntoConstraints = true
         return nameLabel
     }()
 
     private var platformLabel: UILabel = {
         let platformLabel = UILabel()
+        platformLabel.font = UIFont.listItemCellPlatform
+        platformLabel.translatesAutoresizingMaskIntoConstraints = true
+        platformLabel.setContentCompressionResistancePriority(.required, for: .vertical)
+        platformLabel.setContentHuggingPriority(.required, for: .vertical)
         return platformLabel
     }()
 
     private var detailLabel: UILabel = {
         let detailLabel = UILabel()
+        detailLabel.font = UIFont.listItemCellDetail
+        detailLabel.translatesAutoresizingMaskIntoConstraints = true
         return detailLabel
     }()
 
     private var verticalStackView: UIStackView = {
         let verticalStackView = UIStackView()
         verticalStackView.axis = .vertical
+        verticalStackView.alignment = .fill
+        verticalStackView.distribution = .fill
         return verticalStackView
     }()
 
@@ -103,8 +117,8 @@ final class ListItemCell: UITableViewCell, ViewCode {
         let coverImageConstraints = [
             coverImage.topAnchor.constraint(equalTo: horizontalStackView.topAnchor, constant: 10),
             coverImage.leadingAnchor.constraint(equalTo: horizontalStackView.leadingAnchor, constant: 10),
-            coverImage.widthAnchor.constraint(equalTo: horizontalStackView.widthAnchor, multiplier: 0.2),
-            coverImage.heightAnchor.constraint(equalTo: horizontalStackView.heightAnchor, constant: -10)
+            coverImage.widthAnchor.constraint(equalTo: horizontalStackView.widthAnchor, multiplier: 0.25),
+            coverImage.heightAnchor.constraint(equalTo: horizontalStackView.heightAnchor, constant: -20)
         ]
         NSLayoutConstraint.activate(coverImageConstraints)
     }
@@ -120,3 +134,38 @@ final class ListItemCell: UITableViewCell, ViewCode {
         self.coverImage.sd_setImage(with: URL(string: url))
     }
 }
+
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+struct ListItemCellRepresentable: UIViewRepresentable {
+    func makeUIView(context: Context) -> UIView {
+        let cell = ListItemCell(style: .default, reuseIdentifier: "listItemCell")
+        cell.name = "The Legend of Zelda: Breath of the Wild"
+        cell.platform = "Nintendo Switch"
+        cell.detail = "R$ 180,00"
+        cell.loadCover(url:
+                        "http://allistoncarlos.blob.core.windows.net/gamenet/nintendo-switch/the-legend-of-zelda-breath-of-the-wild.jpg")
+
+        return cell
+    }
+
+    func updateUIView(_ view: UIView, context: Context) {
+
+    }
+}
+
+struct ListItemCell_Preview: PreviewProvider {
+    static var previews: some View {
+        ListItemCellRepresentable()
+            .preferredColorScheme(.dark)
+            .frame(width: UIScreen.main.bounds.width, height: 140, alignment: .center)
+            .previewDevice(PreviewDevice(rawValue: "iPhone 13 Pro Max"))
+
+        ListItemCellRepresentable()
+            .preferredColorScheme(.dark)
+            .frame(width: UIScreen.main.bounds.width, height: 240, alignment: .center)
+            .previewDevice(PreviewDevice(rawValue: "iPad Pro (129-inch) (5th generation)"))
+    }
+}
+#endif
