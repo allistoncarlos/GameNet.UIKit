@@ -92,13 +92,11 @@ extension ListDetailViewController: UITableViewDelegate,
             let listItem = listItems[indexPath.row]
 
             if let name = listItem.name,
-               let platform = listItem.platform
-//               let cover = listItem.cover
-            {
+               let platform = listItem.platform,
+               let cover = listItem.cover {
                 cell.name = name
                 cell.platform = platform
-//                cell.loadCover(url: cover)
-                cell.loadCover(url: "https://placehold.co/400x1900.jpg")
+                cell.loadCover(url: cover)
             }
 
             var detail = ""
