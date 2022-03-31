@@ -38,7 +38,7 @@ class ListCoordinator: Coordinator {
         }
     }
 
-    func showListDetail(id: String, listType: ListType) {
+    func showListDetail(id: String, name: String?, listType: ListType) {
         if let navigationViewController = rootViewController as? UINavigationController {
             let listDetailViewController = ListDetailViewController()
 
@@ -47,6 +47,10 @@ class ListCoordinator: Coordinator {
 
             listDetailViewController.listId = id
             listDetailViewController.listType = listType
+
+            if let name = name {
+                listDetailViewController.listName = name
+            }
 
             navigationViewController.pushViewController(listDetailViewController, animated: true)
         }
