@@ -9,12 +9,23 @@ import Foundation
 import Alamofire
 
 protocol ListServiceProtocol: AnyObject {
+    func getLists(page: Int?,
+              pageSize: Int?,
+              search: String?,
+              completion: @escaping (Result<APIResult<PagedResult<ListModel>>, Error>) -> Void)
     func getFinishedByYear(id: String, completion: @escaping (Result<APIResult<[ListItemModel]>, Error>) -> Void)
     func getBoughtByYear(id: String, completion: @escaping (Result<APIResult<[ListItemModel]>, Error>) -> Void)
 }
 
 class ListService: Service<ListModel>, ListServiceProtocol {
     typealias T = ListModel
+    
+    func getLists(page: Int? = nil,
+                  pageSize: Int? = nil,
+                  search: String? = nil,
+                  completion: @escaping (Result<APIResult<PagedResult<ListModel>>, Error>) -> Void) {
+        load(page: page, pageSize: pageSize, search: search, completion: completion)
+    }
 
     func getFinishedByYear(id: String, completion: @escaping (Result<APIResult<[ListItemModel]>, Error>) -> Void) {
         let relativeUrl = "/FinishedByYear/\(id)"
