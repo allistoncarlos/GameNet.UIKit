@@ -86,13 +86,38 @@ extension ListDetailViewController: UITableViewDelegate,
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "listItemViewCell")
+        let cell = ListItemCell(style: .default, reuseIdentifier: "listItemViewCell")
 
         if let listItems = viewModel?.apiResult?.data {
-            cell.textLabel?.text = listItems[indexPath.row].name
+            let listItem = listItems[indexPath.row]
+
+            if let name = listItem.name,
+               let platform = listItem.platform,
+               let cover = listItem.cover {
+                cell.name = name
+                cell.platform = platform
+                cell.loadCover(url: cover)
+            }
+
+            var detail = ""
+
+            switch listType {
+            case .finishedByYear:
+                detail = listItem.finish?.toFormattedString() ?? ""
+            case .boughtByYear:
+                detail = "R$ \(listItem.value ?? 0)"
+            case .custom:
+                break
+            }
+
+            cell.detail = detail
         }
 
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 140
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

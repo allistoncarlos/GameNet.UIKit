@@ -61,6 +61,7 @@
 		A5A2B756271F541E007CAD11 /* GameCoverCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5A2B755271F541E007CAD11 /* GameCoverCell.xib */; };
 		A5A55C34271C5D26003E412A /* EditPlatformViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A55C33271C5D26003E412A /* EditPlatformViewController.swift */; };
 		A5A55C36271C9BF5003E412A /* EditPlatformViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A55C35271C9BF5003E412A /* EditPlatformViewModel.swift */; };
+		A5A8034A27F4C44800F97EC0 /* ListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A8034927F4C44800F97EC0 /* ListItemCell.swift */; };
 		A5AD4BA926B9B9B1002EBF28 /* FontExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AD4BA826B9B9B1002EBF28 /* FontExtensions.swift */; };
 		A5AD4BAB26B9BB8F002EBF28 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AD4BAA26B9BB8F002EBF28 /* DateExtensions.swift */; };
 		A5AD9F47271EFB3700B1E41C /* EditGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AD9F46271EFB3700B1E41C /* EditGameViewController.swift */; };
@@ -149,6 +150,7 @@
 		A5A2B755271F541E007CAD11 /* GameCoverCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameCoverCell.xib; sourceTree = "<group>"; };
 		A5A55C33271C5D26003E412A /* EditPlatformViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlatformViewController.swift; sourceTree = "<group>"; };
 		A5A55C35271C9BF5003E412A /* EditPlatformViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlatformViewModel.swift; sourceTree = "<group>"; };
+		A5A8034927F4C44800F97EC0 /* ListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemCell.swift; sourceTree = "<group>"; };
 		A5AD4BA826B9B9B1002EBF28 /* FontExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontExtensions.swift; sourceTree = "<group>"; };
 		A5AD4BAA26B9BB8F002EBF28 /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		A5AD9F46271EFB3700B1E41C /* EditGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGameViewController.swift; sourceTree = "<group>"; };
@@ -414,9 +416,8 @@
 		A5888972268B568F0027B7AE /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				A5888973268B56CA0027B7AE /* GameViewCell.swift */,
-				A5A2B753271F4FC4007CAD11 /* GameCoverCell.swift */,
-				A5A2B755271F541E007CAD11 /* GameCoverCell.xib */,
+				A5A8034827F4C42700F97EC0 /* Game */,
+				A5A8034727F4C42000F97EC0 /* ListDetail */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -458,6 +459,24 @@
 				A5A55C33271C5D26003E412A /* EditPlatformViewController.swift */,
 			);
 			path = Platform;
+			sourceTree = "<group>";
+		};
+		A5A8034727F4C42000F97EC0 /* ListDetail */ = {
+			isa = PBXGroup;
+			children = (
+				A5A8034927F4C44800F97EC0 /* ListItemCell.swift */,
+			);
+			path = ListDetail;
+			sourceTree = "<group>";
+		};
+		A5A8034827F4C42700F97EC0 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				A5888973268B56CA0027B7AE /* GameViewCell.swift */,
+				A5A2B753271F4FC4007CAD11 /* GameCoverCell.swift */,
+				A5A2B755271F541E007CAD11 /* GameCoverCell.xib */,
+			);
+			path = Game;
 			sourceTree = "<group>";
 		};
 		A5AD4BA726B9B9A5002EBF28 /* Styles */ = {
@@ -771,6 +790,7 @@
 				A504F13B27AB38D4006D4DD4 /* DashboardCoordinator.swift in Sources */,
 				A5AD4BA926B9B9B1002EBF28 /* FontExtensions.swift in Sources */,
 				A599DFBC275904A9004ABEBA /* MainTabBarViewController.swift in Sources */,
+				A5A8034A27F4C44800F97EC0 /* ListItemCell.swift in Sources */,
 				A5936D0E268E485E00EC93B7 /* DashboardService.swift in Sources */,
 				A520B7F727F1EF720023179B /* NetworkLoggerEventMonitor.swift in Sources */,
 				A58D254627F270F600D0C752 /* ListDetailViewController.swift in Sources */,
