@@ -100,7 +100,7 @@ extension SwinjectStoryboard {
                                             platformsService: resolver.resolve(ServiceBox<PlatformService>.self))
         }
         defaultContainer.storyboardInitCompleted(PlatformsViewController.self) { resolver, container in
-            container.viewModel = PlatformsViewModel(service: resolver.resolve(ServiceBox<PlatformService>.self))
+            container.viewModel = resolver.resolve(PlatformsViewModelProtocol.self)
         }
         defaultContainer.storyboardInitCompleted(EditPlatformViewController.self) { resolver, container in
             container.viewModel = EditPlatformViewModel(service: resolver.resolve(ServiceBox<PlatformService>.self))
@@ -133,6 +133,10 @@ extension SwinjectStoryboard {
         }
 
         // ViewModels
+        defaultContainer.register(PlatformsViewModelProtocol.self) { resolver in
+            PlatformsViewModel(service: resolver.resolve(ServiceBox<PlatformService>.self))
+        }
+
         defaultContainer.register(ListDetailViewModelProtocol.self) { resolver in
             ListDetailViewModel(service: resolver.resolve(ListServiceProtocol.self))
         }
