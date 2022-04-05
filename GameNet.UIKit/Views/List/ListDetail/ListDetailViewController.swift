@@ -20,6 +20,7 @@ final class ListDetailViewController: BaseViewController {
 
     // MARK: - Properties
     var listId: String?
+    var listName: String?
     var listType: ListType = .custom
     var viewModel: ListDetailViewModelProtocol?
     var coordinator: ListCoordinator?
@@ -37,7 +38,7 @@ final class ListDetailViewController: BaseViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         if let listId = listId {
-            setTitle(listId: listId)
+            setTitle(listId: listId, listName: listName)
 
             viewModel?.renderData = renderData()
 
@@ -49,14 +50,14 @@ final class ListDetailViewController: BaseViewController {
     }
 
     // MARK: - Private funcs
-    private func setTitle(listId: String) {
+    private func setTitle(listId: String, listName: String?) {
         switch self.listType {
         case .finishedByYear:
             self.title = "Finalizados em \(listId)"
         case .boughtByYear:
             self.title = "Comprados em \(listId)"
         case .custom:
-            self.title = "CORRIGIR"
+            self.title = listName
         }
     }
 

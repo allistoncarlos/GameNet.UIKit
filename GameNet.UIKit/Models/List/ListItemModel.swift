@@ -18,6 +18,8 @@ struct ListItemModel: BaseModel {
     var start: Date?
     var finish: Date?
     var cover: String?
+    var order: Int?
+    var comment: String?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -30,5 +32,21 @@ struct ListItemModel: BaseModel {
         case start
         case finish
         case cover
+        case order
+        case comment
+    }
+}
+
+struct ListGameModel: BaseModel {
+    var id: String?
+    var name: String?
+    var creationDate: Date?
+    var games: [ListItemModel]?
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case creationDate
+        case games
     }
 }

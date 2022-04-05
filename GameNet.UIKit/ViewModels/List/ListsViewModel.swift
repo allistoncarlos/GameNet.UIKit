@@ -15,7 +15,7 @@ protocol ListsViewModelProtocol: AnyObject {
 }
 
 class ListsViewModel: ObservableObject, ListsViewModelProtocol {
-    private var service: ServiceBox<ListService>?
+    private var service: ListServiceProtocol?
 
     var apiResult: APIResult<PagedResult<ListModel>>? {
         didSet {
@@ -25,13 +25,13 @@ class ListsViewModel: ObservableObject, ListsViewModelProtocol {
 
     var renderData: (() -> Void)?
 
-    init(service: ServiceBox<ListService>?) {
+    init(service: ListServiceProtocol?) {
         self.service = service
     }
 
     // MARK: - ListsViewModelProtocol
     func fetchData() {
-        service?.object.load(page: nil, pageSize: nil, completion: { (result) in
+        service?.getLists(page: nil, pageSize: nil, search: nil, completion: { (result) in
             switch result {
             case .success(let apiResult):
                 self.apiResult = apiResult

@@ -69,6 +69,16 @@ class ListDetailViewModel: ObservableObject, ListDetailViewModelProtocol {
     }
 
     private func fetchCustomListData(id: String) {
-
+        service?.getCustomList(id: id) { result in
+            switch result {
+            case .success(let apiResult):
+                if apiResult.ok,
+                   let games = apiResult.data.games {
+                    self.apiResult = APIResult<[ListItemModel]>.create(data: games)
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
 }
