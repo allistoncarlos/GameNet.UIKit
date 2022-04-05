@@ -17,4 +17,9 @@ struct APIResult<T: Codable>: Codable {
         case errors
         case data
     }
+    
+    static func create(data: T) -> APIResult<T> {
+        let result = APIResult<T>.init(ok: true, errors: [], data: data)
+        return result
+    }
 }
