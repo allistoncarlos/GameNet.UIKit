@@ -124,9 +124,8 @@ extension ListDetailViewController: UITableViewDelegate,
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let listItem = viewModel?.apiResult?.data[indexPath.row],
            let userGameId = listItem.userGameId,
-           let name = listItem.name,
-           let dashboardCoordinator = coordinator?.parentCoordinator as? DashboardCoordinator {
-            dashboardCoordinator.showGameDetail(id: userGameId, name: name)
+           let name = listItem.name {
+            coordinator?.showGameDetail(id: userGameId, name: name)
         }
     }
 }

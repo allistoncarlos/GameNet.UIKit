@@ -44,6 +44,7 @@ class ListCoordinator: Coordinator {
 
             let viewModel = SwinjectStoryboard.defaultContainer.resolve(ListDetailViewModelProtocol.self)
             listDetailViewController.viewModel = viewModel
+            listDetailViewController.coordinator = self
 
             listDetailViewController.listId = id
             listDetailViewController.listType = listType
