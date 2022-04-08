@@ -14,6 +14,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     var coordinator: Coordinator?
 
+    let offlineAlertController: UIAlertController = {
+        let alert = UIAlertController(title: "No Network",
+                                      message: "Please connect to network and try again",
+                                      preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .default) { _ in
+            NetworkReachability.shared.startNetworkMonitoring()
+        }
+        alert.addAction(action)
+        return alert
+    }()
+
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,
                options connectionOptions: UIScene.ConnectionOptions) {
@@ -25,6 +36,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = coordinator?.rootViewController
         window?.makeKeyAndVisible()
+
+        NetworkReachability.shared.delegate = self
+        NetworkReachability.shared.startNetworkMonitoring()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -81,8 +95,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 extension SwinjectStoryboard {
     @objc class func setup() {
-        defaultContainer.storyboardInitCompleted(LoginViewController.self) { resolver, container in
-            container.viewModel = UserViewModel(service: resolver.resolve(UserServiceProtocol.self))
+        defaultContainer.storyboardInitCompleted(LoginViewController.self) { _, container in
+            container.viewModel = UserViewModel()
         }
         defaultContainer.storyboardInitCompleted(DashboardViewController.self) { resolver, container in
             container.viewModel = DashboardViewModel(service: resolver.resolve(ServiceBox<DashboardService>.self))
@@ -140,5 +154,17 @@ extension SwinjectStoryboard {
         defaultContainer.register(ListDetailViewModelProtocol.self) { resolver in
             ListDetailViewModel(service: resolver.resolve(ListServiceProtocol.self))
         }
+    }
+}
+
+extension SceneDelegate: NetworkReachabilityDelegate {
+    func showOfflineAlert() {
+        let rootViewController = window?.rootViewController
+        rootViewController?.present(offlineAlertController, animated: true, completion: nil)
+    }
+
+    func dismissOfflineAlert() {
+        let rootViewController = window?.rootViewController
+        rootViewController?.dismiss(animated: true, completion: nil)
     }
 }

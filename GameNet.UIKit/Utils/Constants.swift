@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class Constants {
-    static let apiPath = Bundle.main.infoDictionary!["API_PATH"]!
+    static let apiPath: String = (Bundle.main.infoDictionary!["API_PATH"] as? String)!
     static let userResource = "user"
     static let dashboardResource = "dashboard"
     static let gameResource = "usergame"

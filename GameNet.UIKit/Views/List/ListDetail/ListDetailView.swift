@@ -40,7 +40,7 @@ extension ListDetailViewController {
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
-        
+
         // MARK: - Public methods
         func reloadData() {
             self.tableView.reloadData()
