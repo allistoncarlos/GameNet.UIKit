@@ -10,8 +10,9 @@ import Alamofire
 
 enum GameNetAPI {
     case login(loginRequestModel: LoginRequestModel)
-    case dashboard
     case refreshToken
+    case dashboard
+    case platforms
 
     var baseURL: String {
         switch self {
@@ -28,12 +29,15 @@ enum GameNetAPI {
             return "\(Constants.userResource)/refresh"
         case .dashboard:
             return Constants.dashboardResource
+        case .platforms:
+            return Constants.platformResource
         }
     }
 
     var method: HTTPMethod {
         switch self {
-        case .dashboard:
+        case .dashboard,
+             .platforms:
             return .get
         case .login,
              .refreshToken:
@@ -53,9 +57,13 @@ enum GameNetAPI {
 
     func encodeParameters(into request: URLRequest) throws -> URLRequest {
         switch self {
-        case let .login(parameters): return try parameterEncoder.encode(parameters, into: request)
-        case .refreshToken: return request
-        case .dashboard: return request
+        case let .login(parameters):
+            return try parameterEncoder.encode(parameters, into: request)
+        case .refreshToken:
+            return request
+        case .dashboard,
+             .platforms:
+            return request
         }
     }
 

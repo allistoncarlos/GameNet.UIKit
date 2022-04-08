@@ -121,8 +121,8 @@ extension SwinjectStoryboard {
         }
 
         // ViewModels
-        defaultContainer.register(PlatformsViewModelProtocol.self) { resolver in
-            PlatformsViewModel(service: resolver.resolve(ServiceBox<PlatformService>.self))
+        defaultContainer.register(PlatformsViewModelProtocol.self) { _ in
+            PlatformsViewModel()
         }
 
         defaultContainer.register(ListDetailViewModelProtocol.self) { resolver in

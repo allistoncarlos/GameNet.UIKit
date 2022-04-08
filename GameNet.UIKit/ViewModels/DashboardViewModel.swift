@@ -14,8 +14,9 @@ protocol DashboardViewModelProtocol: AnyObject {
     func fetchData() async
 }
 
-class DashboardViewModel: ObservableObject, DashboardViewModelProtocol {
+final class DashboardViewModel: ObservableObject, DashboardViewModelProtocol {
     var renderData: (() -> Void)?
+    
     var result: DashboardModel? {
         didSet {
             renderData?()
