@@ -11,6 +11,7 @@ import Alamofire
 enum GameNetAPI {
     case login(loginRequestModel: LoginRequestModel)
     case dashboard
+    case refreshToken
 
     var baseURL: String {
         switch self {
@@ -23,6 +24,8 @@ enum GameNetAPI {
         switch self {
         case .login:
             return "\(Constants.userResource)/login"
+        case .refreshToken:
+            return "\(Constants.userResource)/refresh"
         case .dashboard:
             return Constants.dashboardResource
         }
@@ -32,25 +35,44 @@ enum GameNetAPI {
         switch self {
         case .dashboard:
             return .get
-        case .login:
+        case .login,
+             .refreshToken:
             return .post
         }
     }
 
     var parameterEncoder: ParameterEncoder {
-        switch self {
-        case .login:
+        switch method {
+        case .get: return URLEncodedFormParameterEncoder()
+        default:
             let encoder = JSONParameterEncoder()
             encoder.encoder.dateEncodingStrategy = .iso8601
             return encoder
-        case .dashboard: return URLEncodedFormParameterEncoder()
         }
     }
 
     func encodeParameters(into request: URLRequest) throws -> URLRequest {
         switch self {
         case let .login(parameters): return try parameterEncoder.encode(parameters, into: request)
+        case .refreshToken: return request
         case .dashboard: return request
+        }
+    }
+
+    var accessToken: String? {
+        return KeychainDataSource.accessToken.get()
+    }
+
+    var refreshToken: String? {
+        return KeychainDataSource.refreshToken.get()
+    }
+
+    var isRefreshToken: Bool {
+        switch self {
+        case .refreshToken:
+            return true
+        default:
+            return false
         }
     }
 }

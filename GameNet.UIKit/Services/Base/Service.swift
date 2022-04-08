@@ -52,7 +52,7 @@ class Service<T: BaseModel>: ServiceProtocol {
 
     let apiResource: String
     let decoder = JSONDecoder()
-    let interceptor: AuthenticationInterceptor<OAuthAuthenticator>?
+//    let interceptor: AuthenticationInterceptor<OAuthAuthenticator>?
 
     let sessionManager: Session = {
         var configuration = URLSessionConfiguration.af.default
@@ -73,30 +73,31 @@ class Service<T: BaseModel>: ServiceProtocol {
 
         let keychain = Keychain(service: Constants.keychainIdentifier)
 
-        guard let id = keychain[Constants.userIdIdentifier],
-              let accessToken = keychain[Constants.accessTokenIdentifier],
-              let refreshToken = keychain[Constants.refreshTokenIdentifier],
-              let expiresIn = keychain[Constants.expiresInIdentifier] else {
-            interceptor = nil
-            return
-        }
+//        guard let id = keychain[Constants.userIdIdentifier],
+//              let accessToken = keychain[Constants.accessTokenIdentifier],
+//              let refreshToken = keychain[Constants.refreshTokenIdentifier],
+//              let expiresIn = keychain[Constants.expiresInIdentifier] else {
+//            interceptor = nil
+//            return
+//        }
 
         let dateFormatter = ISO8601DateFormatter()
 
-        guard let expiresInDate = dateFormatter.date(from: expiresIn) else { interceptor = nil; return }
-
-        let authCredentials = OAuthCredential(
-            id: id,
-            accessToken: accessToken,
-            refreshToken: refreshToken,
-            expiration: Date.init(timeInterval: 60 * 5, since: expiresInDate))
+//        guard let expiresInDate = dateFormatter.date(from: expiresIn) else { interceptor = nil; return }
+//
+//        let authCredentials = OAuthCredential(
+//            id: id,
+//            accessToken: accessToken,
+//            refreshToken: refreshToken,
+//            expiration: Date.init(timeInterval: 60 * 5, since: expiresInDate))
 
         let container = Container()
-        let userService = container.resolve(UserServiceProtocol.self)
+//        let userService = container.resolve(UserServiceProtocol.self)
 
-        let authenticator = OAuthAuthenticator(userService: userService)
-        interceptor = AuthenticationInterceptor(authenticator: authenticator,
-                                                    credential: authCredentials)
+//        let authenticator = OAuthAuthenticator(userService: userService)
+//        interceptor = AuthenticationInterceptor(authenticator: authenticator,
+//                                                    credential: authCredentials)
+        
     }
 
     func baseGet<TModel: BaseModel>(id: String? = nil,
@@ -118,7 +119,8 @@ class Service<T: BaseModel>: ServiceProtocol {
         request.httpMethod = HTTPMethod.get.rawValue
         request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
 
-        sessionManager.request(request, interceptor: interceptor)
+//        sessionManager.request(request, interceptor: interceptor)
+        sessionManager.request(request)
             .responseDecodable(of: APIResult<TModel>.self, decoder: decoder) { (response) in
                 switch response.result {
                 case .success(let value):
@@ -139,7 +141,8 @@ class Service<T: BaseModel>: ServiceProtocol {
         request.httpMethod = HTTPMethod.get.rawValue
         request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
 
-        sessionManager.request(request, interceptor: interceptor)
+//        sessionManager.request(request, interceptor: interceptor)
+        sessionManager.request(request)
             .responseDecodable(of: APIResult<[TModel]>.self, decoder: decoder) { (response) in
                 switch response.result {
                 case .success(let value):
@@ -160,7 +163,8 @@ class Service<T: BaseModel>: ServiceProtocol {
         request.httpMethod = HTTPMethod.get.rawValue
         request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
 
-        sessionManager.request(request, interceptor: interceptor)
+//        sessionManager.request(request, interceptor: interceptor)
+        sessionManager.request(request)
             .responseDecodable(of: APIResult<TModel>.self, decoder: decoder) { (response) in
                 switch response.result {
                 case .success(let value):
@@ -199,7 +203,8 @@ class Service<T: BaseModel>: ServiceProtocol {
         request.httpMethod = HTTPMethod.get.rawValue
         request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
 
-        sessionManager.request(request, interceptor: interceptor)
+//        sessionManager.request(request, interceptor: interceptor)
+        sessionManager.request(request)
             .responseDecodable(of: APIResult<PagedResult<T>>.self, decoder: decoder) { (response) in
             switch response.result {
             case .success(let value):
@@ -219,7 +224,8 @@ class Service<T: BaseModel>: ServiceProtocol {
         request.httpMethod = HTTPMethod.get.rawValue
         request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
 
-        sessionManager.request(request, interceptor: interceptor)
+//        sessionManager.request(request, interceptor: interceptor)
+        sessionManager.request(request)
             .responseDecodable(of: APIResult<[T]>.self, decoder: decoder) { (response) in
             switch response.result {
             case .success(let value):
@@ -259,7 +265,8 @@ class Service<T: BaseModel>: ServiceProtocol {
             let json = String(data: request.httpBody!, encoding: .utf8)
             print(json!)
 
-            sessionManager.request(request, interceptor: interceptor)
+//            sessionManager.request(request, interceptor: interceptor)
+            sessionManager.request(request)
                 .responseDecodable(of: APIResult<T>.self, decoder: decoder) { (response) in
                 switch response.result {
                 case .success(let value):

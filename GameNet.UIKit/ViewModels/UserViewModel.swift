@@ -14,9 +14,24 @@ protocol UserViewModelProtocol: AnyObject {
 final class UserViewModel: ObservableObject, UserViewModelProtocol {
     func login(username: String, password: String) async -> LoginResponseModel? {
         let result = await NetworkManager.shared
-            .performRequestAsync(
+            .performRequest(
                 model: LoginResponseModel.self,
-                endpoint: .login(loginRequestModel: LoginRequestModel(username: username, password: password)))
+                endpoint: .login(loginRequestModel: LoginRequestModel(username: username, password: password)),
+                cache: false)
+
+        self.saveToken(result: result)
+
         return result
+    }
+
+    private func saveToken(result: LoginResponseModel?) {
+        if let session = result {
+            let dateFormatter = ISO8601DateFormatter()
+
+            KeychainDataSource.id.set(session.id)
+            KeychainDataSource.accessToken.set(session.accessToken)
+            KeychainDataSource.refreshToken.set(session.refreshToken)
+            KeychainDataSource.expiresIn.set(dateFormatter.string(from: session.expiresIn))
+        }
     }
 }

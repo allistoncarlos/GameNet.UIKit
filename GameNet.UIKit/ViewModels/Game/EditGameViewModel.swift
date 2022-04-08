@@ -75,10 +75,13 @@ class EditGameViewModel: ObservableObject, EditGameViewModelProtocol {
         service?.object.save(model: gameModel, completion: { [weak self] result in
             switch result {
             case .success(let resultGameModel):
-                let keychain = Keychain(service: Constants.keychainIdentifier)
+//                let keychain = Keychain(service: Constants.keychainIdentifier)
 
-                guard let userId = keychain[Constants.userIdIdentifier],
-                      let gameId = resultGameModel.data.id else { return }
+//                guard let userId = keychain[Constants.userIdIdentifier],
+//                      let gameId = resultGameModel.data.id else { return }
+                // TODO: EDITAR ISSO AQUI
+                let userId = "123"
+                guard let gameId = resultGameModel.data.id else { return }
 
                 let resultUserGameModel = UserGameEditModel(
                     id: nil,

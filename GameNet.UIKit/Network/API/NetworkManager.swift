@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+import Pulse
 
 class NetworkManager {
     static let shared = NetworkManager()
@@ -24,6 +25,9 @@ class NetworkManager {
                 storagePolicy: .allowed)
         })
 
+        let pulseLogger = NetworkLogger()
+        let pulseNetworkLoggerEventMonitor = NetworkLoggerEventMonitor(logger: pulseLogger)
+
         let defaultEventMonitor = DefaultEventMonitor()
         let requestsInterceptor = DefaultRequestInterceptor()
 
@@ -31,29 +35,14 @@ class NetworkManager {
             configuration: configuration,
             interceptor: requestsInterceptor,
             cachedResponseHandler: responseCacher,
-            eventMonitors: [defaultEventMonitor])
+            eventMonitors: [defaultEventMonitor, pulseNetworkLoggerEventMonitor])
     }()
 
-    func performRequest<T: Decodable>(model: T.Type, endpoint: GameNetAPI) async -> (Result<T, Error>) {
-        await withUnsafeContinuation({ continuation in
-            self.sessionManager.request(endpoint)
-                .validate(statusCode: 200...300)
-                .responseDecodable(of: T.self, completionHandler: { response in
-                    switch response.result {
-                    case .success:
-                        guard let value = response.value else {return}
-                        continuation.resume(returning: .success(value))
-                    case .failure(let error):
-                        continuation.resume(returning: .failure(error))
-                    }
-                })
-        })
-    }
-
-    func performRequestAsync<T: Decodable>(model: T.Type, endpoint: GameNetAPI) async -> T? {
+    func performRequest<T: Decodable>(model: T.Type, endpoint: GameNetAPI, cache: Bool = true) async -> T? {
         do {
             let request = self.sessionManager.request(endpoint)
                 .validate(statusCode: 200...300)
+                .cacheResponse(using: cache ? .cache : .doNotCache)
 
             let jsonDecoder = JSONDecoder()
             jsonDecoder.dateDecodingStrategy = .iso8601

@@ -30,7 +30,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = scene as? UIWindowScene else { return }
 
-        coordinator = !hasValidToken() ? LoginCoordinator() : MainTabBarCoordinator()
+        coordinator = !KeychainDataSource.hasValidToken() ? LoginCoordinator() : MainTabBarCoordinator()
         coordinator?.start()
 
         window = UIWindow(windowScene: windowScene)
@@ -69,28 +69,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
-    // MARK: - Private methods
-    private func hasValidToken() -> Bool {
-        let keychain = Keychain(service: Constants.keychainIdentifier)
-
-        // ESSA VERIFICAÇÃO É TEMPORÁRIA
-        if keychain[Constants.userIdIdentifier] != nil &&
-            keychain[Constants.accessTokenIdentifier] != nil &&
-            keychain[Constants.refreshTokenIdentifier] != nil,
-           let expiresIn = keychain[Constants.expiresInIdentifier]?.toDate() {
-            if expiresIn > NSDate.init() as Date {
-                return true
-            }
-        }
-
-        keychain[Constants.userIdIdentifier] = nil
-        keychain[Constants.accessTokenIdentifier] = nil
-        keychain[Constants.refreshTokenIdentifier] = nil
-        keychain[Constants.expiresInIdentifier] = nil
-
-        return false
-    }
 }
 
 extension SwinjectStoryboard {
@@ -98,8 +76,8 @@ extension SwinjectStoryboard {
         defaultContainer.storyboardInitCompleted(LoginViewController.self) { _, container in
             container.viewModel = UserViewModel()
         }
-        defaultContainer.storyboardInitCompleted(DashboardViewController.self) { resolver, container in
-            container.viewModel = DashboardViewModel(service: resolver.resolve(ServiceBox<DashboardService>.self))
+        defaultContainer.storyboardInitCompleted(DashboardViewController.self) { _, container in
+            container.viewModel = DashboardViewModel()
         }
         defaultContainer.storyboardInitCompleted(GamesViewController.self) { resolver, container in
             container.viewModel = GamesViewModel(service: resolver.resolve(ServiceBox<GameService>.self))
@@ -127,10 +105,6 @@ extension SwinjectStoryboard {
         }
 
         // Services
-        defaultContainer.register(UserServiceProtocol.self) { _ in UserService() }
-        defaultContainer.register(ServiceBox.self) { _ in
-            ServiceBox<DashboardService>(object: DashboardService(apiResource: Constants.dashboardResource))
-        }
         defaultContainer.register(ServiceBox.self) { _ in
             ServiceBox<GameService>(object: GameService(apiResource: Constants.gameResource))
         }

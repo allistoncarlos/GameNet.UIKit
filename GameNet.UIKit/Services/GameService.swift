@@ -42,8 +42,8 @@ class GameService: Service<GameModel>, GameServiceProtocol {
             }
 
             let result = AF.upload(multipartFormData: uploadClosure,
-                                   to: urlString,
-                                   interceptor: interceptor) { request in
+                                   to: urlString) { request in
+//                                   interceptor: interceptor) { request in
                 request.headers.update(name: "Content-Type", value: "multipart/form-data; charset=UTF-8")
             }
 
@@ -78,7 +78,8 @@ class GameService: Service<GameModel>, GameServiceProtocol {
             let json = String(data: request.httpBody!, encoding: .utf8)
             print(json!)
 
-            AF.request(request, interceptor: interceptor)
+//            AF.request(request, interceptor: interceptor)
+            AF.request(request)
                 .responseDecodable(of: APIResult<UserGameEditResponseModel>.self, decoder: decoder) { (response) in
                 switch response.result {
                 case .success(let value):
