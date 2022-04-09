@@ -45,16 +45,17 @@ final class DashboardTests: XCTestCase {
         // When
         let result = await NetworkManager.shared
             .performRequest(
-                model: DashboardModel.self,
+                model: APIResult<DashboardModel>.self.self,
                 endpoint: .dashboard,
                 cache: false)
         
         // Then
         XCTAssertNotNil(result)
         
-        let totalGames = fakeJSONResponse["totalGames"] as? Int
+        let data = fakeJSONResponse["data"] as? [String: Any]
+        let totalGames = data?["totalGames"] as? Int
         
         XCTAssertNotNil(totalGames)
-        XCTAssertEqual(result?.totalGames, totalGames)
+        XCTAssertEqual(result?.data.totalGames, totalGames)
     }
 }
