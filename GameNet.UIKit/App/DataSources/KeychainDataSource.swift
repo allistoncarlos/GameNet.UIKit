@@ -15,7 +15,13 @@ enum KeychainDataSource: String {
     case expiresIn = "expires_in"
 
     private var keychain: Keychain {
-        return Keychain(service: Constants.keychainIdentifier)
+        var identifier: String = Constants.keychainIdentifier
+        
+#if !GameNet_UIKit
+        identifier = Constants.keychainMockIdentifier
+#endif
+
+        return Keychain(service: identifier)
     }
 
     func set(_ str: String) {
@@ -28,6 +34,13 @@ enum KeychainDataSource: String {
 
     func remove() {
         try? keychain.remove(rawValue)
+    }
+
+    static func clear() {
+        id.remove()
+        accessToken.remove()
+        refreshToken.remove()
+        expiresIn.remove()
     }
 
     static func hasValidToken() -> Bool {

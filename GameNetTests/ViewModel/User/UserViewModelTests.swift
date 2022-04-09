@@ -1,6 +1,6 @@
 //
-//  UserAuthTests.swift
-//  GameNet.UIKit
+//  UserViewModelTests.swift
+//  GameNetTests
 //
 //  Created by Alliston Aleixo on 09/04/22.
 //
@@ -8,13 +8,28 @@
 import XCTest
 @testable import GameNet_UIKit
 
-final class UserAuthTests: XCTestCase {
+final class UserViewModelTests: XCTestCase {
     // MARK: - Properties
     let mock = LoginResponseMock()
     let stubRequests = StubRequests()
+    var viewModel: UserViewModelProtocol?
+    
+    // MARK: - SetUp/TearDown
+    override func setUp() {
+        super.setUp()
+        
+        viewModel = UserViewModel()
+    }
+    
+    override func tearDown() {
+        super.tearDown()
+        
+        viewModel = nil
+        KeychainDataSource.clear()
+    }
     
     // MARK: - Tests
-    func testLogin_ValidParameters_ShouldReturnValidId() async {
+    func testLogin_ValidParameters_ShouldReturnValidAccessToken() async {
         // Given
         let username = "username"
         let password = "password"
@@ -24,21 +39,14 @@ final class UserAuthTests: XCTestCase {
         stubRequests.stubJSONrespone(jsonObject: fakeJSONResponse, header: nil, statusCode: 200, absoluteStringWord: "gamenet.azurewebsites.net")
         
         // When
-        let result = await NetworkManager.shared
-            .performRequest(
-                model: LoginResponseModel.self,
-                endpoint: .login(loginRequestModel: LoginRequestModel(username: username, password: password)),
-                cache: false)
+        let result = await viewModel?.login(username: username, password: password)
         
         // Then
         XCTAssertNotNil(result)
-        
-        guard let result = result else { return }
-        
-        XCTAssertEqual(result.id, String(describing: fakeJSONResponse["id"]!))
+        XCTAssertEqual(KeychainDataSource.accessToken.get(), String(describing: fakeJSONResponse["access_token"]!))
     }
     
-    func testLogin_WrongParameters_ShouldReturnNil() async {
+    func testLogin_InvalidParameters_ShouldReturnNil() async {
         // Given
         let username = "username123"
         let password = "password123"
@@ -48,13 +56,10 @@ final class UserAuthTests: XCTestCase {
         stubRequests.stubJSONrespone(jsonObject: fakeJSONResponse, header: nil, statusCode: 200, absoluteStringWord: "gamenet.azurewebsites.net")
         
         // When
-        let result = await NetworkManager.shared
-            .performRequest(
-                model: LoginResponseModel.self,
-                endpoint: .login(loginRequestModel: LoginRequestModel(username: username, password: password)),
-                cache: false)
+        let result = await viewModel?.login(username: username, password: password)
         
         // Then
         XCTAssertNil(result)
+        XCTAssertNil(KeychainDataSource.accessToken.get())
     }
 }

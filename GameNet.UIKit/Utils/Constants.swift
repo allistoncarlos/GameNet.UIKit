@@ -18,6 +18,7 @@ class Constants {
     static let listResource = "list"
 
     static let keychainIdentifier = "gamenet.azurewebsites.net"
+    static let keychainMockIdentifier = "\(keychainIdentifier)-mock"
 
     static let dashboardViewTitle = "Dashboard"
     static let gamesViewTitle = "Games"

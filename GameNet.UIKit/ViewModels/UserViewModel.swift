@@ -32,6 +32,8 @@ final class UserViewModel: ObservableObject, UserViewModelProtocol {
             KeychainDataSource.accessToken.set(session.accessToken)
             KeychainDataSource.refreshToken.set(session.refreshToken)
             KeychainDataSource.expiresIn.set(dateFormatter.string(from: session.expiresIn))
+        } else {
+            KeychainDataSource.clear()
         }
     }
 }
