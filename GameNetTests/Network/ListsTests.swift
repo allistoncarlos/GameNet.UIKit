@@ -1,5 +1,5 @@
 //
-//  DashboardTests.swift
+//  ListsTests.swift
 //  GameNetTests
 //
 //  Created by Alliston Aleixo on 09/04/22.
@@ -8,9 +8,9 @@
 import XCTest
 @testable import GameNet_UIKit
 
-final class DashboardTests: XCTestCase {
+final class ListsTests: XCTestCase {
     // MARK: - Properties
-    let mock = DashboardResponseMock()
+    let mock = ListResponseMock()
     let stubRequests = StubRequests()
     
     // MARK: - SetUp/TearDown
@@ -21,14 +21,14 @@ final class DashboardTests: XCTestCase {
     }
     
     // MARK: - Tests
-    func testDashboardFetch_Unauthorized_ShouldReturnNil() async {
+    func testListFetch_Unauthorized_ShouldReturnNil() async {
         // Given
         stubRequests.stubJSONResponse(jsonObject: [String: Any](), header: nil, statusCode: 401, absoluteStringWord: "gamenet.azurewebsites.net")
         
         // When
         let result = await NetworkManager.shared
             .performRequest(
-                model: DashboardModel.self,
+                model: ListModel.self,
                 endpoint: .dashboard,
                 cache: false)
         
@@ -36,26 +36,27 @@ final class DashboardTests: XCTestCase {
         XCTAssertNil(result)
     }
     
-    func testDashboardFetch_ValidParameters_ShouldReturnValidTotalGames() async {
+    func testListFetch_ValidParameters_ShouldReturnValidId() async {
         // Given
-        let fakeJSONResponse = mock.fakeSuccessDashboardResponse
+        let fakeJSONResponse = mock.fakeSuccessListResponse
         
         stubRequests.stubJSONResponse(jsonObject: fakeJSONResponse, header: nil, statusCode: 200, absoluteStringWord: "gamenet.azurewebsites.net")
             
         // When
         let result = await NetworkManager.shared
             .performRequest(
-                model: APIResult<DashboardModel>.self.self,
-                endpoint: .dashboard,
+                model: APIResult<PagedResult<ListModel>>.self.self,
+                endpoint: .lists,
                 cache: false)
         
         // Then
         XCTAssertNotNil(result)
+        XCTAssertEqual(result?.ok, true)
         
-        let data = fakeJSONResponse["data"] as? [String: Any?]
-        let totalGames = data?["totalGames"] as? Int
-        
-        XCTAssertNotNil(totalGames)
-        XCTAssertEqual(result?.data.totalGames, totalGames)
+        let dictionary = fakeJSONResponse as NSDictionary
+        let list = dictionary.value(forKeyPath: "data.result.@firstObject") as? [String: Any?]
+        let resultName = result?.data.result[0].name
+        let expectedName = list?["name"] as? String
+        XCTAssertEqual(resultName, expectedName)
     }
 }

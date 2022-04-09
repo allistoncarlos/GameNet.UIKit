@@ -13,6 +13,8 @@ enum GameNetAPI {
     case refreshToken
     case dashboard
     case platforms
+    
+    case lists
 
     var baseURL: String {
         switch self {
@@ -31,13 +33,17 @@ enum GameNetAPI {
             return Constants.dashboardResource
         case .platforms:
             return Constants.platformResource
+            
+        case .lists:
+            return Constants.listResource
         }
     }
 
     var method: HTTPMethod {
         switch self {
         case .dashboard,
-             .platforms:
+             .platforms,
+             .lists:
             return .get
         case .login,
              .refreshToken:
@@ -62,7 +68,8 @@ enum GameNetAPI {
         case .refreshToken:
             return request
         case .dashboard,
-             .platforms:
+             .platforms,
+             .lists:
             return request
         }
     }
