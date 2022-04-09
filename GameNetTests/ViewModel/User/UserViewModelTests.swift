@@ -36,7 +36,7 @@ final class UserViewModelTests: XCTestCase {
         
         let fakeJSONResponse = mock.fakeSuccessLoginResponse
         
-        stubRequests.stubJSONrespone(jsonObject: fakeJSONResponse, header: nil, statusCode: 200, absoluteStringWord: "gamenet.azurewebsites.net")
+        stubRequests.stubJSONResponse(jsonObject: fakeJSONResponse, header: nil, statusCode: 200, absoluteStringWord: "gamenet.azurewebsites.net")
         
         // When
         let result = await viewModel?.login(username: username, password: password)
@@ -53,7 +53,7 @@ final class UserViewModelTests: XCTestCase {
         
         let fakeJSONResponse = mock.fakeFailureLoginResponse
         
-        stubRequests.stubJSONrespone(jsonObject: fakeJSONResponse, header: nil, statusCode: 200, absoluteStringWord: "gamenet.azurewebsites.net")
+        stubRequests.stubJSONResponse(jsonObject: fakeJSONResponse, header: nil, statusCode: 200, absoluteStringWord: "gamenet.azurewebsites.net")
         
         // When
         let result = await viewModel?.login(username: username, password: password)

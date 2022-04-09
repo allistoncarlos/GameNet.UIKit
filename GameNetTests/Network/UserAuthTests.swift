@@ -13,6 +13,13 @@ final class UserAuthTests: XCTestCase {
     let mock = LoginResponseMock()
     let stubRequests = StubRequests()
     
+    // MARK: - SetUp/TearDown
+    override func tearDown() {
+        super.tearDown()
+        KeychainDataSource.clear()
+        URLCache.shared.removeAllCachedResponses()
+    }
+    
     // MARK: - Tests
     func testLogin_ValidParameters_ShouldReturnValidId() async {
         // Given
@@ -21,7 +28,7 @@ final class UserAuthTests: XCTestCase {
         
         let fakeJSONResponse = mock.fakeSuccessLoginResponse
         
-        stubRequests.stubJSONrespone(jsonObject: fakeJSONResponse, header: nil, statusCode: 200, absoluteStringWord: "gamenet.azurewebsites.net")
+        stubRequests.stubJSONResponse(jsonObject: fakeJSONResponse, header: nil, statusCode: 200, absoluteStringWord: "gamenet.azurewebsites.net")
         
         // When
         let result = await NetworkManager.shared
@@ -45,7 +52,7 @@ final class UserAuthTests: XCTestCase {
         
         let fakeJSONResponse = mock.fakeFailureLoginResponse
         
-        stubRequests.stubJSONrespone(jsonObject: fakeJSONResponse, header: nil, statusCode: 200, absoluteStringWord: "gamenet.azurewebsites.net")
+        stubRequests.stubJSONResponse(jsonObject: fakeJSONResponse, header: nil, statusCode: 200, absoluteStringWord: "gamenet.azurewebsites.net")
         
         // When
         let result = await NetworkManager.shared

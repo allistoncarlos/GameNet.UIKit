@@ -16,7 +16,7 @@ protocol DashboardViewModelProtocol: AnyObject {
 
 final class DashboardViewModel: ObservableObject, DashboardViewModelProtocol {
     var renderData: (() -> Void)?
-    
+
     var result: DashboardModel? {
         didSet {
             renderData?()

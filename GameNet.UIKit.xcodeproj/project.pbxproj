@@ -81,6 +81,8 @@
 		A5D41191280213010013F0F0 /* LoginResponseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D41190280213010013F0F0 /* LoginResponseMock.swift */; };
 		A5D41193280213230013F0F0 /* StubRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D41192280213230013F0F0 /* StubRequests.swift */; };
 		A5D41197280218DD0013F0F0 /* UserViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D41196280218DD0013F0F0 /* UserViewModelTests.swift */; };
+		A5D4119928021FD80013F0F0 /* DashboardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D4119828021FD80013F0F0 /* DashboardTests.swift */; };
+		A5D4119C2802200B0013F0F0 /* DashboardResponseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D4119B2802200B0013F0F0 /* DashboardResponseMock.swift */; };
 		A5D5FDF227F393D100C16F55 /* ListDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D5FDF127F393D100C16F55 /* ListDetailViewModel.swift */; };
 		A5D5FDF427F39E9D00C16F55 /* ListItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D5FDF327F39E9D00C16F55 /* ListItemModel.swift */; };
 		A5E2695B2719B36C000E22C5 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E2695A2719B36C000E22C5 /* UserViewModel.swift */; };
@@ -193,6 +195,8 @@
 		A5D41190280213010013F0F0 /* LoginResponseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponseMock.swift; sourceTree = "<group>"; };
 		A5D41192280213230013F0F0 /* StubRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubRequests.swift; sourceTree = "<group>"; };
 		A5D41196280218DD0013F0F0 /* UserViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModelTests.swift; sourceTree = "<group>"; };
+		A5D4119828021FD80013F0F0 /* DashboardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardTests.swift; sourceTree = "<group>"; };
+		A5D4119B2802200B0013F0F0 /* DashboardResponseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardResponseMock.swift; sourceTree = "<group>"; };
 		A5D5FDF127F393D100C16F55 /* ListDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDetailViewModel.swift; sourceTree = "<group>"; };
 		A5D5FDF327F39E9D00C16F55 /* ListItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemModel.swift; sourceTree = "<group>"; };
 		A5E2695A2719B36C000E22C5 /* UserViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
@@ -635,6 +639,7 @@
 			isa = PBXGroup;
 			children = (
 				A5D41185280212500013F0F0 /* UserAuthTests.swift */,
+				A5D4119828021FD80013F0F0 /* DashboardTests.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -643,6 +648,7 @@
 			isa = PBXGroup;
 			children = (
 				A5D4118F280212F70013F0F0 /* UserAuth */,
+				A5D4119A28021FFE0013F0F0 /* Dashboard */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -677,6 +683,14 @@
 				A5D41196280218DD0013F0F0 /* UserViewModelTests.swift */,
 			);
 			path = User;
+			sourceTree = "<group>";
+		};
+		A5D4119A28021FFE0013F0F0 /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				A5D4119B2802200B0013F0F0 /* DashboardResponseMock.swift */,
+			);
+			path = Dashboard;
 			sourceTree = "<group>";
 		};
 		A5ED37C32758FA8D00D56391 /* Coordinator */ = {
@@ -1028,7 +1042,9 @@
 				A5D41193280213230013F0F0 /* StubRequests.swift in Sources */,
 				A5D41197280218DD0013F0F0 /* UserViewModelTests.swift in Sources */,
 				A5D41191280213010013F0F0 /* LoginResponseMock.swift in Sources */,
+				A5D4119928021FD80013F0F0 /* DashboardTests.swift in Sources */,
 				A5D41186280212500013F0F0 /* UserAuthTests.swift in Sources */,
+				A5D4119C2802200B0013F0F0 /* DashboardResponseMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
