@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 import Pulse
 
-class NetworkManager {
+final class NetworkManager {
     static let shared = NetworkManager()
 
     let sessionManager: Session = {
@@ -38,6 +38,7 @@ class NetworkManager {
             eventMonitors: [defaultEventMonitor, pulseNetworkLoggerEventMonitor])
     }()
 
+    @discardableResult
     func performRequest<T: Decodable>(model: T.Type, endpoint: GameNetAPI, cache: Bool = true) async -> T? {
         do {
             let request = self.sessionManager.request(endpoint)

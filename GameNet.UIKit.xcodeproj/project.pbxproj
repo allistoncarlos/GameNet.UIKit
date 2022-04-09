@@ -77,6 +77,9 @@
 		A5D24FBA2688D11000F8A0DA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5D24FB82688D11000F8A0DA /* Main.storyboard */; };
 		A5D24FBC2688D11000F8A0DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5D24FBB2688D11000F8A0DA /* Assets.xcassets */; };
 		A5D24FBF2688D11000F8A0DA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5D24FBD2688D11000F8A0DA /* LaunchScreen.storyboard */; };
+		A5D41186280212500013F0F0 /* UserAuthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D41185280212500013F0F0 /* UserAuthTests.swift */; };
+		A5D41191280213010013F0F0 /* LoginResponseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D41190280213010013F0F0 /* LoginResponseMock.swift */; };
+		A5D41193280213230013F0F0 /* StubRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D41192280213230013F0F0 /* StubRequests.swift */; };
 		A5D5FDF227F393D100C16F55 /* ListDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D5FDF127F393D100C16F55 /* ListDetailViewModel.swift */; };
 		A5D5FDF427F39E9D00C16F55 /* ListItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D5FDF327F39E9D00C16F55 /* ListItemModel.swift */; };
 		A5E2695B2719B36C000E22C5 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E2695A2719B36C000E22C5 /* UserViewModel.swift */; };
@@ -98,10 +101,22 @@
 		A5FA963F271B7F6B00B76CA6 /* ListsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FA963E271B7F6B00B76CA6 /* ListsViewController.swift */; };
 		A5FA9641271B814300B76CA6 /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FA9640271B814300B76CA6 /* UIViewControllerExtensions.swift */; };
 		C458DCD3742C3F1B4FFB1165 /* Pods_GameNet_UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50D5C225997AC8F04B948149 /* Pods_GameNet_UIKit.framework */; };
+		ED74C7A693BD0402230C8E97 /* Pods_GameNetTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA5AC4C9C761795F544FBBA9 /* Pods_GameNetTests.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A5D41187280212500013F0F0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A5D24FA72688D11000F8A0DA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A5D24FAE2688D11000F8A0DA;
+			remoteInfo = GameNet.UIKit;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		50D5C225997AC8F04B948149 /* Pods_GameNet_UIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameNet_UIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		536667C96CF86E80E3E3DE78 /* Pods-GameNetTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameNetTests.debug.xcconfig"; path = "Target Support Files/Pods-GameNetTests/Pods-GameNetTests.debug.xcconfig"; sourceTree = "<group>"; };
 		614D9AA234558E6FFAD6F277 /* Pods-GameNet.UIKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameNet.UIKit.release.xcconfig"; path = "Target Support Files/Pods-GameNet.UIKit/Pods-GameNet.UIKit.release.xcconfig"; sourceTree = "<group>"; };
 		A504F13A27AB38D4006D4DD4 /* DashboardCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCoordinator.swift; sourceTree = "<group>"; };
 		A51DFF662719AEDC00B13388 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
@@ -172,6 +187,10 @@
 		A5D24FBB2688D11000F8A0DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A5D24FBE2688D11000F8A0DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A5D24FC02688D11000F8A0DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A5D41183280212500013F0F0 /* GameNetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GameNetTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5D41185280212500013F0F0 /* UserAuthTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthTests.swift; sourceTree = "<group>"; };
+		A5D41190280213010013F0F0 /* LoginResponseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponseMock.swift; sourceTree = "<group>"; };
+		A5D41192280213230013F0F0 /* StubRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubRequests.swift; sourceTree = "<group>"; };
 		A5D5FDF127F393D100C16F55 /* ListDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDetailViewModel.swift; sourceTree = "<group>"; };
 		A5D5FDF327F39E9D00C16F55 /* ListItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemModel.swift; sourceTree = "<group>"; };
 		A5E2695A2719B36C000E22C5 /* UserViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
@@ -193,6 +212,8 @@
 		A5FA963E271B7F6B00B76CA6 /* ListsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsViewController.swift; sourceTree = "<group>"; };
 		A5FA9640271B814300B76CA6 /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 		B8B59C1007C5D343B8EC15BE /* Pods-GameNet.UIKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameNet.UIKit.debug.xcconfig"; path = "Target Support Files/Pods-GameNet.UIKit/Pods-GameNet.UIKit.debug.xcconfig"; sourceTree = "<group>"; };
+		C16BAE02F307217361F54492 /* Pods-GameNetTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameNetTests.release.xcconfig"; path = "Target Support Files/Pods-GameNetTests/Pods-GameNetTests.release.xcconfig"; sourceTree = "<group>"; };
+		FA5AC4C9C761795F544FBBA9 /* Pods_GameNetTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameNetTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,6 +225,14 @@
 				A520B7E927F1E7140023179B /* Pulse in Frameworks */,
 				A520B7ED27F1E7140023179B /* PulseUI in Frameworks */,
 				C458DCD3742C3F1B4FFB1165 /* Pods_GameNet_UIKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A5D41180280212500013F0F0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ED74C7A693BD0402230C8E97 /* Pods_GameNetTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -553,6 +582,7 @@
 				A5D24FB02688D11000F8A0DA /* Products */,
 				FD4F5B5CFACB834AA5B6C7A5 /* Pods */,
 				AB3E9DD3D5523EF4884309DB /* Frameworks */,
+				A5D41184280212500013F0F0 /* GameNetTests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -560,6 +590,7 @@
 			isa = PBXGroup;
 			children = (
 				A5D24FAF2688D11000F8A0DA /* GameNet.UIKit.app */,
+				A5D41183280212500013F0F0 /* GameNetTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -585,6 +616,48 @@
 				A51DFF662719AEDC00B13388 /* Config.xcconfig */,
 			);
 			path = GameNet.UIKit;
+			sourceTree = "<group>";
+		};
+		A5D41184280212500013F0F0 /* GameNetTests */ = {
+			isa = PBXGroup;
+			children = (
+				A5D4118E280212EF0013F0F0 /* Stubs */,
+				A5D4118D280212EA0013F0F0 /* Mocks */,
+				A5D4118C280212DE0013F0F0 /* Network */,
+			);
+			path = GameNetTests;
+			sourceTree = "<group>";
+		};
+		A5D4118C280212DE0013F0F0 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				A5D41185280212500013F0F0 /* UserAuthTests.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		A5D4118D280212EA0013F0F0 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				A5D4118F280212F70013F0F0 /* UserAuth */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		A5D4118E280212EF0013F0F0 /* Stubs */ = {
+			isa = PBXGroup;
+			children = (
+				A5D41192280213230013F0F0 /* StubRequests.swift */,
+			);
+			path = Stubs;
+			sourceTree = "<group>";
+		};
+		A5D4118F280212F70013F0F0 /* UserAuth */ = {
+			isa = PBXGroup;
+			children = (
+				A5D41190280213010013F0F0 /* LoginResponseMock.swift */,
+			);
+			path = UserAuth;
 			sourceTree = "<group>";
 		};
 		A5ED37C32758FA8D00D56391 /* Coordinator */ = {
@@ -615,6 +688,7 @@
 			isa = PBXGroup;
 			children = (
 				50D5C225997AC8F04B948149 /* Pods_GameNet_UIKit.framework */,
+				FA5AC4C9C761795F544FBBA9 /* Pods_GameNetTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -624,6 +698,8 @@
 			children = (
 				B8B59C1007C5D343B8EC15BE /* Pods-GameNet.UIKit.debug.xcconfig */,
 				614D9AA234558E6FFAD6F277 /* Pods-GameNet.UIKit.release.xcconfig */,
+				536667C96CF86E80E3E3DE78 /* Pods-GameNetTests.debug.xcconfig */,
+				C16BAE02F307217361F54492 /* Pods-GameNetTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -656,17 +732,41 @@
 			productReference = A5D24FAF2688D11000F8A0DA /* GameNet.UIKit.app */;
 			productType = "com.apple.product-type.application";
 		};
+		A5D41182280212500013F0F0 /* GameNetTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A5D4118B280212500013F0F0 /* Build configuration list for PBXNativeTarget "GameNetTests" */;
+			buildPhases = (
+				E89E2D0C4DAF46B7329CE80C /* [CP] Check Pods Manifest.lock */,
+				A5D4117F280212500013F0F0 /* Sources */,
+				A5D41180280212500013F0F0 /* Frameworks */,
+				A5D41181280212500013F0F0 /* Resources */,
+				61837949A923246F2463B10A /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A5D41188280212500013F0F0 /* PBXTargetDependency */,
+			);
+			name = GameNetTests;
+			productName = GameNetTests;
+			productReference = A5D41183280212500013F0F0 /* GameNetTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		A5D24FA72688D11000F8A0DA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1250;
+				LastSwiftUpdateCheck = 1330;
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
 					A5D24FAE2688D11000F8A0DA = {
 						CreatedOnToolsVersion = 12.5.1;
+					};
+					A5D41182280212500013F0F0 = {
+						CreatedOnToolsVersion = 13.3;
+						TestTargetID = A5D24FAE2688D11000F8A0DA;
 					};
 				};
 			};
@@ -687,6 +787,7 @@
 			projectRoot = "";
 			targets = (
 				A5D24FAE2688D11000F8A0DA /* GameNet.UIKit */,
+				A5D41182280212500013F0F0 /* GameNetTests */,
 			);
 		};
 /* End PBXProject section */
@@ -700,6 +801,13 @@
 				A5D24FBC2688D11000F8A0DA /* Assets.xcassets in Resources */,
 				A5D24FBA2688D11000F8A0DA /* Main.storyboard in Resources */,
 				A5A2B756271F541E007CAD11 /* GameCoverCell.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A5D41181280212500013F0F0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -728,6 +836,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		61837949A923246F2463B10A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GameNetTests/Pods-GameNetTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GameNetTests/Pods-GameNetTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GameNetTests/Pods-GameNetTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		A5B537CD27ECDC22006C3A4D /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -744,6 +869,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which \"${PODS_ROOT}/SwiftLint/swiftlint\" >/dev/null; then\n    \"${PODS_ROOT}/SwiftLint/swiftlint\"\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		E89E2D0C4DAF46B7329CE80C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GameNetTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 		FB9F980678E7649B034D1799 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -855,7 +1002,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A5D4117F280212500013F0F0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A5D41193280213230013F0F0 /* StubRequests.swift in Sources */,
+				A5D41191280213010013F0F0 /* LoginResponseMock.swift in Sources */,
+				A5D41186280212500013F0F0 /* UserAuthTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A5D41188280212500013F0F0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A5D24FAE2688D11000F8A0DA /* GameNet.UIKit */;
+			targetProxy = A5D41187280212500013F0F0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		A5D24FB82688D11000F8A0DA /* Main.storyboard */ = {
@@ -1037,6 +1202,48 @@
 			};
 			name = Release;
 		};
+		A5D41189280212500013F0F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 536667C96CF86E80E3E3DE78 /* Pods-GameNetTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KB2R5P3BHU;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.alliston.GameNetTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GameNet.UIKit.app/GameNet.UIKit";
+			};
+			name = Debug;
+		};
+		A5D4118A280212500013F0F0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C16BAE02F307217361F54492 /* Pods-GameNetTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KB2R5P3BHU;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.alliston.GameNetTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GameNet.UIKit.app/GameNet.UIKit";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1054,6 +1261,15 @@
 			buildConfigurations = (
 				A5D24FC42688D11000F8A0DA /* Debug */,
 				A5D24FC52688D11000F8A0DA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A5D4118B280212500013F0F0 /* Build configuration list for PBXNativeTarget "GameNetTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A5D41189280212500013F0F0 /* Debug */,
+				A5D4118A280212500013F0F0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

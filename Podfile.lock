@@ -1,6 +1,19 @@
 PODS:
   - Alamofire (5.5.0)
   - KeychainAccess (4.2.2)
+  - OHHTTPStubs/Core (9.1.0)
+  - OHHTTPStubs/Default (9.1.0):
+    - OHHTTPStubs/Core
+    - OHHTTPStubs/JSON
+    - OHHTTPStubs/NSURLSession
+    - OHHTTPStubs/OHPathHelpers
+  - OHHTTPStubs/JSON (9.1.0):
+    - OHHTTPStubs/Core
+  - OHHTTPStubs/NSURLSession (9.1.0):
+    - OHHTTPStubs/Core
+  - OHHTTPStubs/OHPathHelpers (9.1.0)
+  - OHHTTPStubs/Swift (9.1.0):
+    - OHHTTPStubs/Default
   - SDWebImage (5.11.1):
     - SDWebImage/Core (= 5.11.1)
   - SDWebImage/Core (5.11.1)
@@ -13,6 +26,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 5.5)
   - KeychainAccess
+  - OHHTTPStubs/Swift
   - SDWebImage
   - SwiftLint
   - SwiftyFORM
@@ -23,6 +37,7 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - KeychainAccess
+    - OHHTTPStubs
     - SDWebImage
     - SwiftLint
     - SwiftyFORM
@@ -32,12 +47,13 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
   KeychainAccess: c0c4f7f38f6fc7bbe58f5702e25f7bd2f65abf51
+  OHHTTPStubs: 90eac6d8f2c18317baeca36698523dc67c513831
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SwiftLint: d41cc46a2ae58ac6d9f26954bc89f1d72e71fdef
   SwiftyFORM: 9e8693193e626cf70940641433c810ba1ef3f53b
   Swinject: ddf78b8486dd9b71a667b852cad919ab4484478e
   SwinjectStoryboard: fe54ea9494a75348b1f3126e5e278e674f5684ad
 
-PODFILE CHECKSUM: 69852afe8e6ac613b8c0beadc2f580281e4a913a
+PODFILE CHECKSUM: cc8a314d5f7e99290de12f536c7e7c3bc4c16394
 
 COCOAPODS: 1.11.3

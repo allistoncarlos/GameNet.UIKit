@@ -13,6 +13,13 @@ target 'GameNet.UIKit' do
   pod 'SDWebImage'
   pod 'SwiftyFORM'
   pod 'SwiftLint'
+  
+  target 'GameNetTests' do
+      inherit! :search_paths
+      # Pods for testing
+      
+      pod 'OHHTTPStubs/Swift'
+    end
 
   post_install do |installer|
     installer.pods_project.targets.each do |target|
