@@ -26,6 +26,7 @@
 		A557C6A128046479005B7717 /* ListsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A557C6A028046479005B7717 /* ListsViewModelTests.swift */; };
 		A557C6A328046904005B7717 /* ListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A557C6A228046904005B7717 /* ListTests.swift */; };
 		A557C6A528046925005B7717 /* ListResponseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A557C6A428046925005B7717 /* ListResponseMock.swift */; };
+		A557C6A82804932C005B7717 /* ListDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A557C6A72804932C005B7717 /* ListDetailViewModelTests.swift */; };
 		A559CD4C274BCC8300DEC732 /* EditListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A559CD4B274BCC8300DEC732 /* EditListViewModel.swift */; };
 		A559CD4F274BCCEC00DEC732 /* EditListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A559CD4E274BCCEC00DEC732 /* EditListViewController.swift */; };
 		A56A136D2688D22B0099127C /* LoginRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A136C2688D22B0099127C /* LoginRequestModel.swift */; };
@@ -143,6 +144,7 @@
 		A557C6A028046479005B7717 /* ListsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsViewModelTests.swift; sourceTree = "<group>"; };
 		A557C6A228046904005B7717 /* ListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTests.swift; sourceTree = "<group>"; };
 		A557C6A428046925005B7717 /* ListResponseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListResponseMock.swift; sourceTree = "<group>"; };
+		A557C6A72804932C005B7717 /* ListDetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDetailViewModelTests.swift; sourceTree = "<group>"; };
 		A559CD4B274BCC8300DEC732 /* EditListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditListViewModel.swift; sourceTree = "<group>"; };
 		A559CD4E274BCCEC00DEC732 /* EditListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditListViewController.swift; sourceTree = "<group>"; };
 		A56A136C2688D22B0099127C /* LoginRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequestModel.swift; sourceTree = "<group>"; };
@@ -390,6 +392,7 @@
 			isa = PBXGroup;
 			children = (
 				A557C6A028046479005B7717 /* ListsViewModelTests.swift */,
+				A557C6A72804932C005B7717 /* ListDetailViewModelTests.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -1089,6 +1092,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A557C6A82804932C005B7717 /* ListDetailViewModelTests.swift in Sources */,
 				A5D41193280213230013F0F0 /* StubRequests.swift in Sources */,
 				A5D41197280218DD0013F0F0 /* UserViewModelTests.swift in Sources */,
 				A557C6A528046925005B7717 /* ListResponseMock.swift in Sources */,

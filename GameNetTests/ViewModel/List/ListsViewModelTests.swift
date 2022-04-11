@@ -29,7 +29,7 @@ final class ListsViewModelTests: XCTestCase {
     }
     
     // MARK: - Tests
-    func testFetchDashboard_ShouldReturnValidData() async {
+    func testFetchLists_ShouldReturnValidData() async {
         // Given
         let fakeJSONResponse = mock.fakeSuccessListsResponse
         

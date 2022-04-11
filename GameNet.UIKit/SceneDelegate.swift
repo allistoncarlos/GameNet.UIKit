@@ -117,13 +117,9 @@ extension SwinjectStoryboard {
         }
 
         // ViewModels
-        defaultContainer.register(PlatformsViewModelProtocol.self) { _ in
-            PlatformsViewModel()
-        }
+        defaultContainer.register(PlatformsViewModelProtocol.self) { _ in PlatformsViewModel() }
 
-        defaultContainer.register(ListDetailViewModelProtocol.self) { resolver in
-            ListDetailViewModel(service: resolver.resolve(ListServiceProtocol.self))
-        }
+        defaultContainer.register(ListDetailViewModelProtocol.self) { _ in ListDetailViewModel() }
     }
 }
 
