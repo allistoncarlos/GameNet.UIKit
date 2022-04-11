@@ -1,5 +1,5 @@
 //
-//  ListResponseMock.swift
+//  ListsResponseMock.swift
 //  GameNetTests
 //
 //  Created by Alliston Aleixo on 09/04/22.
@@ -7,8 +7,8 @@
 
 import Foundation
 
-final class ListResponseMock {
-    let fakeSuccessListResponse: [String: Any?] = [
+final class ListsResponseMock {
+    let fakeSuccessListsResponse: [String: Any?] = [
         "data": [
             "count": 2,
             "totalCount": 2,

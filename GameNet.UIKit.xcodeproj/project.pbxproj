@@ -23,6 +23,7 @@
 		A535906C26A35B6600AB5AFC /* RefreshTokenResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A535906B26A35B6600AB5AFC /* RefreshTokenResponseModel.swift */; };
 		A535906F26A3624F00AB5AFC /* OAuthAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A535906E26A3624F00AB5AFC /* OAuthAuthenticator.swift */; };
 		A541AA4D2800AE2F00D0B56D /* KeychainDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A541AA4C2800AE2F00D0B56D /* KeychainDataSource.swift */; };
+		A557C6A128046479005B7717 /* ListsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A557C6A028046479005B7717 /* ListsViewModelTests.swift */; };
 		A559CD4C274BCC8300DEC732 /* EditListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A559CD4B274BCC8300DEC732 /* EditListViewModel.swift */; };
 		A559CD4F274BCCEC00DEC732 /* EditListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A559CD4E274BCCEC00DEC732 /* EditListViewController.swift */; };
 		A56A136D2688D22B0099127C /* LoginRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A136C2688D22B0099127C /* LoginRequestModel.swift */; };
@@ -84,7 +85,7 @@
 		A5D4119928021FD80013F0F0 /* DashboardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D4119828021FD80013F0F0 /* DashboardTests.swift */; };
 		A5D4119C2802200B0013F0F0 /* DashboardResponseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D4119B2802200B0013F0F0 /* DashboardResponseMock.swift */; };
 		A5D4119F2802321C0013F0F0 /* DashboardViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D4119E2802321C0013F0F0 /* DashboardViewModelTests.swift */; };
-		A5D411A2280235030013F0F0 /* ListResponseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D411A1280235030013F0F0 /* ListResponseMock.swift */; };
+		A5D411A2280235030013F0F0 /* ListsResponseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D411A1280235030013F0F0 /* ListsResponseMock.swift */; };
 		A5D411A4280235120013F0F0 /* ListsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D411A3280235120013F0F0 /* ListsTests.swift */; };
 		A5D5FDF227F393D100C16F55 /* ListDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D5FDF127F393D100C16F55 /* ListDetailViewModel.swift */; };
 		A5D5FDF427F39E9D00C16F55 /* ListItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D5FDF327F39E9D00C16F55 /* ListItemModel.swift */; };
@@ -137,6 +138,7 @@
 		A535906B26A35B6600AB5AFC /* RefreshTokenResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokenResponseModel.swift; sourceTree = "<group>"; };
 		A535906E26A3624F00AB5AFC /* OAuthAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthAuthenticator.swift; sourceTree = "<group>"; };
 		A541AA4C2800AE2F00D0B56D /* KeychainDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainDataSource.swift; sourceTree = "<group>"; };
+		A557C6A028046479005B7717 /* ListsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsViewModelTests.swift; sourceTree = "<group>"; };
 		A559CD4B274BCC8300DEC732 /* EditListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditListViewModel.swift; sourceTree = "<group>"; };
 		A559CD4E274BCCEC00DEC732 /* EditListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditListViewController.swift; sourceTree = "<group>"; };
 		A56A136C2688D22B0099127C /* LoginRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequestModel.swift; sourceTree = "<group>"; };
@@ -201,7 +203,7 @@
 		A5D4119828021FD80013F0F0 /* DashboardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardTests.swift; sourceTree = "<group>"; };
 		A5D4119B2802200B0013F0F0 /* DashboardResponseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardResponseMock.swift; sourceTree = "<group>"; };
 		A5D4119E2802321C0013F0F0 /* DashboardViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModelTests.swift; sourceTree = "<group>"; };
-		A5D411A1280235030013F0F0 /* ListResponseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListResponseMock.swift; sourceTree = "<group>"; };
+		A5D411A1280235030013F0F0 /* ListsResponseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsResponseMock.swift; sourceTree = "<group>"; };
 		A5D411A3280235120013F0F0 /* ListsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsTests.swift; sourceTree = "<group>"; };
 		A5D5FDF127F393D100C16F55 /* ListDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDetailViewModel.swift; sourceTree = "<group>"; };
 		A5D5FDF327F39E9D00C16F55 /* ListItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemModel.swift; sourceTree = "<group>"; };
@@ -369,6 +371,22 @@
 				A541AA4C2800AE2F00D0B56D /* KeychainDataSource.swift */,
 			);
 			path = DataSources;
+			sourceTree = "<group>";
+		};
+		A557C69D2804616A005B7717 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				A5D411A3280235120013F0F0 /* ListsTests.swift */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
+		A557C69E280463D8005B7717 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				A557C6A028046479005B7717 /* ListsViewModelTests.swift */,
+			);
+			path = List;
 			sourceTree = "<group>";
 		};
 		A559CD4D274BCCE100DEC732 /* List */ = {
@@ -646,7 +664,7 @@
 			children = (
 				A5D41185280212500013F0F0 /* UserAuthTests.swift */,
 				A5D4119828021FD80013F0F0 /* DashboardTests.swift */,
-				A5D411A3280235120013F0F0 /* ListsTests.swift */,
+				A557C69D2804616A005B7717 /* List */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -682,6 +700,7 @@
 			children = (
 				A5D41195280218D40013F0F0 /* User */,
 				A5D4119D2802320F0013F0F0 /* Dashboard */,
+				A557C69E280463D8005B7717 /* List */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -713,7 +732,7 @@
 		A5D411A0280234F20013F0F0 /* List */ = {
 			isa = PBXGroup;
 			children = (
-				A5D411A1280235030013F0F0 /* ListResponseMock.swift */,
+				A5D411A1280235030013F0F0 /* ListsResponseMock.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -1070,7 +1089,8 @@
 				A5D4119928021FD80013F0F0 /* DashboardTests.swift in Sources */,
 				A5D41186280212500013F0F0 /* UserAuthTests.swift in Sources */,
 				A5D4119F2802321C0013F0F0 /* DashboardViewModelTests.swift in Sources */,
-				A5D411A2280235030013F0F0 /* ListResponseMock.swift in Sources */,
+				A557C6A128046479005B7717 /* ListsViewModelTests.swift in Sources */,
+				A5D411A2280235030013F0F0 /* ListsResponseMock.swift in Sources */,
 				A5D4119C2802200B0013F0F0 /* DashboardResponseMock.swift in Sources */,
 				A5D411A4280235120013F0F0 /* ListsTests.swift in Sources */,
 			);

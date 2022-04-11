@@ -10,7 +10,7 @@ import XCTest
 
 final class ListsTests: XCTestCase {
     // MARK: - Properties
-    let mock = ListResponseMock()
+    let mock = ListsResponseMock()
     let stubRequests = StubRequests()
     
     // MARK: - SetUp/TearDown
@@ -38,7 +38,7 @@ final class ListsTests: XCTestCase {
     
     func testListFetch_ValidParameters_ShouldReturnValidId() async {
         // Given
-        let fakeJSONResponse = mock.fakeSuccessListResponse
+        let fakeJSONResponse = mock.fakeSuccessListsResponse
         
         stubRequests.stubJSONResponse(jsonObject: fakeJSONResponse, header: nil, statusCode: 200, absoluteStringWord: "gamenet.azurewebsites.net")
             
