@@ -45,7 +45,7 @@ final class ListsTests: XCTestCase {
         // When
         let result = await NetworkManager.shared
             .performRequest(
-                model: APIResult<PagedResult<ListModel>>.self.self,
+                model: APIResult<PagedResult<ListModel>>.self,
                 endpoint: .lists,
                 cache: false)
         

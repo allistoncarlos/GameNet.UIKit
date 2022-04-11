@@ -24,6 +24,8 @@
 		A535906F26A3624F00AB5AFC /* OAuthAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A535906E26A3624F00AB5AFC /* OAuthAuthenticator.swift */; };
 		A541AA4D2800AE2F00D0B56D /* KeychainDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A541AA4C2800AE2F00D0B56D /* KeychainDataSource.swift */; };
 		A557C6A128046479005B7717 /* ListsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A557C6A028046479005B7717 /* ListsViewModelTests.swift */; };
+		A557C6A328046904005B7717 /* ListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A557C6A228046904005B7717 /* ListTests.swift */; };
+		A557C6A528046925005B7717 /* ListResponseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A557C6A428046925005B7717 /* ListResponseMock.swift */; };
 		A559CD4C274BCC8300DEC732 /* EditListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A559CD4B274BCC8300DEC732 /* EditListViewModel.swift */; };
 		A559CD4F274BCCEC00DEC732 /* EditListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A559CD4E274BCCEC00DEC732 /* EditListViewController.swift */; };
 		A56A136D2688D22B0099127C /* LoginRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A136C2688D22B0099127C /* LoginRequestModel.swift */; };
@@ -139,6 +141,8 @@
 		A535906E26A3624F00AB5AFC /* OAuthAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthAuthenticator.swift; sourceTree = "<group>"; };
 		A541AA4C2800AE2F00D0B56D /* KeychainDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainDataSource.swift; sourceTree = "<group>"; };
 		A557C6A028046479005B7717 /* ListsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsViewModelTests.swift; sourceTree = "<group>"; };
+		A557C6A228046904005B7717 /* ListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTests.swift; sourceTree = "<group>"; };
+		A557C6A428046925005B7717 /* ListResponseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListResponseMock.swift; sourceTree = "<group>"; };
 		A559CD4B274BCC8300DEC732 /* EditListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditListViewModel.swift; sourceTree = "<group>"; };
 		A559CD4E274BCCEC00DEC732 /* EditListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditListViewController.swift; sourceTree = "<group>"; };
 		A56A136C2688D22B0099127C /* LoginRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequestModel.swift; sourceTree = "<group>"; };
@@ -377,6 +381,7 @@
 			isa = PBXGroup;
 			children = (
 				A5D411A3280235120013F0F0 /* ListsTests.swift */,
+				A557C6A228046904005B7717 /* ListTests.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -733,6 +738,7 @@
 			isa = PBXGroup;
 			children = (
 				A5D411A1280235030013F0F0 /* ListsResponseMock.swift */,
+				A557C6A428046925005B7717 /* ListResponseMock.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -1085,8 +1091,10 @@
 			files = (
 				A5D41193280213230013F0F0 /* StubRequests.swift in Sources */,
 				A5D41197280218DD0013F0F0 /* UserViewModelTests.swift in Sources */,
+				A557C6A528046925005B7717 /* ListResponseMock.swift in Sources */,
 				A5D41191280213010013F0F0 /* LoginResponseMock.swift in Sources */,
 				A5D4119928021FD80013F0F0 /* DashboardTests.swift in Sources */,
+				A557C6A328046904005B7717 /* ListTests.swift in Sources */,
 				A5D41186280212500013F0F0 /* UserAuthTests.swift in Sources */,
 				A5D4119F2802321C0013F0F0 /* DashboardViewModelTests.swift in Sources */,
 				A557C6A128046479005B7717 /* ListsViewModelTests.swift in Sources */,

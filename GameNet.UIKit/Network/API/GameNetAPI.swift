@@ -13,8 +13,11 @@ enum GameNetAPI {
     case refreshToken
     case dashboard
     case platforms
-    
+
     case lists
+    case finishedByYearList(id: String)
+    case boughtByYearList(id: String)
+    case list(id: String)
 
     var baseURL: String {
         switch self {
@@ -33,9 +36,15 @@ enum GameNetAPI {
             return Constants.dashboardResource
         case .platforms:
             return Constants.platformResource
-            
+
         case .lists:
             return Constants.listResource
+        case let .finishedByYearList(id):
+            return "\(Constants.listResource)/FinishedByYear/\(id)"
+        case let .boughtByYearList(id):
+            return "\(Constants.listResource)/BoughtByYear/\(id)"
+        case let .list(id):
+            return "\(Constants.listResource)/\(id)"
         }
     }
 
@@ -43,7 +52,10 @@ enum GameNetAPI {
         switch self {
         case .dashboard,
              .platforms,
-             .lists:
+             .lists,
+             .finishedByYearList,
+             .boughtByYearList,
+             .list:
             return .get
         case .login,
              .refreshToken:
@@ -69,7 +81,10 @@ enum GameNetAPI {
             return request
         case .dashboard,
              .platforms,
-             .lists:
+             .lists,
+             .finishedByYearList,
+             .boughtByYearList,
+             .list:
             return request
         }
     }

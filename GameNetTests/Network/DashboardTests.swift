@@ -45,7 +45,7 @@ final class DashboardTests: XCTestCase {
         // When
         let result = await NetworkManager.shared
             .performRequest(
-                model: APIResult<DashboardModel>.self.self,
+                model: APIResult<DashboardModel>.self,
                 endpoint: .dashboard,
                 cache: false)
         
