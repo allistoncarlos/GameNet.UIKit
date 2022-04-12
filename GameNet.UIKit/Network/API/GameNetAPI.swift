@@ -13,11 +13,13 @@ enum GameNetAPI {
     case refreshToken
     case dashboard
     case platforms
+    case savePlatform(id: String?, model: PlatformModel)
 
     case lists
     case finishedByYearList(id: String)
     case boughtByYearList(id: String)
     case list(id: String)
+    case saveList(id: String?, model: ListModel)
 
     var baseURL: String {
         switch self {
@@ -36,6 +38,12 @@ enum GameNetAPI {
             return Constants.dashboardResource
         case .platforms:
             return Constants.platformResource
+        case let .savePlatform(id, _):
+            if let id = id {
+                return "\(Constants.platformResource)?id=\(id)"
+            }
+
+            return Constants.listResource
 
         case .lists:
             return Constants.listResource
@@ -45,6 +53,12 @@ enum GameNetAPI {
             return "\(Constants.listResource)/BoughtByYear/\(id)"
         case let .list(id):
             return "\(Constants.listResource)/\(id)"
+        case let .saveList(id, _):
+            if let id = id {
+                return "\(Constants.listResource)?id=\(id)"
+            }
+
+            return Constants.listResource
         }
     }
 
@@ -59,6 +73,18 @@ enum GameNetAPI {
             return .get
         case .login,
              .refreshToken:
+            return .post
+        case let .savePlatform(id, _):
+            if id != nil {
+                return .put
+            }
+
+            return .post
+        case let .saveList(id, _):
+            if id != nil {
+                return .put
+            }
+
             return .post
         }
     }
@@ -77,6 +103,10 @@ enum GameNetAPI {
         switch self {
         case let .login(parameters):
             return try parameterEncoder.encode(parameters, into: request)
+        case let .saveList(_, model):
+            return try parameterEncoder.encode(model, into: request)
+        case let .savePlatform(_, model):
+            return try parameterEncoder.encode(model, into: request)
         case .refreshToken:
             return request
         case .dashboard,

@@ -43,7 +43,7 @@ class EditListViewController: BaseFormViewController, StoryboardCoordinated {
         if let listId = listId {
             viewModel?.renderData = { [weak self] in
                 DispatchQueue.main.async {
-                    if let data = self?.viewModel?.apiResult?.data,
+                    if let data = self?.viewModel?.result,
                         let name = data.name {
                         self?.nameFormItem.value = name
 
@@ -52,7 +52,9 @@ class EditListViewController: BaseFormViewController, StoryboardCoordinated {
                 }
             }
 
-            viewModel?.fetchData(id: listId)
+            Task {
+                await viewModel?.fetchData(id: listId)
+            }
         } else {
             self.setupModalNavigationBar(title: Constants.editListViewTitle)
         }
@@ -88,9 +90,12 @@ class EditListViewController: BaseFormViewController, StoryboardCoordinated {
 
         switch result {
         case .valid:
-            viewModel?.save(id: listId, data: ListModel(
-                id: listId,
-                name: nameFormItem.value))
+            Task {
+                await viewModel?.save(id: listId, data: ListModel(
+                    id: listId,
+                    name: nameFormItem.value,
+                    userId: KeychainDataSource.id.get()))
+            }
         case .invalid:
             break
         }

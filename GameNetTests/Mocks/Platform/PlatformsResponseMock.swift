@@ -30,4 +30,22 @@ final class PlatformsResponseMock {
         "ok": true,
         "errors": []
     ]
+    
+    let fakeSaveNewPlatformResponse: [String: Any?] = [
+        "data": [
+            "name": "Nova Plataforma",
+            "id": "123"
+        ],
+        "ok": true,
+        "errors": []
+    ]
+    
+    let fakeSaveExistingPlatformResponse: [String: Any?] = [
+        "data": [
+            "name": "Plataforma Existente",
+            "id": "123"
+        ],
+        "ok": true,
+        "errors": []
+    ]
 }

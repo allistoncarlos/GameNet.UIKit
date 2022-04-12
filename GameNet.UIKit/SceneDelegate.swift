@@ -100,8 +100,8 @@ extension SwinjectStoryboard {
         defaultContainer.storyboardInitCompleted(ListsViewController.self) { _, container in
             container.viewModel = ListsViewModel()
         }
-        defaultContainer.storyboardInitCompleted(EditListViewController.self) { resolver, container in
-            container.viewModel = EditListViewModel(service: resolver.resolve(ServiceBox<ListService>.self))
+        defaultContainer.storyboardInitCompleted(EditListViewController.self) { _, container in
+            container.viewModel = EditListViewModel()
         }
 
         // Services
