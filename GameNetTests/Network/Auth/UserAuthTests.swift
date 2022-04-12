@@ -34,8 +34,7 @@ final class UserAuthTests: XCTestCase {
         let result = await NetworkManager.shared
             .performRequest(
                 model: LoginResponseModel.self,
-                endpoint: .login(loginRequestModel: LoginRequestModel(username: username, password: password)),
-                cache: false)
+                endpoint: .login(loginRequestModel: LoginRequestModel(username: username, password: password)))
         
         // Then
         XCTAssertNotNil(result)
@@ -58,8 +57,7 @@ final class UserAuthTests: XCTestCase {
         let result = await NetworkManager.shared
             .performRequest(
                 model: LoginResponseModel.self,
-                endpoint: .login(loginRequestModel: LoginRequestModel(username: username, password: password)),
-                cache: false)
+                endpoint: .login(loginRequestModel: LoginRequestModel(username: username, password: password)))
         
         // Then
         XCTAssertNil(result)

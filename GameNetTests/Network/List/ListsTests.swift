@@ -29,8 +29,7 @@ final class ListsTests: XCTestCase {
         let result = await NetworkManager.shared
             .performRequest(
                 model: ListModel.self,
-                endpoint: .dashboard,
-                cache: false)
+                endpoint: .dashboard)
         
         // Then
         XCTAssertNil(result)
@@ -46,8 +45,7 @@ final class ListsTests: XCTestCase {
         let result = await NetworkManager.shared
             .performRequest(
                 model: APIResult<PagedResult<ListModel>>.self,
-                endpoint: .lists,
-                cache: false)
+                endpoint: .lists)
         
         // Then
         XCTAssertNotNil(result)

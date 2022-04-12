@@ -16,8 +16,7 @@ final class UserViewModel: ObservableObject, UserViewModelProtocol {
         let result = await NetworkManager.shared
             .performRequest(
                 model: LoginResponseModel.self,
-                endpoint: .login(loginRequestModel: LoginRequestModel(username: username, password: password)),
-                cache: false)
+                endpoint: .login(loginRequestModel: LoginRequestModel(username: username, password: password)))
 
         self.saveToken(result: result)
 

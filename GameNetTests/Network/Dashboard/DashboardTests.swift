@@ -29,8 +29,7 @@ final class DashboardTests: XCTestCase {
         let result = await NetworkManager.shared
             .performRequest(
                 model: DashboardModel.self,
-                endpoint: .dashboard,
-                cache: false)
+                endpoint: .dashboard)
         
         // Then
         XCTAssertNil(result)
@@ -46,8 +45,7 @@ final class DashboardTests: XCTestCase {
         let result = await NetworkManager.shared
             .performRequest(
                 model: APIResult<DashboardModel>.self,
-                endpoint: .dashboard,
-                cache: false)
+                endpoint: .dashboard)
         
         // Then
         XCTAssertNotNil(result)

@@ -13,6 +13,7 @@ enum GameNetAPI {
     case refreshToken
     case dashboard
     case platforms
+    case platform(id: String)
     case savePlatform(id: String?, model: PlatformModel)
 
     case lists
@@ -38,12 +39,14 @@ enum GameNetAPI {
             return Constants.dashboardResource
         case .platforms:
             return Constants.platformResource
+        case let .platform(id):
+            return "\(Constants.platformResource)/\(id)"
         case let .savePlatform(id, _):
             if let id = id {
                 return "\(Constants.platformResource)?id=\(id)"
             }
 
-            return Constants.listResource
+            return "\(Constants.platformResource)/"
 
         case .lists:
             return Constants.listResource
@@ -66,6 +69,7 @@ enum GameNetAPI {
         switch self {
         case .dashboard,
              .platforms,
+             .platform,
              .lists,
              .finishedByYearList,
              .boughtByYearList,
@@ -111,6 +115,7 @@ enum GameNetAPI {
             return request
         case .dashboard,
              .platforms,
+             .platform,
              .lists,
              .finishedByYearList,
              .boughtByYearList,
@@ -139,7 +144,9 @@ enum GameNetAPI {
 
 extension GameNetAPI: URLRequestConvertible {
     func asURLRequest() throws -> URLRequest {
-        let url = try baseURL.asURL().appendingPathComponent(path)
+        let resultUrl = "\(baseURL)/\(path)"
+
+        let url = try resultUrl.asURL()
         var request = URLRequest(url: url)
         request.method = method
 

@@ -39,7 +39,7 @@ final class NetworkManager {
     }()
 
     @discardableResult
-    func performRequest<T: Decodable>(model: T.Type, endpoint: GameNetAPI, cache: Bool = true) async -> T? {
+    func performRequest<T: Decodable>(model: T.Type, endpoint: GameNetAPI, cache: Bool = false) async -> T? {
         do {
             let request = self.sessionManager.request(endpoint)
                 .validate(statusCode: 200...300)

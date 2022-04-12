@@ -26,14 +26,13 @@ final class EditPlatformTests: XCTestCase {
         let name = "Nova Plataforma"
         let fakeJSONResponse = mock.fakeSaveNewPlatformResponse
         
-        stubRequests.stubJSONResponse(jsonObject: fakeJSONResponse, header: nil, statusCode: 201, absoluteStringWord: "gamenet.azurewebsites.net")
+        stubRequests.stubJSONResponse(jsonObject: fakeJSONResponse, header: nil, statusCode: 201, absoluteStringWord: Constants.platformResource)
 
         // When
         let result = await NetworkManager.shared
             .performRequest(
                 model: APIResult<PlatformModel>.self,
-                endpoint: .savePlatform(id: nil, model: PlatformModel(id: nil, name: name)),
-                cache: false)
+                endpoint: .savePlatform(id: nil, model: PlatformModel(id: nil, name: name)))
         
         // Then
         XCTAssertNotNil(result)
@@ -49,14 +48,13 @@ final class EditPlatformTests: XCTestCase {
         let name = "Plataforma Existente"
         let fakeJSONResponse = mock.fakeSaveExistingPlatformResponse
         
-        stubRequests.stubJSONResponse(jsonObject: fakeJSONResponse, header: nil, statusCode: 201, absoluteStringWord: "gamenet.azurewebsites.net")
+        stubRequests.stubJSONResponse(jsonObject: fakeJSONResponse, header: nil, statusCode: 201, absoluteStringWord: "/\(Constants.platformResource)?id=\(id)")
 
         // When
         let result = await NetworkManager.shared
             .performRequest(
                 model: APIResult<PlatformModel>.self,
-                endpoint: .savePlatform(id: id, model: PlatformModel(id: id, name: name)),
-                cache: false)
+                endpoint: .savePlatform(id: id, model: PlatformModel(id: id, name: name)))
         
         // Then
         XCTAssertNotNil(result)

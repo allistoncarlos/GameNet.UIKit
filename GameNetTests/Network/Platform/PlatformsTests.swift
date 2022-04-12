@@ -31,8 +31,7 @@ final class PlatformsTests: XCTestCase {
         let result = await NetworkManager.shared
             .performRequest(
                 model: APIResult<PagedResult<PlatformModel>>.self,
-                endpoint: .platforms,
-                cache: false)
+                endpoint: .platforms)
         
         // Then
         XCTAssertNotNil(result)

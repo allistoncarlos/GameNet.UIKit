@@ -32,8 +32,7 @@ final class EditListTests: XCTestCase {
 //        let result = await NetworkManager.shared
 //            .performRequest(
 //                model: APIResult<[ListItemModel]>.self,
-//                endpoint: .finishedByYearList(id: year),
-//                cache: false)
+//                endpoint: .finishedByYearList(id: year))
 //
 //        // Then
 //        XCTAssertNotNil(result)
@@ -57,8 +56,7 @@ final class EditListTests: XCTestCase {
 //        let result = await NetworkManager.shared
 //            .performRequest(
 //                model: APIResult<[ListItemModel]>.self,
-//                endpoint: .boughtByYearList(id: year),
-//                cache: false)
+//                endpoint: .boughtByYearList(id: year))
 //
 //        // Then
 //        XCTAssertNotNil(result)
@@ -81,8 +79,7 @@ final class EditListTests: XCTestCase {
 //        let result = await NetworkManager.shared
 //            .performRequest(
 //                model: APIResult<ListGameModel>.self,
-//                endpoint: .list(id: id),
-//                cache: false)
+//                endpoint: .list(id: id))
 //
 //        // Then
 //        XCTAssertNotNil(result)
