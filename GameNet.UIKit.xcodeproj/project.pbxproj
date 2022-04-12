@@ -33,6 +33,8 @@
 		A56A13712688D7ED0099127C /* LoginResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A13702688D7ED0099127C /* LoginResponseModel.swift */; };
 		A56A13792688E77E0099127C /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A13782688E77E0099127C /* DashboardViewController.swift */; };
 		A56A137C2688E7D70099127C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A137B2688E7D70099127C /* Constants.swift */; };
+		A571B3022805AB6400AC5D94 /* PlatformsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A571B3012805AB6400AC5D94 /* PlatformsTests.swift */; };
+		A571B3052805AC0A00AC5D94 /* PlatformsResponseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A571B3042805AC0A00AC5D94 /* PlatformsResponseMock.swift */; };
 		A57E27FF268A440A00EFB503 /* GamesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57E27FE268A440A00EFB503 /* GamesViewController.swift */; };
 		A57E2801268A453000EFB503 /* GameService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57E2800268A453000EFB503 /* GameService.swift */; };
 		A57E2804268A459400EFB503 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57E2803268A459400EFB503 /* Service.swift */; };
@@ -151,6 +153,8 @@
 		A56A13702688D7ED0099127C /* LoginResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponseModel.swift; sourceTree = "<group>"; };
 		A56A13782688E77E0099127C /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		A56A137B2688E7D70099127C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		A571B3012805AB6400AC5D94 /* PlatformsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformsTests.swift; sourceTree = "<group>"; };
+		A571B3042805AC0A00AC5D94 /* PlatformsResponseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformsResponseMock.swift; sourceTree = "<group>"; };
 		A57E27FE268A440A00EFB503 /* GamesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesViewController.swift; sourceTree = "<group>"; };
 		A57E2800268A453000EFB503 /* GameService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameService.swift; sourceTree = "<group>"; };
 		A57E2803268A459400EFB503 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
@@ -460,6 +464,38 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		A571B2FE2805AB3D00AC5D94 /* Platform */ = {
+			isa = PBXGroup;
+			children = (
+				A571B3012805AB6400AC5D94 /* PlatformsTests.swift */,
+			);
+			path = Platform;
+			sourceTree = "<group>";
+		};
+		A571B2FF2805AB4600AC5D94 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				A5D41185280212500013F0F0 /* UserAuthTests.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		A571B3002805AB5100AC5D94 /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				A5D4119828021FD80013F0F0 /* DashboardTests.swift */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		A571B3032805ABF500AC5D94 /* Platform */ = {
+			isa = PBXGroup;
+			children = (
+				A571B3042805AC0A00AC5D94 /* PlatformsResponseMock.swift */,
+			);
+			path = Platform;
+			sourceTree = "<group>";
+		};
 		A57E2802268A458A00EFB503 /* Base */ = {
 			isa = PBXGroup;
 			children = (
@@ -670,8 +706,9 @@
 		A5D4118C280212DE0013F0F0 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				A5D41185280212500013F0F0 /* UserAuthTests.swift */,
-				A5D4119828021FD80013F0F0 /* DashboardTests.swift */,
+				A571B2FF2805AB4600AC5D94 /* Auth */,
+				A571B3002805AB5100AC5D94 /* Dashboard */,
+				A571B2FE2805AB3D00AC5D94 /* Platform */,
 				A557C69D2804616A005B7717 /* List */,
 			);
 			path = Network;
@@ -682,6 +719,7 @@
 			children = (
 				A5D4118F280212F70013F0F0 /* UserAuth */,
 				A5D4119A28021FFE0013F0F0 /* Dashboard */,
+				A571B3032805ABF500AC5D94 /* Platform */,
 				A5D411A0280234F20013F0F0 /* List */,
 			);
 			path = Mocks;
@@ -1098,6 +1136,8 @@
 				A557C6A528046925005B7717 /* ListResponseMock.swift in Sources */,
 				A5D41191280213010013F0F0 /* LoginResponseMock.swift in Sources */,
 				A5D4119928021FD80013F0F0 /* DashboardTests.swift in Sources */,
+				A571B3052805AC0A00AC5D94 /* PlatformsResponseMock.swift in Sources */,
+				A571B3022805AB6400AC5D94 /* PlatformsTests.swift in Sources */,
 				A557C6A328046904005B7717 /* ListTests.swift in Sources */,
 				A5D41186280212500013F0F0 /* UserAuthTests.swift in Sources */,
 				A5D4119F2802321C0013F0F0 /* DashboardViewModelTests.swift in Sources */,

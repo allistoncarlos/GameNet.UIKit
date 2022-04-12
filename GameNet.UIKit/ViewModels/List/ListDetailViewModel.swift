@@ -18,8 +18,6 @@ protocol ListDetailViewModelProtocol: AnyObject {
 }
 
 class ListDetailViewModel: ObservableObject, ListDetailViewModelProtocol {
-    private var service: ListServiceProtocol?
-
     var result: [ListItemModel]? {
         didSet {
             renderData?()

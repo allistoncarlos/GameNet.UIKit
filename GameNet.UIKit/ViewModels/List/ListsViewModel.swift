@@ -15,8 +15,6 @@ protocol ListsViewModelProtocol: AnyObject {
 }
 
 class ListsViewModel: ObservableObject, ListsViewModelProtocol {
-    private var service: ListServiceProtocol?
-
     var result: [ListModel]? {
         didSet {
             renderData?()
