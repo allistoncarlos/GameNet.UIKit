@@ -1,23 +1,31 @@
 //
-//  EditPlatformTests.swift
+//  EditPlatformViewModelTests.swift
 //  GameNetTests
 //
-//  Created by Alliston Aleixo on 12/04/22.
+//  Created by Alliston Aleixo on 14/04/22.
 //
 
 import XCTest
 @testable import GameNet_UIKit
 
-final class EditPlatformTests: XCTestCase {
+final class EditPlatformViewModelTests: XCTestCase {
     // MARK: - Properties
     let mock = PlatformsResponseMock()
     let stubRequests = StubRequests()
+    var viewModel: EditPlatformViewModelProtocol?
     
     // MARK: - SetUp/TearDown
+    override func setUp() {
+        super.setUp()
+        
+        viewModel = EditPlatformViewModel()
+    }
+    
     override func tearDown() {
         super.tearDown()
+        
+        viewModel = nil
         KeychainDataSource.clear()
-        URLCache.shared.removeAllCachedResponses()
     }
     
     // MARK: - Tests
@@ -29,23 +37,21 @@ final class EditPlatformTests: XCTestCase {
         stubRequests.stubJSONResponse(jsonObject: fakeJSONResponse, header: nil, statusCode: 200, absoluteStringWord: Constants.platformResource)
 
         // When
-        let result = await NetworkManager.shared
-            .performRequest(
-                model: APIResult<PlatformModel>.self,
-                endpoint: .platform(id: id))
+        await viewModel?.fetchData(id: id)
+        let result = viewModel?.result
 
         // Then
         XCTAssertNotNil(result)
 
         let dictionary = fakeJSONResponse as NSDictionary
         let platform = dictionary.value(forKeyPath: "data") as? [String: Any?]
-        let resultName = result?.data.name
+        let resultName = result?.name
         let expectedName = platform?["name"] as? String
 
         XCTAssertEqual(resultName, expectedName)
     }
     
-    func testSaveNewPlatform_ValidParameters_ShouldReturnValidPlatforms() async {
+    func testSaveNewPlatform_ValidParameters_ShouldReturnValidPlatform() async {
         // Given
         let name = "Nova Plataforma"
         let fakeJSONResponse = mock.fakeSaveNewPlatformResponse
@@ -53,10 +59,8 @@ final class EditPlatformTests: XCTestCase {
         stubRequests.stubJSONResponse(jsonObject: fakeJSONResponse, header: nil, statusCode: 201, absoluteStringWord: Constants.platformResource)
 
         // When
-        let result = await NetworkManager.shared
-            .performRequest(
-                model: APIResult<PlatformModel>.self,
-                endpoint: .savePlatform(id: nil, model: PlatformModel(id: nil, name: name)))
+        await viewModel?.save(id: nil, data: PlatformModel(id: nil, name: name))
+        let result = viewModel?.result
         
         // Then
         XCTAssertNotNil(result)
@@ -75,10 +79,8 @@ final class EditPlatformTests: XCTestCase {
         stubRequests.stubJSONResponse(jsonObject: fakeJSONResponse, header: nil, statusCode: 201, absoluteStringWord: "/\(Constants.platformResource)?id=\(id)")
 
         // When
-        let result = await NetworkManager.shared
-            .performRequest(
-                model: APIResult<PlatformModel>.self,
-                endpoint: .savePlatform(id: id, model: PlatformModel(id: id, name: name)))
+        await viewModel?.save(id: id, data: PlatformModel(id: id, name: name))
+        let result = viewModel?.result
         
         // Then
         XCTAssertNotNil(result)

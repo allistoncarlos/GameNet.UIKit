@@ -33,7 +33,7 @@ final class PlatformsViewModelTests: XCTestCase {
         // Given
         let fakeJSONResponse = mock.fakeSuccessPlatformsResponse
         
-        stubRequests.stubJSONResponse(jsonObject: fakeJSONResponse, header: nil, statusCode: 200, absoluteStringWord: "gamenet.azurewebsites.net")
+        stubRequests.stubJSONResponse(jsonObject: fakeJSONResponse, header: nil, statusCode: 200, absoluteStringWord: Constants.platformResource)
         
         // When
         await viewModel?.fetchData()
@@ -43,9 +43,9 @@ final class PlatformsViewModelTests: XCTestCase {
         XCTAssertNotNil(result)
         
         let dictionary = fakeJSONResponse as NSDictionary
-        let list = dictionary.value(forKeyPath: "data.result.@firstObject") as? [String: Any?]
+        let platform = dictionary.value(forKeyPath: "data.result.@firstObject") as? [String: Any?]
         let resultName = result?[0].name
-        let expectedName = list?["name"] as? String
+        let expectedName = platform?["name"] as? String
         
         XCTAssertEqual(resultName, expectedName)
     }

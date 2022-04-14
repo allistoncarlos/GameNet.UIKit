@@ -31,6 +31,15 @@ final class PlatformsResponseMock {
         "errors": []
     ]
     
+    let fakeSuccessPlatformResponse: [String: Any?] = [
+        "data": [
+            "name": "Nintendo Switch",
+            "id": "123"
+        ],
+        "ok": true,
+        "errors": []
+    ]
+    
     let fakeSaveNewPlatformResponse: [String: Any?] = [
         "data": [
             "name": "Nova Plataforma",

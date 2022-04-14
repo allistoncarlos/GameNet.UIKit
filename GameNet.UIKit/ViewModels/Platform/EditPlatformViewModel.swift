@@ -44,6 +44,7 @@ class EditPlatformViewModel: ObservableObject, EditPlatformViewModelProtocol {
                 model: APIResult<PlatformModel>.self,
                 endpoint: .savePlatform(id: id, model: data)) {
             if apiResult.ok {
+                self.result = apiResult.data
                 self.savedData?()
             }
         }
