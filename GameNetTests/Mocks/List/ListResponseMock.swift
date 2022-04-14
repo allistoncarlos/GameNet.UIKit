@@ -113,4 +113,22 @@ final class ListResponseMock {
         "ok": true,
         "errors": []
     ]
+    
+    let fakeSaveNewListResponse: [String: Any?] = [
+        "data": [
+            "name": "Nova Lista",
+            "userId": "123"
+        ],
+        "ok": true,
+        "errors": []
+    ]
+    
+    let fakeSaveExistingListResponse: [String: Any?] = [
+        "data": [
+            "name": "Plataforma Existente",
+            "userId": "123"
+        ],
+        "ok": true,
+        "errors": []
+    ]
 }

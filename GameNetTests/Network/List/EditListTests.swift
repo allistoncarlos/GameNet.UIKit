@@ -21,71 +21,72 @@ final class EditListTests: XCTestCase {
     }
     
     // MARK: - Tests
-//    func testFinishedByYearListFetch_ValidParameters_ShouldReturnValidGames() async {
-//        // Given
-//        let year = "2022"
-//        let fakeJSONResponse = mock.fakeFinishedByYearResponse
-//
-//        stubRequests.stubJSONResponse(jsonObject: fakeJSONResponse, header: nil, statusCode: 200, absoluteStringWord: "gamenet.azurewebsites.net")
-//
-//        // When
-//        let result = await NetworkManager.shared
-//            .performRequest(
-//                model: APIResult<[ListItemModel]>.self,
-//                endpoint: .finishedByYearList(id: year))
-//
-//        // Then
-//        XCTAssertNotNil(result)
-//        XCTAssertEqual(result?.ok, true)
-//
-//        let dictionary = fakeJSONResponse as NSDictionary
-//        let list = dictionary.value(forKeyPath: "data.@firstObject") as? [String: Any?]
-//        let expectedName = list?["gameName"] as? String
-//
-//        XCTAssertEqual(result?.data[0].name, expectedName)
-//    }
-//
-//    func testBoughtByYearListFetch_ValidParameters_ShouldReturnValidGames() async {
-//        // Given
-//        let year = "2022"
-//        let fakeJSONResponse = mock.fakeBoughtByYearResponse
-//
-//        stubRequests.stubJSONResponse(jsonObject: fakeJSONResponse, header: nil, statusCode: 200, absoluteStringWord: "gamenet.azurewebsites.net")
-//
-//        // When
-//        let result = await NetworkManager.shared
-//            .performRequest(
-//                model: APIResult<[ListItemModel]>.self,
-//                endpoint: .boughtByYearList(id: year))
-//
-//        // Then
-//        XCTAssertNotNil(result)
-//        XCTAssertEqual(result?.ok, true)
-//
-//        let dictionary = fakeJSONResponse as NSDictionary
-//        let list = dictionary.value(forKeyPath: "data.@firstObject") as? [String: Any?]
-//        let expectedName = list?["gameName"] as? String
-//
-//        XCTAssertEqual(result?.data[0].name, expectedName)
-//    }
-//
-//    func testListFetch_ValidParameters_ShouldReturnValidList() async {
-//        // Given
-//        let id = "123"
-//        let fakeJSONResponse = mock.fakeListSuccessResponse
-//        stubRequests.stubJSONResponse(jsonObject: fakeJSONResponse, header: nil, statusCode: 200, absoluteStringWord: "gamenet.azurewebsites.net")
-//
-//        // When
-//        let result = await NetworkManager.shared
-//            .performRequest(
-//                model: APIResult<ListGameModel>.self,
-//                endpoint: .list(id: id))
-//
-//        // Then
-//        XCTAssertNotNil(result)
-//        XCTAssertEqual(result?.ok, true)
-//
-//        let dictionary = fakeJSONResponse as NSDictionary
-//        XCTAssertEqual(result?.data.name, dictionary.value(forKeyPath: "data.name") as? String)
-//    }
+    func testFetchPlatform_ShouldReturnValidData() async {
+        // Given
+        let id = "123"
+        let fakeJSONResponse = mock.fakeListSuccessResponse
+
+        stubRequests.stubJSONResponse(jsonObject: fakeJSONResponse, header: nil, statusCode: 200, absoluteStringWord: Constants.listResource)
+
+        // When
+        let result = await NetworkManager.shared
+            .performRequest(
+                model: APIResult<ListModel>.self,
+                endpoint: .list(id: id))
+
+        // Then
+        XCTAssertNotNil(result)
+
+        let dictionary = fakeJSONResponse as NSDictionary
+        let list = dictionary.value(forKeyPath: "data") as? [String: Any?]
+        let resultName = result?.data.name
+        let expectedName = list?["name"] as? String
+
+        XCTAssertEqual(resultName, expectedName)
+    }
+    
+    func testSaveNewList_ValidParameters_ShouldReturnValidLists() async {
+        // Given
+        let name = "Nova Lista"
+        let userId = "123"
+        let fakeJSONResponse = mock.fakeSaveNewListResponse
+        
+        stubRequests.stubJSONResponse(jsonObject: fakeJSONResponse, header: nil, statusCode: 201, absoluteStringWord: Constants.listResource)
+
+        // When
+        let result = await NetworkManager.shared
+            .performRequest(
+                model: APIResult<ListModel>.self,
+                endpoint: .saveList(id: nil, model: ListModel(id: nil, name: name, userId: userId, creationDate: .now)))
+        
+        // Then
+        XCTAssertNotNil(result)
+        
+        let dictionary = fakeJSONResponse as NSDictionary
+        let listName = dictionary.value(forKeyPath: "data.name") as? String
+        XCTAssertEqual(listName, name)
+    }
+
+    func testSaveExistingPlatform_ValidParameters_ShouldReturnValidPlatforms() async {
+        // Given
+        let id = "123"
+        let userId = "123"
+        let name = "Plataforma Existente"
+        let fakeJSONResponse = mock.fakeSaveExistingListResponse
+        
+        stubRequests.stubJSONResponse(jsonObject: fakeJSONResponse, header: nil, statusCode: 201, absoluteStringWord: "/\(Constants.listResource)?id=\(id)")
+
+        // When
+        let result = await NetworkManager.shared
+            .performRequest(
+                model: APIResult<ListModel>.self,
+                endpoint: .saveList(id: id, model: ListModel(id: id, name: name, userId: userId, creationDate: .now)))
+        
+        // Then
+        XCTAssertNotNil(result)
+        
+        let dictionary = fakeJSONResponse as NSDictionary
+        let listName = dictionary.value(forKeyPath: "data.name") as? String
+        XCTAssertEqual(listName, name)
+    }
 }
