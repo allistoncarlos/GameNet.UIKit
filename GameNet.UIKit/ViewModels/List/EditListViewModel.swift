@@ -39,11 +39,14 @@ class EditListViewModel: ObservableObject, EditListViewModelProtocol {
     }
 
     func save(id: String?, data: ListModel) async {
-        let apiResult = await NetworkManager.shared
+        if let apiResult = await NetworkManager.shared
             .performRequest(
-                model: ListModel.self,
-                endpoint: .saveList(id: id, model: data))
-
-        self.savedData?()
+                model: APIResult<ListModel>.self,
+                endpoint: .saveList(id: id, model: data)) {
+            if apiResult.ok {
+                self.result = apiResult.data
+                self.savedData?()
+            }
+        }
     }
 }
