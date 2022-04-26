@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A504F13B27AB38D4006D4DD4 /* DashboardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A504F13A27AB38D4006D4DD4 /* DashboardCoordinator.swift */; };
+		A50A128128186C0D0068D5C2 /* GamesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50A128028186C0D0068D5C2 /* GamesViewModelTests.swift */; };
 		A520B7E927F1E7140023179B /* Pulse in Frameworks */ = {isa = PBXBuildFile; productRef = A520B7E827F1E7140023179B /* Pulse */; };
 		A520B7EB27F1E7140023179B /* PulseCore in Frameworks */ = {isa = PBXBuildFile; productRef = A520B7EA27F1E7140023179B /* PulseCore */; };
 		A520B7ED27F1E7140023179B /* PulseUI in Frameworks */ = {isa = PBXBuildFile; productRef = A520B7EC27F1E7140023179B /* PulseUI */; };
@@ -138,6 +139,7 @@
 		536667C96CF86E80E3E3DE78 /* Pods-GameNetTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameNetTests.debug.xcconfig"; path = "Target Support Files/Pods-GameNetTests/Pods-GameNetTests.debug.xcconfig"; sourceTree = "<group>"; };
 		614D9AA234558E6FFAD6F277 /* Pods-GameNet.UIKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameNet.UIKit.release.xcconfig"; path = "Target Support Files/Pods-GameNet.UIKit/Pods-GameNet.UIKit.release.xcconfig"; sourceTree = "<group>"; };
 		A504F13A27AB38D4006D4DD4 /* DashboardCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCoordinator.swift; sourceTree = "<group>"; };
+		A50A128028186C0D0068D5C2 /* GamesViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesViewModelTests.swift; sourceTree = "<group>"; };
 		A51DFF662719AEDC00B13388 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		A520B7F127F1E84E0023179B /* AppLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogger.swift; sourceTree = "<group>"; };
 		A520B7F627F1EF720023179B /* NetworkLoggerEventMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLoggerEventMonitor.swift; sourceTree = "<group>"; };
@@ -280,6 +282,7 @@
 		A50A127F28186BCA0068D5C2 /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				A50A128028186C0D0068D5C2 /* GamesViewModelTests.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -1204,6 +1207,7 @@
 				A5D411A2280235030013F0F0 /* ListsResponseMock.swift in Sources */,
 				A5D74CE9280845CE00EBEB04 /* EditPlatformViewModelTests.swift in Sources */,
 				A5D4119C2802200B0013F0F0 /* DashboardResponseMock.swift in Sources */,
+				A50A128128186C0D0068D5C2 /* GamesViewModelTests.swift in Sources */,
 				A5D411A4280235120013F0F0 /* ListsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

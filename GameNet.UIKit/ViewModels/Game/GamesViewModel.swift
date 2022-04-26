@@ -9,22 +9,20 @@ import Foundation
 
 protocol GamesViewModelProtocol: AnyObject {
     var renderData: (() -> Void)? { get set }
-    var apiResult: APIResult<PagedResult<GameModel>>? { get set }
+    var pagedResult: PagedResult<GameModel>? { get set }
     var data: [GameModel] { get set }
     var searchedGames: [GameModel] { get set }
 
     var isLoading: Bool { get set }
 
-    func fetchData()
-    func fetchData(search: String?, page: Int)
+    func fetchData() async
+    func fetchData(search: String?, page: Int) async
 }
 
 class GamesViewModel: ObservableObject, GamesViewModelProtocol {
-    private var service: ServiceBox<GameService>?
-
-    var apiResult: APIResult<PagedResult<GameModel>>? {
+    var pagedResult: PagedResult<GameModel>? {
         didSet {
-            if let pagedResult = apiResult?.data {
+            if let pagedResult = pagedResult {
                 self.data += pagedResult.result
             }
 
@@ -38,27 +36,23 @@ class GamesViewModel: ObservableObject, GamesViewModelProtocol {
 
     var renderData: (() -> Void)?
 
-    init(service: ServiceBox<GameService>?) {
-        self.service = service
-    }
-
     // MARK: - GamesViewModelProtocol
-    func fetchData() {
-        self.fetchData(search: nil, page: 0)
+    func fetchData() async {
+        await self.fetchData(search: nil, page: 0)
     }
 
-    func fetchData(search: String?, page: Int) {
+    func fetchData(search: String?, page: Int) async {
         self.isLoading = true
 
-        service?.object.load(page: page, pageSize: Constants.pageSize, search: search, completion: { (result) in
-            switch result {
-            case .success(let apiResult):
-                self.isLoading = false
-                self.apiResult = apiResult
-            case .failure(let error):
-                self.isLoading = false
-                print(error.localizedDescription)
+        if let apiResult = await NetworkManager.shared
+            .performRequest(
+                model: APIResult<PagedResult<GameModel>>.self,
+                endpoint: .games(search: search, page: page, pageSize: Constants.pageSize)) {
+            self.isLoading = false
+
+            if apiResult.ok {
+                self.pagedResult = apiResult.data
             }
-        })
+        }
     }
 }

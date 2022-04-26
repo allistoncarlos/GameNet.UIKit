@@ -43,7 +43,9 @@ class GamesViewController: BaseViewController, StoryboardCoordinated {
             }
         }
 
-        viewModel?.fetchData()
+        Task {
+            await viewModel?.fetchData()
+        }
     }
 
     override func viewWillLayoutSubviews() {
@@ -62,8 +64,10 @@ class GamesViewController: BaseViewController, StoryboardCoordinated {
             (gamesCollectionView.contentSize.height - gamesCollectionView.bounds.size.height) {
             if let isLoading = viewModel?.isLoading {
                 if !isLoading {
-                    guard let page = viewModel?.apiResult?.data.page else { return }
-                    viewModel?.fetchData(search: viewModel?.apiResult?.data.search, page: page + 1)
+                    Task {
+                        guard let page = viewModel?.pagedResult?.page else { return }
+                        await viewModel?.fetchData(search: viewModel?.pagedResult?.search, page: page + 1)
+                    }
                 }
             }
         }
@@ -99,7 +103,7 @@ extension GamesViewController: UICollectionViewDataSource,
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let currentGame = viewModel?.apiResult?.data.result[indexPath.row] {
+        if let currentGame = viewModel?.pagedResult?.result[indexPath.row] {
             coordinator?.showGameDetail(id: currentGame.id!, name: currentGame.name)
         }
     }
@@ -132,10 +136,12 @@ extension GamesViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         viewModel?.data.removeAll()
 
-        if searchBar.text!.isEmpty {
-            viewModel?.fetchData()
-        } else {
-            viewModel?.fetchData(search: searchBar.text!, page: 0)
+        Task {
+            if searchBar.text!.isEmpty {
+                await viewModel?.fetchData()
+            } else {
+                await viewModel?.fetchData(search: searchBar.text!, page: 0)
+            }
         }
 
         self.gamesCollectionView?.reloadData()
@@ -145,7 +151,9 @@ extension GamesViewController: UISearchBarDelegate {
         if searchBar.text!.isEmpty {
             viewModel?.data.removeAll()
 
-            viewModel?.fetchData()
+            Task {
+                await viewModel?.fetchData()
+            }
         }
     }
 }
@@ -153,6 +161,9 @@ extension GamesViewController: UISearchBarDelegate {
 extension GamesViewController: EditGameViewControllerDelegate {
     func savedData() {
         dismiss(animated: true, completion: nil)
-        self.viewModel?.fetchData()
+
+        Task {
+            await self.viewModel?.fetchData()
+        }
     }
 }
