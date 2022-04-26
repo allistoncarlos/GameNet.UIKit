@@ -25,7 +25,7 @@ final class PlatformsTests: XCTestCase {
         // Given
         let fakeJSONResponse = mock.fakeSuccessPlatformsResponse
         
-        stubRequests.stubJSONResponse(jsonObject: fakeJSONResponse, header: nil, statusCode: 200, absoluteStringWord: "gamenet.azurewebsites.net")
+        stubRequests.stubJSONResponse(jsonObject: fakeJSONResponse, header: nil, statusCode: 200, absoluteStringWord: Constants.platformResource)
             
         // When
         let result = await NetworkManager.shared

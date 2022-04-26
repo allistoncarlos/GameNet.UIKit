@@ -22,6 +22,8 @@ enum GameNetAPI {
     case list(id: String)
     case saveList(id: String?, model: ListModel)
 
+    case games(search: String?, page: Int?, pageSize: Int?)
+
     var baseURL: String {
         switch self {
         default:
@@ -62,6 +64,23 @@ enum GameNetAPI {
             }
 
             return Constants.listResource
+
+        case let .games(search, page, pageSize):
+            var resultUrl = "\(Constants.gameResource)?"
+
+            if let search = search {
+                resultUrl = "\(resultUrl)search=\(search)&"
+            }
+
+            if let page = page {
+                resultUrl = "\(resultUrl)page=\(page)&"
+            }
+
+            if let pageSize = pageSize {
+                resultUrl = "\(resultUrl)pageSize=\(pageSize)&"
+            }
+
+            return resultUrl
         }
     }
 
@@ -70,10 +89,13 @@ enum GameNetAPI {
         case .dashboard,
              .platforms,
              .platform,
+
              .lists,
              .finishedByYearList,
              .boughtByYearList,
-             .list:
+             .list,
+
+             .games:
             return .get
         case .login,
              .refreshToken:
@@ -116,10 +138,13 @@ enum GameNetAPI {
         case .dashboard,
              .platforms,
              .platform,
+
              .lists,
              .finishedByYearList,
              .boughtByYearList,
-             .list:
+             .list,
+
+             .games:
             return request
         }
     }
