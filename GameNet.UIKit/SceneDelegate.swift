@@ -88,8 +88,9 @@ extension SwinjectStoryboard {
                 gameplaySessionService: resolver.resolve(ServiceBox<GameplaySessionService>.self))
         }
         defaultContainer.storyboardInitCompleted(EditGameViewController.self) { resolver, container in
-            container.viewModel = EditGameViewModel(service: resolver.resolve(ServiceBox<GameService>.self),
-                                            platformsService: resolver.resolve(ServiceBox<PlatformService>.self))
+            container.viewModel = EditGameViewModel(
+                gamesViewModel: resolver.resolve(GamesViewModelProtocol.self),
+                platformsViewModel: resolver.resolve(PlatformsViewModelProtocol.self))
         }
         defaultContainer.storyboardInitCompleted(PlatformsViewController.self) { resolver, container in
             container.viewModel = resolver.resolve(PlatformsViewModelProtocol.self)
@@ -118,7 +119,7 @@ extension SwinjectStoryboard {
 
         // ViewModels
         defaultContainer.register(PlatformsViewModelProtocol.self) { _ in PlatformsViewModel() }
-
+        defaultContainer.register(GamesViewModelProtocol.self) { _ in GamesViewModel() }
         defaultContainer.register(ListDetailViewModelProtocol.self) { _ in ListDetailViewModel() }
     }
 }

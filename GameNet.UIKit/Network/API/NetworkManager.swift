@@ -55,4 +55,30 @@ final class NetworkManager {
             return nil
         }
     }
+
+    @discardableResult
+    func performUploadGame(model: GameEditModel) async -> APIResult<GameEditResponseModel>? {
+        do {
+            let endpoint: GameNetAPI = .saveGame(model: model)
+
+            let uploadClosure: (MultipartFormData) -> Void = { multipartFormData in
+                multipartFormData.append(Data(model.name.utf8),
+                                         withName: "Name")
+                multipartFormData.append(Data(model.platformId.utf8),
+                                         withName: "PlatformId")
+
+                multipartFormData.append(model.cover, withName: "file", fileName: "file.png", mimeType: "image/jpeg")
+            }
+
+            let jsonDecoder = JSONDecoder()
+            jsonDecoder.dateDecodingStrategy = .iso8601
+            let request = self.sessionManager.upload(multipartFormData: uploadClosure, with: endpoint)
+            let response = try await
+                request.serializingDecodable(APIResult<GameEditResponseModel>.self, decoder: jsonDecoder).value
+            return response
+        } catch let error {
+            print(error)
+            return nil
+        }
+    }
 }

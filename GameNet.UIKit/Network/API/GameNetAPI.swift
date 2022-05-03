@@ -23,6 +23,9 @@ enum GameNetAPI {
     case saveList(id: String?, model: ListModel)
 
     case games(search: String?, page: Int?, pageSize: Int?)
+    case game(id: String)
+    case saveGame(model: GameEditModel)
+    case saveUserGame(model: UserGameEditModel)
 
     var baseURL: String {
         switch self {
@@ -81,6 +84,12 @@ enum GameNetAPI {
             }
 
             return resultUrl
+        case let .game(id):
+            return "\(Constants.gameResource)/\(id)"
+        case .saveGame:
+            return "game"
+        case .saveUserGame:
+            return Constants.gameResource
         }
     }
 
@@ -95,7 +104,8 @@ enum GameNetAPI {
              .boughtByYearList,
              .list,
 
-             .games:
+             .games,
+             .game:
             return .get
         case .login,
              .refreshToken:
@@ -111,6 +121,9 @@ enum GameNetAPI {
                 return .put
             }
 
+            return .post
+        case .saveGame,
+             .saveUserGame:
             return .post
         }
     }
@@ -133,6 +146,13 @@ enum GameNetAPI {
             return try parameterEncoder.encode(model, into: request)
         case let .savePlatform(_, model):
             return try parameterEncoder.encode(model, into: request)
+        case let .saveGame(model):
+            var request = request
+            request.headers.update(name: "Content-Type", value: "multipart/form-data; charset=UTF-8")
+
+            return try parameterEncoder.encode(model, into: request)
+        case let .saveUserGame(model):
+            return try parameterEncoder.encode(model, into: request)
         case .refreshToken:
             return request
         case .dashboard,
@@ -144,7 +164,8 @@ enum GameNetAPI {
              .boughtByYearList,
              .list,
 
-             .games:
+             .games,
+             .game:
             return request
         }
     }

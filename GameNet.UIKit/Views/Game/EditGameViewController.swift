@@ -110,7 +110,7 @@ class EditGameViewController: BaseFormViewController, StoryboardCoordinated {
 
         viewModel?.renderPlatformsData = { [weak self] in
             DispatchQueue.main.async {
-                if let data = self?.viewModel?.platformsResult?.data.result {
+                if let data = self?.viewModel?.platformsResult {
                     self?.platformPickerFormItem.options = data.map({ (platform) -> OptionRowModel in
                         return OptionRowModel(platform.name ?? "", platform.id!)
                     })
@@ -121,7 +121,7 @@ class EditGameViewController: BaseFormViewController, StoryboardCoordinated {
         if let gameId = gameId {
             viewModel?.renderData = { [weak self] in
                 DispatchQueue.main.async {
-                    if let data = self?.viewModel?.apiResult?.data {
+                    if let data = self?.viewModel?.result {
                         self?.nameFormItem.value = data.name
 
                         self?.setupModalNavigationBar(title: data.name)
@@ -129,12 +129,16 @@ class EditGameViewController: BaseFormViewController, StoryboardCoordinated {
                 }
             }
 
-            viewModel?.fetchData(id: gameId)
+            Task {
+                await viewModel?.fetchData(id: gameId)
+            }
         } else {
             self.setupModalNavigationBar(title: Constants.editGameViewTitle)
         }
 
-        viewModel?.fetchPlatforms()
+        Task {
+            await viewModel?.fetchPlatforms()
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -211,7 +215,9 @@ class EditGameViewController: BaseFormViewController, StoryboardCoordinated {
                 original: original
             )
 
-            viewModel?.save(gameModel: gameModel, userGameModel: userGameModel)
+            Task {
+                await viewModel?.save(gameModel: gameModel, userGameModel: userGameModel)
+            }
         case .invalid:
             break
         }

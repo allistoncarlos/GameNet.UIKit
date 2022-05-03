@@ -9,7 +9,7 @@ import Foundation
 
 final class LoginResponseMock {
     let fakeSuccessLoginResponse: [String: Any] = [
-        "id": "60d488293531bbbf8a1c8123",
+        "id": "123",
         "username": "user",
         "firstName": "First",
         "lastName": "Name",

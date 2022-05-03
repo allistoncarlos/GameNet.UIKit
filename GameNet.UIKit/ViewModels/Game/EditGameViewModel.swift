@@ -13,25 +13,25 @@ protocol EditGameViewModelProtocol: AnyObject {
     var renderPlatformsData: (() -> Void)? { get set }
     var savedData: (() -> Void)? { get set }
 
-    var apiResult: APIResult<GameModel>? { get set }
-    var platformsResult: APIResult<PagedResult<PlatformModel>>? { get set }
+    var result: GameModel? { get set }
+    var platformsResult: [PlatformModel] { get set }
 
-    func fetchData(id: String)
-    func fetchPlatforms()
-    func save(gameModel: GameEditModel, userGameModel: UserGameEditModel)
+    func fetchData(id: String) async
+    func fetchPlatforms() async
+    func save(gameModel: GameEditModel, userGameModel: UserGameEditModel) async
 }
 
 class EditGameViewModel: ObservableObject, EditGameViewModelProtocol {
-    private var service: ServiceBox<GameService>?
-    private var platformsService: ServiceBox<PlatformService>?
+    private var gamesViewModel: GamesViewModelProtocol?
+    private var platformsViewModel: PlatformsViewModelProtocol?
 
-    var apiResult: APIResult<GameModel>? {
+    var result: GameModel? {
         didSet {
             renderData?()
         }
     }
 
-    var platformsResult: APIResult<PagedResult<PlatformModel>>? {
+    var platformsResult: [PlatformModel] = [] {
         didSet {
             renderPlatformsData?()
         }
@@ -42,41 +42,37 @@ class EditGameViewModel: ObservableObject, EditGameViewModelProtocol {
     var savedData: (() -> Void)?
 
     init(
-        service: ServiceBox<GameService>?,
-        platformsService: ServiceBox<PlatformService>?
+        gamesViewModel: GamesViewModelProtocol?,
+        platformsViewModel: PlatformsViewModelProtocol?
     ) {
-        self.service = service
-        self.platformsService = platformsService
+        self.gamesViewModel = gamesViewModel
+        self.platformsViewModel = platformsViewModel
     }
 
-    func fetchData(id: String) {
-        service?.object.get(id: id, completion: { (result) in
-            switch result {
-            case .success(let apiResult):
-                self.apiResult = apiResult
-            case .failure(let error):
-                print(error.localizedDescription)
+    func fetchData(id: String) async {
+        if let apiResult = await NetworkManager.shared
+            .performRequest(
+                model: APIResult<GameModel>.self,
+                endpoint: .game(id: id)) {
+            if apiResult.ok {
+                self.result = apiResult.data
             }
-        })
+        }
     }
 
-    func fetchPlatforms() {
-        platformsService?.object.load(page: nil, pageSize: nil, completion: { (result) in
-            switch result {
-            case .success(let apiResult):
-                self.platformsResult = apiResult
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        })
+    func fetchPlatforms() async {
+        guard let platformsViewModel = platformsViewModel else { return }
+
+        await platformsViewModel.fetchData()
+        self.platformsResult = platformsViewModel.result
     }
 
-    func save(gameModel: GameEditModel, userGameModel: UserGameEditModel) {
-        service?.object.save(model: gameModel, completion: { [weak self] result in
-            switch result {
-            case .success(let resultGameModel):
+    func save(gameModel: GameEditModel, userGameModel: UserGameEditModel) async {
+        if let apiResult = await NetworkManager.shared
+            .performUploadGame(model: gameModel) {
+            if apiResult.ok {
                 guard let userId = KeychainDataSource.id.get(),
-                      let gameId = resultGameModel.data.id else { return }
+                      let gameId = apiResult.data.id else { return }
 
                 let resultUserGameModel = UserGameEditModel(
                     id: nil,
@@ -89,21 +85,30 @@ class EditGameViewModel: ObservableObject, EditGameViewModelProtocol {
                     digital: userGameModel.digital,
                     original: userGameModel.original)
 
-                self?.saveUserGame(data: resultUserGameModel)
-            case .failure(let error):
-                print(error)
+                await self.saveUserGame(data: resultUserGameModel)
             }
-        })
+        }
     }
 
-    private func saveUserGame(data: UserGameEditModel) {
-        service?.object.saveUserGame(model: data, completion: { [weak self] result in
-            switch result {
-            case .success:
-                self?.savedData?()
-            case .failure(let error):
-                print(error)
+    private func saveUserGame(data: UserGameEditModel) async {
+        if let apiResult = await NetworkManager.shared
+            .performRequest(
+                model: APIResult<UserGameEditResponseModel>.self,
+                endpoint: .saveUserGame(model: data)) {
+            if apiResult.ok {
+                if let name = apiResult.data.name,
+                   let cover = apiResult.data.cover,
+                   let platformId = apiResult.data.platformId,
+                   let platform = apiResult.data.platform {
+                    self.result = GameModel(id: apiResult.data.id,
+                                            name: name,
+                                            cover: cover,
+                                            platformId: platformId,
+                                            platform: platform)
+
+                    self.savedData?()
+                }
             }
-        })
+        }
     }
 }
