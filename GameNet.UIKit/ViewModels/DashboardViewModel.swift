@@ -9,34 +9,28 @@ import Foundation
 
 protocol DashboardViewModelProtocol: AnyObject {
     var renderData: (() -> Void)? { get set }
-    var apiResult: APIResult<DashboardModel>? { get set }
+    var result: DashboardModel? { get set }
 
-    func fetchData()
+    func fetchData() async
 }
 
-class DashboardViewModel: ObservableObject, DashboardViewModelProtocol {
-    private var service: ServiceBox<DashboardService>?
+final class DashboardViewModel: ObservableObject, DashboardViewModelProtocol {
+    var renderData: (() -> Void)?
 
-    var apiResult: APIResult<DashboardModel>? {
+    var result: DashboardModel? {
         didSet {
             renderData?()
         }
     }
 
-    var renderData: (() -> Void)?
-
-    init(service: ServiceBox<DashboardService>?) {
-        self.service = service
-    }
-
     // MARK: - DashboardViewModelProtocol
-    func fetchData() {
-        service?.object.get { (result) in
-            switch result {
-            case .success(let apiResult):
-                self.apiResult = apiResult
-            case .failure(let error):
-                print(error.localizedDescription)
+    func fetchData() async {
+        if let apiResult = await NetworkManager.shared
+            .performRequest(
+                model: APIResult<DashboardModel>.self,
+                endpoint: .dashboard) {
+            if apiResult.ok {
+                self.result = apiResult.data
             }
         }
     }

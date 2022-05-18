@@ -38,7 +38,9 @@ class PlatformsViewController: BaseViewController,
             }
         }
 
-        viewModel?.fetchData()
+        Task {
+            await viewModel?.fetchData()
+        }
     }
 
     override func viewWillLayoutSubviews() {
@@ -49,10 +51,8 @@ class PlatformsViewController: BaseViewController,
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var count = 0
 
-        if let apiResult = viewModel?.apiResult {
-            if apiResult.ok {
-                count = apiResult.data.count
-            }
+        if let result = viewModel?.result {
+            count = result.count
         }
 
         return count
@@ -61,7 +61,7 @@ class PlatformsViewController: BaseViewController,
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: "platformViewCell")
 
-        if let platforms = viewModel?.apiResult?.data.result {
+        if let platforms = viewModel?.result {
             cell.textLabel?.text = platforms[indexPath.row].name
         }
 
@@ -69,7 +69,7 @@ class PlatformsViewController: BaseViewController,
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let currentPlatform = viewModel?.apiResult?.data.result[indexPath.row]
+        let currentPlatform = viewModel?.result[indexPath.row]
 
         coordinator?.showPlatform(id: currentPlatform?.id)
     }
@@ -83,6 +83,9 @@ class PlatformsViewController: BaseViewController,
 extension PlatformsViewController: EditPlatformViewControllerDelegate {
     func savedData() {
         dismiss(animated: true, completion: nil)
-        self.viewModel?.fetchData()
+
+        Task {
+            await self.viewModel?.fetchData()
+        }
     }
 }

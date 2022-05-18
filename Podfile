@@ -6,13 +6,20 @@ target 'GameNet.UIKit' do
   use_frameworks!
 
   # Pods for GameNet.UIKit
-  pod 'Alamofire', '~> 5.4'
+  pod 'Alamofire', '~> 5.5'
   pod 'KeychainAccess'
   pod 'Swinject'
   pod 'SwinjectStoryboard'
   pod 'SDWebImage'
   pod 'SwiftyFORM'
   pod 'SwiftLint'
+  
+  target 'GameNetTests' do
+      inherit! :search_paths
+      # Pods for testing
+      
+      pod 'OHHTTPStubs/Swift'
+    end
 
   post_install do |installer|
     installer.pods_project.targets.each do |target|

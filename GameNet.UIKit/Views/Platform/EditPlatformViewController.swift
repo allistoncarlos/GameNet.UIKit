@@ -43,7 +43,7 @@ class EditPlatformViewController: BaseFormViewController, StoryboardCoordinated 
         if let platformId = platformId {
             viewModel?.renderData = { [weak self] in
                 DispatchQueue.main.async {
-                    if let data = self?.viewModel?.apiResult?.data,
+                    if let data = self?.viewModel?.result,
                         let name = data.name {
                         self?.nameFormItem.value = name
 
@@ -52,7 +52,9 @@ class EditPlatformViewController: BaseFormViewController, StoryboardCoordinated 
                 }
             }
 
-            viewModel?.fetchData(id: platformId)
+            Task {
+                await viewModel?.fetchData(id: platformId)
+            }
         } else {
             self.setupModalNavigationBar(title: Constants.editPlatformViewTitle)
         }
@@ -88,9 +90,11 @@ class EditPlatformViewController: BaseFormViewController, StoryboardCoordinated 
 
         switch result {
         case .valid:
-            viewModel?.save(id: platformId, data: PlatformModel(
-                id: platformId,
-                name: nameFormItem.value))
+            Task {
+                await viewModel?.save(id: platformId, data: PlatformModel(
+                    id: platformId,
+                    name: nameFormItem.value))
+            }
         case .invalid:
             break
         }

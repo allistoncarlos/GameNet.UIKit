@@ -14,17 +14,31 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     var coordinator: Coordinator?
 
+    let offlineAlertController: UIAlertController = {
+        let alert = UIAlertController(title: "No Network",
+                                      message: "Please connect to network and try again",
+                                      preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .default) { _ in
+            NetworkReachability.shared.startNetworkMonitoring()
+        }
+        alert.addAction(action)
+        return alert
+    }()
+
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,
                options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = scene as? UIWindowScene else { return }
 
-        coordinator = !hasValidToken() ? LoginCoordinator() : MainTabBarCoordinator()
+        coordinator = !KeychainDataSource.hasValidToken() ? LoginCoordinator() : MainTabBarCoordinator()
         coordinator?.start()
 
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = coordinator?.rootViewController
         window?.makeKeyAndVisible()
+
+        NetworkReachability.shared.delegate = self
+        NetworkReachability.shared.startNetworkMonitoring()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -55,90 +69,65 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
-    // MARK: - Private methods
-    private func hasValidToken() -> Bool {
-        let keychain = Keychain(service: Constants.keychainIdentifier)
-
-        // ESSA VERIFICAÇÃO É TEMPORÁRIA
-        if keychain[Constants.userIdIdentifier] != nil &&
-            keychain[Constants.accessTokenIdentifier] != nil &&
-            keychain[Constants.refreshTokenIdentifier] != nil,
-           let expiresIn = keychain[Constants.expiresInIdentifier]?.toDate() {
-            if expiresIn > NSDate.init() as Date {
-                return true
-            }
-        }
-
-        keychain[Constants.userIdIdentifier] = nil
-        keychain[Constants.accessTokenIdentifier] = nil
-        keychain[Constants.refreshTokenIdentifier] = nil
-        keychain[Constants.expiresInIdentifier] = nil
-
-        return false
-    }
 }
 
 extension SwinjectStoryboard {
     @objc class func setup() {
         defaultContainer.storyboardInitCompleted(LoginViewController.self) { resolver, container in
-            container.viewModel = UserViewModel(service: resolver.resolve(UserServiceProtocol.self))
+            container.viewModel = resolver.resolve(UserViewModelProtocol.self)
         }
         defaultContainer.storyboardInitCompleted(DashboardViewController.self) { resolver, container in
-            container.viewModel = DashboardViewModel(service: resolver.resolve(ServiceBox<DashboardService>.self))
+            container.viewModel = resolver.resolve(DashboardViewModelProtocol.self)
         }
         defaultContainer.storyboardInitCompleted(GamesViewController.self) { resolver, container in
-            container.viewModel = GamesViewModel(service: resolver.resolve(ServiceBox<GameService>.self))
+            container.viewModel = resolver.resolve(GamesViewModelProtocol.self)
         }
         defaultContainer.storyboardInitCompleted(GameDetailViewController.self) { resolver, container in
-            container.viewModel = GameDetailViewModel(
-                service: resolver.resolve(ServiceBox<GameService>.self),
-                gameplaySessionService: resolver.resolve(ServiceBox<GameplaySessionService>.self))
+            container.viewModel = resolver.resolve(GameDetailViewModelProtocol.self)
         }
         defaultContainer.storyboardInitCompleted(EditGameViewController.self) { resolver, container in
-            container.viewModel = EditGameViewModel(service: resolver.resolve(ServiceBox<GameService>.self),
-                                            platformsService: resolver.resolve(ServiceBox<PlatformService>.self))
+            container.viewModel = resolver.resolve(EditGameViewModelProtocol.self)
         }
         defaultContainer.storyboardInitCompleted(PlatformsViewController.self) { resolver, container in
             container.viewModel = resolver.resolve(PlatformsViewModelProtocol.self)
         }
         defaultContainer.storyboardInitCompleted(EditPlatformViewController.self) { resolver, container in
-            container.viewModel = EditPlatformViewModel(service: resolver.resolve(ServiceBox<PlatformService>.self))
+            container.viewModel = resolver.resolve(EditPlatformViewModelProtocol.self)
         }
         defaultContainer.storyboardInitCompleted(ListsViewController.self) { resolver, container in
-            container.viewModel = ListsViewModel(service: resolver.resolve(ListServiceProtocol.self))
+            container.viewModel = resolver.resolve(ListsViewModelProtocol.self)
         }
         defaultContainer.storyboardInitCompleted(EditListViewController.self) { resolver, container in
-            container.viewModel = EditListViewModel(service: resolver.resolve(ServiceBox<ListService>.self))
-        }
-
-        // Services
-        defaultContainer.register(UserServiceProtocol.self) { _ in UserService() }
-        defaultContainer.register(ServiceBox.self) { _ in
-            ServiceBox<DashboardService>(object: DashboardService(apiResource: Constants.dashboardResource))
-        }
-        defaultContainer.register(ServiceBox.self) { _ in
-            ServiceBox<GameService>(object: GameService(apiResource: Constants.gameResource))
-        }
-        defaultContainer.register(ServiceBox.self) { _ in
-            ServiceBox<GameplaySessionService>(object: GameplaySessionService(
-                apiResource: Constants.gameplaySessionResource))
-        }
-        defaultContainer.register(ServiceBox.self) { _ in
-            ServiceBox<PlatformService>(object: PlatformService(apiResource: Constants.platformResource))
-        }
-
-        defaultContainer.register(ListServiceProtocol.self) { _ in
-            ListService(apiResource: Constants.listResource)
+            container.viewModel = resolver.resolve(EditListViewModelProtocol.self)
         }
 
         // ViewModels
-        defaultContainer.register(PlatformsViewModelProtocol.self) { resolver in
-            PlatformsViewModel(service: resolver.resolve(ServiceBox<PlatformService>.self))
-        }
+        defaultContainer.register(UserViewModelProtocol.self) { _ in UserViewModel() }
+        defaultContainer.register(DashboardViewModelProtocol.self) { _ in DashboardViewModel() }
+        defaultContainer.register(GamesViewModelProtocol.self) { _ in GamesViewModel() }
+        defaultContainer.register(GameDetailViewModelProtocol.self) { _ in GameDetailViewModel() }
+        defaultContainer.register(PlatformsViewModelProtocol.self) { _ in PlatformsViewModel() }
+        defaultContainer.register(EditPlatformViewModelProtocol.self) { _ in EditPlatformViewModel() }
+        defaultContainer.register(ListsViewModelProtocol.self) { _ in ListsViewModel() }
+        defaultContainer.register(EditListViewModelProtocol.self) { _ in EditListViewModel() }
+        defaultContainer.register(ListDetailViewModelProtocol.self) { _ in ListDetailViewModel() }
 
-        defaultContainer.register(ListDetailViewModelProtocol.self) { resolver in
-            ListDetailViewModel(service: resolver.resolve(ListServiceProtocol.self))
+        defaultContainer.register(EditGameViewModelProtocol.self) { resolver in
+            EditGameViewModel(
+                gamesViewModel: resolver.resolve(GamesViewModelProtocol.self),
+                platformsViewModel: resolver.resolve(PlatformsViewModelProtocol.self))
         }
+    }
+}
+
+extension SceneDelegate: NetworkReachabilityDelegate {
+    func showOfflineAlert() {
+        let rootViewController = window?.rootViewController
+        rootViewController?.present(offlineAlertController, animated: true, completion: nil)
+    }
+
+    func dismissOfflineAlert() {
+        let rootViewController = window?.rootViewController
+        rootViewController?.dismiss(animated: true, completion: nil)
     }
 }

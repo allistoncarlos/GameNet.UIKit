@@ -30,16 +30,6 @@ class LoginViewController: UIViewController, StoryboardCoordinated {
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        viewModel?.loggedIn = { [weak self] in
-            DispatchQueue.main.async {
-                self?.loggedIn()
-            }
-        }
-
-        viewModel?.loginFailed = { [weak self] in
-            self?.loginButton?.isEnabled = true
-        }
     }
 
     // MARK: - IBActions
@@ -49,7 +39,13 @@ class LoginViewController: UIViewController, StoryboardCoordinated {
 
         loginButton?.isEnabled = false
 
-        viewModel?.login(username: username, password: password)
+        Task {
+            if await viewModel?.login(username: username, password: password) != nil {
+                self.loggedIn()
+            } else {
+                self.loginButton?.isEnabled = true
+            }
+        }
     }
 }
 

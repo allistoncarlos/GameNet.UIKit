@@ -59,7 +59,9 @@ class DashboardViewController: BaseViewController, StoryboardCoordinated {
 
         viewModel?.renderData = renderDashboard()
 
-        viewModel?.fetchData()
+        Task {
+            await viewModel?.fetchData()
+        }
     }
 
     override func viewWillLayoutSubviews() {
@@ -76,13 +78,13 @@ extension DashboardViewController {
     fileprivate func renderDashboard() -> () -> Void {
         return { [weak self] in
             DispatchQueue.main.async {
-                guard let playingGames = self?.viewModel?.apiResult?.data.playingGames,
-                      let totalGames = self?.viewModel?.apiResult?.data.totalGames,
-                      let totalPrice = self?.viewModel?.apiResult?.data.totalPrice,
-                      let physicalDigital = self?.viewModel?.apiResult?.data.physicalDigital,
-                      let finishedGamesByYear = self?.viewModel?.apiResult?.data.finishedByYear,
-                      let boughtGamesByYear = self?.viewModel?.apiResult?.data.boughtByYear,
-                      let gamesByPlatform = self?.viewModel?.apiResult?.data.gamesByPlatform?.platforms
+                guard let playingGames = self?.viewModel?.result?.playingGames,
+                      let totalGames = self?.viewModel?.result?.totalGames,
+                      let totalPrice = self?.viewModel?.result?.totalPrice,
+                      let physicalDigital = self?.viewModel?.result?.physicalDigital,
+                      let finishedGamesByYear = self?.viewModel?.result?.finishedByYear,
+                      let boughtGamesByYear = self?.viewModel?.result?.boughtByYear,
+                      let gamesByPlatform = self?.viewModel?.result?.gamesByPlatform?.platforms
                 else { return }
 
                 // Playing Games

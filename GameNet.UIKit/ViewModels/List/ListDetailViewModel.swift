@@ -11,16 +11,14 @@ protocol ListDetailViewModelProtocol: AnyObject {
     var renderData: (() -> Void)? { get set }
     var savedData: (() -> Void)? { get set }
 
-    var apiResult: APIResult<[ListItemModel]>? { get set }
+    var result: [ListItemModel]? { get set }
     var listType: ListType { get set }
 
-    func fetchData(id: String)
+    func fetchData(id: String) async
 }
 
 class ListDetailViewModel: ObservableObject, ListDetailViewModelProtocol {
-    private var service: ListServiceProtocol?
-
-    var apiResult: APIResult<[ListItemModel]>? {
+    var result: [ListItemModel]? {
         didSet {
             renderData?()
         }
@@ -31,53 +29,47 @@ class ListDetailViewModel: ObservableObject, ListDetailViewModelProtocol {
     var renderData: (() -> Void)?
     var savedData: (() -> Void)?
 
-    init(service: ListServiceProtocol?) {
-        self.service = service
-    }
-
-    func fetchData(id: String) {
+    func fetchData(id: String) async {
         switch listType {
         case .finishedByYear:
-            fetchFinishedByYearData(id: id)
+            await fetchFinishedByYearData(id: id)
         case .boughtByYear:
-            fetchBoughtByYearData(id: id)
+            await fetchBoughtByYearData(id: id)
         case .custom:
-            fetchCustomListData(id: id)
+            await fetchCustomListData(id: id)
         }
     }
 
-    private func fetchFinishedByYearData(id: String) {
-        service?.getFinishedByYear(id: id) { result in
-            switch result {
-            case .success(let apiResult):
-                self.apiResult = apiResult
-            case .failure(let error):
-                print(error.localizedDescription)
+    private func fetchFinishedByYearData(id: String) async {
+        if let apiResult = await NetworkManager.shared
+            .performRequest(
+                model: APIResult<[ListItemModel]>.self,
+                endpoint: .finishedByYearList(id: id)) {
+            if apiResult.ok {
+                self.result = apiResult.data
             }
         }
     }
 
-    private func fetchBoughtByYearData(id: String) {
-        service?.getBoughtByYear(id: id) { result in
-            switch result {
-            case .success(let apiResult):
-                self.apiResult = apiResult
-            case .failure(let error):
-                print(error.localizedDescription)
+    private func fetchBoughtByYearData(id: String) async {
+        if let apiResult = await NetworkManager.shared
+            .performRequest(
+                model: APIResult<[ListItemModel]>.self,
+                endpoint: .boughtByYearList(id: id)) {
+            if apiResult.ok {
+                self.result = apiResult.data
             }
         }
     }
 
-    private func fetchCustomListData(id: String) {
-        service?.getCustomList(id: id) { result in
-            switch result {
-            case .success(let apiResult):
-                if apiResult.ok,
-                   let games = apiResult.data.games {
-                    self.apiResult = APIResult<[ListItemModel]>.create(data: games)
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
+    private func fetchCustomListData(id: String) async {
+        if let apiResult = await NetworkManager.shared
+            .performRequest(
+                model: APIResult<ListGameModel>.self,
+                endpoint: .list(id: id)) {
+            if apiResult.ok,
+               let games = apiResult.data.games {
+                self.result = games
             }
         }
     }

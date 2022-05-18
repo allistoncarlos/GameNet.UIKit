@@ -9,15 +9,13 @@ import Foundation
 
 protocol PlatformsViewModelProtocol: AnyObject {
     var renderData: (() -> Void)? { get set }
-    var apiResult: APIResult<PagedResult<PlatformModel>>? { get set }
+    var result: [PlatformModel] { get set }
 
-    func fetchData()
+    func fetchData() async
 }
 
-class PlatformsViewModel: ObservableObject, PlatformsViewModelProtocol {
-    private var service: ServiceBox<PlatformService>?
-
-    var apiResult: APIResult<PagedResult<PlatformModel>>? {
+final class PlatformsViewModel: ObservableObject, PlatformsViewModelProtocol {
+    var result: [PlatformModel] = [PlatformModel]() {
         didSet {
             renderData?()
         }
@@ -25,19 +23,15 @@ class PlatformsViewModel: ObservableObject, PlatformsViewModelProtocol {
 
     var renderData: (() -> Void)?
 
-    init(service: ServiceBox<PlatformService>?) {
-        self.service = service
-    }
-
     // MARK: - PlatformsViewModelProtocol
-    func fetchData() {
-        service?.object.load(page: nil, pageSize: nil, completion: { (result) in
-            switch result {
-            case .success(let apiResult):
-                self.apiResult = apiResult
-            case .failure(let error):
-                print(error.localizedDescription)
+    func fetchData() async {
+        if let apiResult = await NetworkManager.shared
+            .performRequest(
+                model: APIResult<PagedResult<PlatformModel>>.self,
+                endpoint: .platforms) {
+            if apiResult.ok {
+                self.result = apiResult.data.result
             }
-        })
+        }
     }
 }

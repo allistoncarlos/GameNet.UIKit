@@ -8,30 +8,31 @@
 import Foundation
 
 protocol UserViewModelProtocol: AnyObject {
-    var loggedIn: (() -> Void)? { get set }
-    var loginFailed: (() -> Void)? { get set }
-    func login(username: String, password: String)
+    func login(username: String, password: String) async -> LoginResponseModel?
 }
 
 final class UserViewModel: ObservableObject, UserViewModelProtocol {
-    private var service: UserServiceProtocol?
+    func login(username: String, password: String) async -> LoginResponseModel? {
+        let result = await NetworkManager.shared
+            .performRequest(
+                model: LoginResponseModel.self,
+                endpoint: .login(loginRequestModel: LoginRequestModel(username: username, password: password)))
 
-    var loggedIn: (() -> Void)?
-    var loginFailed: (() -> Void)?
+        self.saveToken(result: result)
 
-    init(service: UserServiceProtocol?) {
-        self.service = service
+        return result
     }
 
-    // MARK: - UserViewModelProtocol
-    func login(username: String, password: String) {
-        service?.login(loginRequestModel: LoginRequestModel(username: username, password: password)) { (result) in
-            switch result {
-            case .success:
-                self.loggedIn?()
-            case .failure:
-                self.loginFailed?()
-            }
+    private func saveToken(result: LoginResponseModel?) {
+        if let session = result {
+            let dateFormatter = ISO8601DateFormatter()
+
+            KeychainDataSource.id.set(session.id)
+            KeychainDataSource.accessToken.set(session.accessToken)
+            KeychainDataSource.refreshToken.set(session.refreshToken)
+            KeychainDataSource.expiresIn.set(dateFormatter.string(from: session.expiresIn))
+        } else {
+            KeychainDataSource.clear()
         }
     }
 }

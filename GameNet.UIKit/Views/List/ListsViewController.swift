@@ -42,7 +42,9 @@ class ListsViewController: BaseViewController,
             }
         }
 
-        viewModel?.fetchData()
+        Task {
+            await viewModel?.fetchData()
+        }
     }
 
     override func viewWillLayoutSubviews() {
@@ -53,10 +55,8 @@ class ListsViewController: BaseViewController,
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var count = 0
 
-        if let apiResult = viewModel?.apiResult {
-            if apiResult.ok {
-                count = apiResult.data.count
-            }
+        if let result = viewModel?.result {
+            count = result.count
         }
 
         return count
@@ -65,7 +65,7 @@ class ListsViewController: BaseViewController,
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: "listViewCell")
 
-        if let lists = viewModel?.apiResult?.data.result {
+        if let lists = viewModel?.result {
             cell.textLabel?.text = lists[indexPath.row].name
         }
 
@@ -73,7 +73,7 @@ class ListsViewController: BaseViewController,
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let currentList = viewModel?.apiResult?.data.result[indexPath.row],
+        if let currentList = viewModel?.result?[indexPath.row],
            let id = currentList.id,
            let name = currentList.name {
             coordinator?.showListDetail(id: id, name: name, listType: .custom)
@@ -89,6 +89,9 @@ class ListsViewController: BaseViewController,
 extension ListsViewController: EditListViewControllerDelegate {
     func savedData() {
         dismiss(animated: true, completion: nil)
-        self.viewModel?.fetchData()
+        
+        Task {
+            await self.viewModel?.fetchData()
+        }
     }
 }

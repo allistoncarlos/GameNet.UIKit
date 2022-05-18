@@ -43,7 +43,9 @@ final class ListDetailViewController: BaseViewController {
             viewModel?.renderData = renderData()
 
             viewModel?.listType = listType
-            viewModel?.fetchData(id: listId)
+            Task {
+                await viewModel?.fetchData(id: listId)
+            }
         } else {
             self.setupModalNavigationBar(title: Constants.editListViewTitle)
         }
@@ -77,10 +79,8 @@ extension ListDetailViewController: UITableViewDelegate,
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var count = 0
 
-        if let apiResult = viewModel?.apiResult {
-            if apiResult.ok {
-                count = apiResult.data.count
-            }
+        if let result = viewModel?.result {
+            count = result.count
         }
 
         return count
@@ -89,7 +89,7 @@ extension ListDetailViewController: UITableViewDelegate,
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = ListItemCell(style: .default, reuseIdentifier: "listItemViewCell")
 
-        if let listItems = viewModel?.apiResult?.data {
+        if let listItems = viewModel?.result {
             let listItem = listItems[indexPath.row]
 
             if let name = listItem.name,
@@ -122,7 +122,7 @@ extension ListDetailViewController: UITableViewDelegate,
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let listItem = viewModel?.apiResult?.data[indexPath.row],
+        if let listItem = viewModel?.result?[indexPath.row],
            let userGameId = listItem.userGameId,
            let name = listItem.name {
             coordinator?.showGameDetail(id: userGameId, name: name)

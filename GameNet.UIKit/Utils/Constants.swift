@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class Constants {
-    static let apiPath = Bundle.main.infoDictionary!["API_PATH"]!
+    static let apiPath: String = (Bundle.main.infoDictionary!["API_PATH"] as? String)!
     static let userResource = "user"
     static let dashboardResource = "dashboard"
     static let gameResource = "usergame"
@@ -18,10 +18,7 @@ class Constants {
     static let listResource = "list"
 
     static let keychainIdentifier = "gamenet.azurewebsites.net"
-    static let userIdIdentifier = "id"
-    static let accessTokenIdentifier = "access_token"
-    static let refreshTokenIdentifier = "refresh_token"
-    static let expiresInIdentifier = "expires_in"
+    static let keychainMockIdentifier = "\(keychainIdentifier)-mock"
 
     static let dashboardViewTitle = "Dashboard"
     static let gamesViewTitle = "Games"
