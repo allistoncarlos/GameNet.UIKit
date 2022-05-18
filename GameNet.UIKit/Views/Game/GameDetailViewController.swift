@@ -34,8 +34,10 @@ class GameDetailViewController: BaseViewController, UIScrollViewDelegate, Storyb
             viewModel?.renderData = renderData()
             viewModel?.renderGameplayData = renderGameplayData()
 
-            viewModel?.get(id: gameId)
-            viewModel?.getGameplaySessions(id: gameId)
+            Task {
+                await viewModel?.fetchData(id: gameId)
+                await viewModel?.fetchGameplaySessions(id: gameId)
+            }
         }
     }
 
@@ -63,7 +65,7 @@ extension GameDetailViewController {
     fileprivate func renderData() -> () -> Void {
         return { [weak self] in
             DispatchQueue.main.async {
-                if let result = self?.viewModel?.apiResult?.data {
+                if let result = self?.viewModel?.result {
                     // ImageView
                     self?.imageView.sd_setImage(with: URL(string: result.cover))
 
@@ -88,7 +90,7 @@ extension GameDetailViewController {
     fileprivate func renderGameplayData() -> () -> Void {
         return { [weak self] in
             DispatchQueue.main.async {
-                if let result = self?.viewModel?.apiGameplayResult?.data {
+                if let result = self?.viewModel?.gameplayResult {
                     self?.gameplays.isHidden = false
 
                     self?.renderGameplayLabel(text: "Total de \(result.totalGameplayTime)" +

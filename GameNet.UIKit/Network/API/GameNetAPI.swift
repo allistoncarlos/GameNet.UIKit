@@ -26,6 +26,7 @@ enum GameNetAPI {
     case game(id: String)
     case saveGame(model: GameEditModel)
     case saveUserGame(model: UserGameEditModel)
+    case gameplays(id: String)
 
     var baseURL: String {
         switch self {
@@ -90,6 +91,8 @@ enum GameNetAPI {
             return "game"
         case .saveUserGame:
             return Constants.gameResource
+        case let .gameplays(id):
+            return "\(Constants.gameplaySessionResource)?userGameId=\(id)"
         }
     }
 
@@ -105,7 +108,8 @@ enum GameNetAPI {
              .list,
 
              .games,
-             .game:
+             .game,
+             .gameplays:
             return .get
         case .login,
              .refreshToken:
@@ -165,7 +169,8 @@ enum GameNetAPI {
              .list,
 
              .games,
-             .game:
+             .game,
+             .gameplays:
             return request
         }
     }

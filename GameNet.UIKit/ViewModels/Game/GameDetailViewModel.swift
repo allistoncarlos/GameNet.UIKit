@@ -10,24 +10,24 @@ import Foundation
 protocol GameDetailViewModelProtocol: AnyObject {
     var renderData: (() -> Void)? { get set }
     var renderGameplayData: (() -> Void)? { get set }
-    var apiResult: APIResult<GameDetailModel>? { get set }
-    var apiGameplayResult: APIResult<GameplaySessionsModel>? { get set }
+    var result: GameDetailModel? { get set }
+    var gameplayResult: GameplaySessionsModel? { get set }
 
-    func get(id: String)
-    func getGameplaySessions(id: String)
+    func fetchData(id: String) async
+    func fetchGameplaySessions(id: String) async
 }
 
 class GameDetailViewModel: ObservableObject, GameDetailViewModelProtocol {
     private var service: ServiceBox<GameService>?
     private var gameplaySessionService: ServiceBox<GameplaySessionService>?
 
-    var apiResult: APIResult<GameDetailModel>? {
+    var result: GameDetailModel? {
         didSet {
             renderData?()
         }
     }
 
-    var apiGameplayResult: APIResult<GameplaySessionsModel>? {
+    var gameplayResult: GameplaySessionsModel? {
         didSet {
             renderGameplayData?()
         }
@@ -43,25 +43,27 @@ class GameDetailViewModel: ObservableObject, GameDetailViewModelProtocol {
     }
 
     // MARK: - GameDetailViewModelProtocol
-    func get(id: String) {
-        service?.object.getGameDetail(id: id, completion: { (result) in
-            switch result {
-            case .success(let apiResult):
-                self.apiResult = apiResult
-            case .failure(let error):
-                print(error.localizedDescription)
+    func fetchData(id: String) async {
+        if let apiResult = await NetworkManager.shared
+            .performRequest(
+                model: APIResult<GameDetailModel>.self,
+                endpoint: .game(id: id)) {
+
+            if apiResult.ok {
+                self.result = apiResult.data
             }
-        })
+        }
     }
 
-    func getGameplaySessions(id: String) {
-        gameplaySessionService?.object.getGameplaySessions(id: id, completion: { (result) in
-            switch result {
-            case .success(let apiResult):
-                self.apiGameplayResult = apiResult
-            case .failure(let error):
-                print(error.localizedDescription)
+    func fetchGameplaySessions(id: String) async {
+        if let apiResult = await NetworkManager.shared
+            .performRequest(
+                model: APIResult<GameplaySessionsModel>.self,
+                endpoint: .gameplays(id: id)) {
+
+            if apiResult.ok {
+                self.gameplayResult = apiResult.data
             }
-        })
+        }
     }
 }
