@@ -41,14 +41,6 @@ class EditGameViewModel: ObservableObject, EditGameViewModelProtocol {
     var renderPlatformsData: (() -> Void)?
     var savedData: (() -> Void)?
 
-    init(
-        gamesViewModel: GamesViewModelProtocol?,
-        platformsViewModel: PlatformsViewModelProtocol?
-    ) {
-        self.gamesViewModel = gamesViewModel
-        self.platformsViewModel = platformsViewModel
-    }
-
     func fetchData(id: String) async {
         if let apiResult = await NetworkManager.shared
             .performRequest(

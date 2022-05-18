@@ -85,10 +85,8 @@ extension SwinjectStoryboard {
         defaultContainer.storyboardInitCompleted(GameDetailViewController.self) { _, container in
             container.viewModel = GameDetailViewModel()
         }
-        defaultContainer.storyboardInitCompleted(EditGameViewController.self) { resolver, container in
-            container.viewModel = EditGameViewModel(
-                gamesViewModel: resolver.resolve(GamesViewModelProtocol.self),
-                platformsViewModel: resolver.resolve(PlatformsViewModelProtocol.self))
+        defaultContainer.storyboardInitCompleted(EditGameViewController.self) { _, container in
+            container.viewModel = EditGameViewModel()
         }
         defaultContainer.storyboardInitCompleted(PlatformsViewController.self) { resolver, container in
             container.viewModel = resolver.resolve(PlatformsViewModelProtocol.self)
