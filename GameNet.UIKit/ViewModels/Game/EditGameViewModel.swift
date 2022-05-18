@@ -51,7 +51,7 @@ class EditGameViewModel: ObservableObject, EditGameViewModelProtocol {
 
     func fetchData(id: String) async {
         guard let gamesViewModel = gamesViewModel else { return }
-        
+
         await gamesViewModel.fetchData(id: id)
         self.result = gamesViewModel.result
     }

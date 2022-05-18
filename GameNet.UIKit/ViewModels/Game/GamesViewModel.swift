@@ -23,7 +23,7 @@ protocol GamesViewModelProtocol: AnyObject {
 
 class GamesViewModel: ObservableObject, GamesViewModelProtocol {
     var result: GameModel?
-    
+
     var pagedResult: PagedResult<GameModel>? {
         didSet {
             if let pagedResult = pagedResult {
@@ -44,7 +44,7 @@ class GamesViewModel: ObservableObject, GamesViewModelProtocol {
     func fetchData() async {
         await self.fetchData(search: nil, page: 0)
     }
-    
+
     func fetchData(id: String) async {
         if let apiResult = await NetworkManager.shared
             .performRequest(

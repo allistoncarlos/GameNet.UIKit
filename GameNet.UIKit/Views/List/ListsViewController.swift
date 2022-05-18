@@ -89,7 +89,7 @@ class ListsViewController: BaseViewController,
 extension ListsViewController: EditListViewControllerDelegate {
     func savedData() {
         dismiss(animated: true, completion: nil)
-        
+
         Task {
             await self.viewModel?.fetchData()
         }

@@ -21,7 +21,6 @@
 		A52E6A93274AF0CD00D9E07D /* ListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52E6A92274AF0CD00D9E07D /* ListModel.swift */; };
 		A535906A26A35B5B00AB5AFC /* RefreshTokenRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A535906926A35B5B00AB5AFC /* RefreshTokenRequestModel.swift */; };
 		A535906C26A35B6600AB5AFC /* RefreshTokenResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A535906B26A35B6600AB5AFC /* RefreshTokenResponseModel.swift */; };
-		A535906F26A3624F00AB5AFC /* OAuthAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A535906E26A3624F00AB5AFC /* OAuthAuthenticator.swift */; };
 		A541AA4D2800AE2F00D0B56D /* KeychainDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A541AA4C2800AE2F00D0B56D /* KeychainDataSource.swift */; };
 		A54F9AD1280844BC00F78B8E /* PlatformsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54F9AD0280844BC00F78B8E /* PlatformsViewModelTests.swift */; };
 		A556523D2818AF9E00FE31B9 /* EditGameViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A556523C2818AF9E00FE31B9 /* EditGameViewModelTests.swift */; };
@@ -147,7 +146,6 @@
 		A52E6A92274AF0CD00D9E07D /* ListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListModel.swift; sourceTree = "<group>"; };
 		A535906926A35B5B00AB5AFC /* RefreshTokenRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokenRequestModel.swift; sourceTree = "<group>"; };
 		A535906B26A35B6600AB5AFC /* RefreshTokenResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokenResponseModel.swift; sourceTree = "<group>"; };
-		A535906E26A3624F00AB5AFC /* OAuthAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthAuthenticator.swift; sourceTree = "<group>"; };
 		A541AA4C2800AE2F00D0B56D /* KeychainDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainDataSource.swift; sourceTree = "<group>"; };
 		A54F9AD0280844BC00F78B8E /* PlatformsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformsViewModelTests.swift; sourceTree = "<group>"; };
 		A556523C2818AF9E00FE31B9 /* EditGameViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGameViewModelTests.swift; sourceTree = "<group>"; };
@@ -387,7 +385,6 @@
 		A535906D26A3623C00AB5AFC /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				A535906E26A3624F00AB5AFC /* OAuthAuthenticator.swift */,
 				A5F70BEF28006BEC0020C939 /* DefaultEventMonitor.swift */,
 				A5F70BF128006C090020C939 /* DefaultRequestInterceptor.swift */,
 				A5F70BF328006CD90020C939 /* NetworkReachability.swift */,
@@ -1129,7 +1126,6 @@
 				A5C5D48926FBBEA400E1C86A /* GameplaySessionsModel.swift in Sources */,
 				A57E280B268A468D00EFB503 /* GameModel.swift in Sources */,
 				A5F70BF028006BEC0020C939 /* DefaultEventMonitor.swift in Sources */,
-				A535906F26A3624F00AB5AFC /* OAuthAuthenticator.swift in Sources */,
 				A504F13B27AB38D4006D4DD4 /* DashboardCoordinator.swift in Sources */,
 				A5AD4BA926B9B9B1002EBF28 /* FontExtensions.swift in Sources */,
 				A599DFBC275904A9004ABEBA /* MainTabBarViewController.swift in Sources */,
