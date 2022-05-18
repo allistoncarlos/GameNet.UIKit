@@ -18,9 +18,6 @@ protocol GameDetailViewModelProtocol: AnyObject {
 }
 
 class GameDetailViewModel: ObservableObject, GameDetailViewModelProtocol {
-    private var service: ServiceBox<GameService>?
-    private var gameplaySessionService: ServiceBox<GameplaySessionService>?
-
     var result: GameDetailModel? {
         didSet {
             renderData?()
@@ -35,12 +32,6 @@ class GameDetailViewModel: ObservableObject, GameDetailViewModelProtocol {
 
     var renderData: (() -> Void)?
     var renderGameplayData: (() -> Void)?
-
-    init(service: ServiceBox<GameService>?,
-         gameplaySessionService: ServiceBox<GameplaySessionService>?) {
-        self.service = service
-        self.gameplaySessionService = gameplaySessionService
-    }
 
     // MARK: - GameDetailViewModelProtocol
     func fetchData(id: String) async {

@@ -97,7 +97,7 @@ class Service<T: BaseModel>: ServiceProtocol {
 //        let authenticator = OAuthAuthenticator(userService: userService)
 //        interceptor = AuthenticationInterceptor(authenticator: authenticator,
 //                                                    credential: authCredentials)
-        
+
     }
 
     func baseGet<TModel: BaseModel>(id: String? = nil,
