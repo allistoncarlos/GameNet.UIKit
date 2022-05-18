@@ -16,7 +16,7 @@ enum KeychainDataSource: String {
 
     private var keychain: Keychain {
         var identifier: String = Constants.keychainIdentifier
-        
+
 #if !GameNet_UIKit
         identifier = Constants.keychainMockIdentifier
 #endif

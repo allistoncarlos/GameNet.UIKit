@@ -73,50 +73,50 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 extension SwinjectStoryboard {
     @objc class func setup() {
-        defaultContainer.storyboardInitCompleted(LoginViewController.self) { _, container in
-            container.viewModel = UserViewModel()
+        defaultContainer.storyboardInitCompleted(LoginViewController.self) { resolver, container in
+            container.viewModel = resolver.resolve(UserViewModelProtocol.self)
         }
-        defaultContainer.storyboardInitCompleted(DashboardViewController.self) { _, container in
-            container.viewModel = DashboardViewModel()
+        defaultContainer.storyboardInitCompleted(DashboardViewController.self) { resolver, container in
+            container.viewModel = resolver.resolve(DashboardViewModelProtocol.self)
         }
-        defaultContainer.storyboardInitCompleted(GamesViewController.self) { _, container in
-            container.viewModel = GamesViewModel()
+        defaultContainer.storyboardInitCompleted(GamesViewController.self) { resolver, container in
+            container.viewModel = resolver.resolve(GamesViewModelProtocol.self)
         }
-        defaultContainer.storyboardInitCompleted(GameDetailViewController.self) { _, container in
-            container.viewModel = GameDetailViewModel()
+        defaultContainer.storyboardInitCompleted(GameDetailViewController.self) { resolver, container in
+            container.viewModel = resolver.resolve(GameDetailViewModelProtocol.self)
         }
-        defaultContainer.storyboardInitCompleted(EditGameViewController.self) { _, container in
-            container.viewModel = EditGameViewModel()
+        defaultContainer.storyboardInitCompleted(EditGameViewController.self) { resolver, container in
+            container.viewModel = resolver.resolve(EditGameViewModelProtocol.self)
         }
         defaultContainer.storyboardInitCompleted(PlatformsViewController.self) { resolver, container in
             container.viewModel = resolver.resolve(PlatformsViewModelProtocol.self)
         }
-        defaultContainer.storyboardInitCompleted(EditPlatformViewController.self) { _, container in
-            container.viewModel = EditPlatformViewModel()
+        defaultContainer.storyboardInitCompleted(EditPlatformViewController.self) { resolver, container in
+            container.viewModel = resolver.resolve(EditPlatformViewModelProtocol.self)
         }
-        defaultContainer.storyboardInitCompleted(ListsViewController.self) { _, container in
-            container.viewModel = ListsViewModel()
+        defaultContainer.storyboardInitCompleted(ListsViewController.self) { resolver, container in
+            container.viewModel = resolver.resolve(ListsViewModelProtocol.self)
         }
-        defaultContainer.storyboardInitCompleted(EditListViewController.self) { _, container in
-            container.viewModel = EditListViewModel()
-        }
-
-        // Services
-        defaultContainer.register(ServiceBox.self) { _ in
-            ServiceBox<GameService>(object: GameService(apiResource: Constants.gameResource))
-        }
-        defaultContainer.register(ServiceBox.self) { _ in
-            ServiceBox<GameplaySessionService>(object: GameplaySessionService(
-                apiResource: Constants.gameplaySessionResource))
-        }
-        defaultContainer.register(ServiceBox.self) { _ in
-            ServiceBox<PlatformService>(object: PlatformService(apiResource: Constants.platformResource))
+        defaultContainer.storyboardInitCompleted(EditListViewController.self) { resolver, container in
+            container.viewModel = resolver.resolve(EditListViewModelProtocol.self)
         }
 
         // ViewModels
-        defaultContainer.register(PlatformsViewModelProtocol.self) { _ in PlatformsViewModel() }
+        defaultContainer.register(UserViewModelProtocol.self) { _ in UserViewModel() }
+        defaultContainer.register(DashboardViewModelProtocol.self) { _ in DashboardViewModel() }
         defaultContainer.register(GamesViewModelProtocol.self) { _ in GamesViewModel() }
+        defaultContainer.register(GameDetailViewModelProtocol.self) { _ in GameDetailViewModel() }
+        defaultContainer.register(PlatformsViewModelProtocol.self) { _ in PlatformsViewModel() }
+        defaultContainer.register(EditPlatformViewModelProtocol.self) { _ in EditPlatformViewModel() }
+        defaultContainer.register(ListsViewModelProtocol.self) { _ in ListsViewModel() }
+        defaultContainer.register(EditListViewModelProtocol.self) { _ in EditListViewModel() }
         defaultContainer.register(ListDetailViewModelProtocol.self) { _ in ListDetailViewModel() }
+
+        defaultContainer.register(EditGameViewModelProtocol.self) { resolver in
+            EditGameViewModel(
+                gamesViewModel: resolver.resolve(GamesViewModelProtocol.self),
+                platformsViewModel: resolver.resolve(PlatformsViewModelProtocol.self))
+        }
     }
 }
 
