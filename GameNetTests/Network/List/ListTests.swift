@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import GameNet_Network
 @testable import GameNet_UIKit
 
 final class ListTests: XCTestCase {
@@ -31,7 +32,7 @@ final class ListTests: XCTestCase {
         // When
         let result = await NetworkManager.shared
             .performRequest(
-                model: APIResult<[ListItemModel]>.self,
+                responseType: APIResult<[ListItemResponse]>.self,
                 endpoint: .finishedByYearList(id: year))
         
         // Then
@@ -55,7 +56,7 @@ final class ListTests: XCTestCase {
         // When
         let result = await NetworkManager.shared
             .performRequest(
-                model: APIResult<[ListItemModel]>.self,
+                responseType: APIResult<[ListItemResponse]>.self,
                 endpoint: .boughtByYearList(id: year))
         
         // Then
@@ -78,7 +79,7 @@ final class ListTests: XCTestCase {
         // When
         let result = await NetworkManager.shared
             .performRequest(
-                model: APIResult<ListGameModel>.self,
+                responseType: APIResult<ListGameResponse>.self,
                 endpoint: .list(id: id))
         
         // Then

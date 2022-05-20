@@ -6,16 +6,17 @@
 //
 
 import Foundation
+import GameNet_Network
 
 protocol ListsViewModelProtocol: AnyObject {
     var renderData: (() -> Void)? { get set }
-    var result: [ListModel]? { get set }
+    var result: [List]? { get set }
 
     func fetchData() async
 }
 
 class ListsViewModel: ObservableObject, ListsViewModelProtocol {
-    var result: [ListModel]? {
+    var result: [List]? {
         didSet {
             renderData?()
         }
@@ -27,10 +28,10 @@ class ListsViewModel: ObservableObject, ListsViewModelProtocol {
     func fetchData() async {
         if let apiResult = await NetworkManager.shared
             .performRequest(
-                model: APIResult<PagedResult<ListModel>>.self,
+                responseType: APIResult<PagedResult<ListResponse>>.self,
                 endpoint: .lists) {
             if apiResult.ok {
-                self.result = apiResult.data.result
+                self.result = apiResult.data.result.compactMap { $0.toList() }
             }
         }
     }

@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import GameNet_Network
 @testable import GameNet_UIKit
 
 final class EditListTests: XCTestCase {
@@ -31,7 +32,7 @@ final class EditListTests: XCTestCase {
         // When
         let result = await NetworkManager.shared
             .performRequest(
-                model: APIResult<ListModel>.self,
+                responseType: APIResult<ListResponse>.self,
                 endpoint: .list(id: id))
 
         // Then
@@ -48,7 +49,6 @@ final class EditListTests: XCTestCase {
     func testSaveNewList_ValidParameters_ShouldReturnValidLists() async {
         // Given
         let name = "Nova Lista"
-        let userId = "123"
         let fakeJSONResponse = mock.fakeSaveNewListResponse
         
         stubRequests.stubJSONResponse(jsonObject: fakeJSONResponse, header: nil, statusCode: 201, absoluteStringWord: Constants.listResource)
@@ -56,8 +56,8 @@ final class EditListTests: XCTestCase {
         // When
         let result = await NetworkManager.shared
             .performRequest(
-                model: APIResult<ListModel>.self,
-                endpoint: .saveList(id: nil, model: ListModel(id: nil, name: name, userId: userId, creationDate: .now)))
+                responseType: APIResult<ListResponse>.self,
+                endpoint: .saveList(id: nil, data: List(id: nil, name: name).toRequest()))
         
         // Then
         XCTAssertNotNil(result)
@@ -70,7 +70,6 @@ final class EditListTests: XCTestCase {
     func testSaveExistingPlatform_ValidParameters_ShouldReturnValidPlatforms() async {
         // Given
         let id = "123"
-        let userId = "123"
         let name = "Plataforma Existente"
         let fakeJSONResponse = mock.fakeSaveExistingListResponse
         
@@ -79,8 +78,8 @@ final class EditListTests: XCTestCase {
         // When
         let result = await NetworkManager.shared
             .performRequest(
-                model: APIResult<ListModel>.self,
-                endpoint: .saveList(id: id, model: ListModel(id: id, name: name, userId: userId, creationDate: .now)))
+                responseType: APIResult<ListResponse>.self,
+                endpoint: .saveList(id: id, data: List(id: id, name: name).toRequest()))
         
         // Then
         XCTAssertNotNil(result)

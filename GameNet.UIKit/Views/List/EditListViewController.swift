@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import SwiftyFORM
+import GameNet_Network
 
 protocol EditListViewControllerDelegate: AnyObject {
     func savedData()
@@ -43,11 +44,10 @@ class EditListViewController: BaseFormViewController, StoryboardCoordinated {
         if let listId = listId {
             viewModel?.renderData = { [weak self] in
                 DispatchQueue.main.async {
-                    if let data = self?.viewModel?.result,
-                        let name = data.name {
-                        self?.nameFormItem.value = name
+                    if let data = self?.viewModel?.result {
+                        self?.nameFormItem.value = data.name
 
-                        self?.setupModalNavigationBar(title: name)
+                        self?.setupModalNavigationBar(title: data.name)
                     }
                 }
             }
@@ -91,10 +91,9 @@ class EditListViewController: BaseFormViewController, StoryboardCoordinated {
         switch result {
         case .valid:
             Task {
-                await viewModel?.save(id: listId, data: ListModel(
+                await viewModel?.save(id: listId, data: List(
                     id: listId,
-                    name: nameFormItem.value,
-                    userId: KeychainDataSource.id.get()))
+                    name: nameFormItem.value))
             }
         case .invalid:
             break

@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import GameNet_Network
 @testable import GameNet_UIKit
 
 final class PlatformsTests: XCTestCase {
@@ -30,7 +31,7 @@ final class PlatformsTests: XCTestCase {
         // When
         let result = await NetworkManager.shared
             .performRequest(
-                model: APIResult<PagedResult<PlatformModel>>.self,
+                responseType: APIResult<PagedResult<PlatformResponse>>.self,
                 endpoint: .platforms)
         
         // Then

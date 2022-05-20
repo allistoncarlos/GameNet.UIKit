@@ -6,16 +6,17 @@
 //
 
 import Foundation
+import GameNet_Network
 
 protocol PlatformsViewModelProtocol: AnyObject {
     var renderData: (() -> Void)? { get set }
-    var result: [PlatformModel] { get set }
+    var result: [Platform] { get set }
 
     func fetchData() async
 }
 
 final class PlatformsViewModel: ObservableObject, PlatformsViewModelProtocol {
-    var result: [PlatformModel] = [PlatformModel]() {
+    var result: [Platform] = [Platform]() {
         didSet {
             renderData?()
         }
@@ -27,10 +28,10 @@ final class PlatformsViewModel: ObservableObject, PlatformsViewModelProtocol {
     func fetchData() async {
         if let apiResult = await NetworkManager.shared
             .performRequest(
-                model: APIResult<PagedResult<PlatformModel>>.self,
+                responseType: APIResult<PagedResult<PlatformResponse>>.self,
                 endpoint: .platforms) {
             if apiResult.ok {
-                self.result = apiResult.data.result
+                self.result = apiResult.data.result.compactMap { $0.toPlatform() }
             }
         }
     }

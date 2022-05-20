@@ -13,18 +13,22 @@ enum ImageError: Error {
 
 class GamesViewController: BaseViewController, StoryboardCoordinated {
     // MARK: - Properties
+
     var viewModel: GamesViewModelProtocol?
     var coordinator: GameCoordinator?
 
     // MARK: - Outlets
+
     @IBOutlet weak var gamesCollectionView: UICollectionView?
 
     // MARK: - Init
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 
     // MARK: - Override funcs
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -53,6 +57,7 @@ class GamesViewController: BaseViewController, StoryboardCoordinated {
     }
 
     // MARK: - Navigation Selectors
+
     @objc func addTapped(_ sender: UIButton?) {
         coordinator?.showGame()
     }
@@ -65,8 +70,8 @@ class GamesViewController: BaseViewController, StoryboardCoordinated {
             if let isLoading = viewModel?.isLoading {
                 if !isLoading {
                     Task {
-                        guard let page = viewModel?.pagedResult?.page else { return }
-                        await viewModel?.fetchData(search: viewModel?.pagedResult?.search, page: page + 1)
+                        guard let page = viewModel?.pagedList?.page else { return }
+                        await viewModel?.fetchData(search: viewModel?.pagedList?.search, page: page + 1)
                     }
                 }
             }
@@ -75,9 +80,10 @@ class GamesViewController: BaseViewController, StoryboardCoordinated {
 }
 
 extension GamesViewController: UICollectionViewDataSource,
-                               UICollectionViewDelegate,
-                               UICollectionViewDelegateFlowLayout {
+    UICollectionViewDelegate,
+    UICollectionViewDelegateFlowLayout {
     // MARK: - DataSource
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel?.data.count ?? 0
     }
@@ -88,10 +94,11 @@ extension GamesViewController: UICollectionViewDataSource,
         if let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: "gameViewCell",
             for: indexPath) as? GameViewCell {
-            if let actualGame = viewModel?.data[indexPath.row] {
+            if let actualGame = viewModel?.data[indexPath.row],
+               let coverURL = actualGame.coverURL {
                 cell.gameId = actualGame.id
                 cell.gameName = actualGame.name
-                cell.gameImage.load(url: actualGame.cover)
+                cell.gameImage.load(url: coverURL)
                 cell.layer.borderWidth = 0.5
                 cell.layer.borderColor = CGColor(red: 150 / 255.0, green: 150 / 255.0, blue: 150 / 255.0, alpha: 1)
             }
@@ -103,12 +110,13 @@ extension GamesViewController: UICollectionViewDataSource,
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let currentGame = viewModel?.pagedResult?.result[indexPath.row] {
+        if let currentGame = viewModel?.pagedList?.result[indexPath.row] {
             coordinator?.showGameDetail(id: currentGame.id!, name: currentGame.name)
         }
     }
 
     // MARK: - FlowLayoutDelegate
+
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
@@ -125,7 +133,6 @@ extension GamesViewController: UISearchBarDelegate {
         _ collectionView: UICollectionView,
         viewForSupplementaryElementOfKind kind: String,
         at indexPath: IndexPath) -> UICollectionReusableView {
-
         let searchView: UICollectionReusableView =
             collectionView.dequeueReusableSupplementaryView(
                 ofKind: UICollectionView.elementKindSectionHeader,

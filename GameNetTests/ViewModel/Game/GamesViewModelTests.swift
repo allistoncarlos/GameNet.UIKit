@@ -37,7 +37,7 @@ final class GamesViewModelTests: XCTestCase {
         
         // When
         await viewModel?.fetchData()
-        let result = viewModel?.pagedResult
+        let result = viewModel?.pagedList
         
         // Then
         XCTAssertNotNil(result)
@@ -59,7 +59,7 @@ final class GamesViewModelTests: XCTestCase {
         
         // When
         await viewModel?.fetchData(search: search, page: page)
-        let result = viewModel?.pagedResult
+        let result = viewModel?.pagedList
         
         // Then
         XCTAssertNotNil(result)

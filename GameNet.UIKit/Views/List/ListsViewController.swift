@@ -74,9 +74,8 @@ class ListsViewController: BaseViewController,
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let currentList = viewModel?.result?[indexPath.row],
-           let id = currentList.id,
-           let name = currentList.name {
-            coordinator?.showListDetail(id: id, name: name, listType: .custom)
+           let id = currentList.id {
+            coordinator?.showListDetail(id: id, name: currentList.name, listType: .custom)
         }
     }
 
