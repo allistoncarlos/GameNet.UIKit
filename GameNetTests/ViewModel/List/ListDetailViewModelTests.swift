@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import GameNet_Keychain
 @testable import GameNet_UIKit
 
 final class ListDetailViewModelTests: XCTestCase {

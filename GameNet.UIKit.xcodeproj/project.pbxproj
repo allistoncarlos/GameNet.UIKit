@@ -17,7 +17,6 @@
 		A52E6A8E274AEFB000D9E07D /* ListsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52E6A8D274AEFB000D9E07D /* ListsViewModel.swift */; };
 		A535906A26A35B5B00AB5AFC /* RefreshTokenRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A535906926A35B5B00AB5AFC /* RefreshTokenRequestModel.swift */; };
 		A535906C26A35B6600AB5AFC /* RefreshTokenResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A535906B26A35B6600AB5AFC /* RefreshTokenResponseModel.swift */; };
-		A541AA4D2800AE2F00D0B56D /* KeychainDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A541AA4C2800AE2F00D0B56D /* KeychainDataSource.swift */; };
 		A54894B72835773700F9E4A0 /* Pulse in Frameworks */ = {isa = PBXBuildFile; productRef = A54894B62835773700F9E4A0 /* Pulse */; };
 		A54894B92835773700F9E4A0 /* PulseCore in Frameworks */ = {isa = PBXBuildFile; productRef = A54894B82835773700F9E4A0 /* PulseCore */; };
 		A54894BB2835773700F9E4A0 /* PulseUI in Frameworks */ = {isa = PBXBuildFile; productRef = A54894BA2835773700F9E4A0 /* PulseUI */; };
@@ -56,6 +55,7 @@
 		A5AD4BAB26B9BB8F002EBF28 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AD4BAA26B9BB8F002EBF28 /* DateExtensions.swift */; };
 		A5AD9F47271EFB3700B1E41C /* EditGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AD9F46271EFB3700B1E41C /* EditGameViewController.swift */; };
 		A5AD9F4B271EFD1C00B1E41C /* EditGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AD9F4A271EFD1C00B1E41C /* EditGameViewModel.swift */; };
+		A5B0E3992837D20D006372B7 /* GameNet.Keychain in Frameworks */ = {isa = PBXBuildFile; productRef = A5B0E3982837D20D006372B7 /* GameNet.Keychain */; };
 		A5BF19372835537B0038EB9F /* EditGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BF19362835537B0038EB9F /* EditGameTests.swift */; };
 		A5BF193A28356A8E0038EB9F /* Swinject+Injector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BF193928356A8E0038EB9F /* Swinject+Injector.swift */; };
 		A5BF193D2835717E0038EB9F /* GameNet.Network in Frameworks */ = {isa = PBXBuildFile; productRef = A5BF193C2835717E0038EB9F /* GameNet.Network */; };
@@ -116,7 +116,6 @@
 		A52E6A8D274AEFB000D9E07D /* ListsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsViewModel.swift; sourceTree = "<group>"; };
 		A535906926A35B5B00AB5AFC /* RefreshTokenRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokenRequestModel.swift; sourceTree = "<group>"; };
 		A535906B26A35B6600AB5AFC /* RefreshTokenResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokenResponseModel.swift; sourceTree = "<group>"; };
-		A541AA4C2800AE2F00D0B56D /* KeychainDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainDataSource.swift; sourceTree = "<group>"; };
 		A54F9AD0280844BC00F78B8E /* PlatformsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformsViewModelTests.swift; sourceTree = "<group>"; };
 		A556523C2818AF9E00FE31B9 /* EditGameViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGameViewModelTests.swift; sourceTree = "<group>"; };
 		A557C6A028046479005B7717 /* ListsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsViewModelTests.swift; sourceTree = "<group>"; };
@@ -133,6 +132,7 @@
 		A571B3082805B5B400AC5D94 /* EditPlatformTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlatformTests.swift; sourceTree = "<group>"; };
 		A57E27FE268A440A00EFB503 /* GamesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesViewController.swift; sourceTree = "<group>"; };
 		A5888973268B56CA0027B7AE /* GameViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewCell.swift; sourceTree = "<group>"; };
+		A58C351C2837D0F600AE759F /* GameNet.Keychain */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = GameNet.Keychain; path = ../GameNet.Keychain; sourceTree = "<group>"; };
 		A58D254227F23CB900D0C752 /* BaseFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseFormViewController.swift; sourceTree = "<group>"; };
 		A58D254527F270F600D0C752 /* ListDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDetailViewController.swift; sourceTree = "<group>"; };
 		A58D254727F270FD00D0C752 /* ListDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDetailView.swift; sourceTree = "<group>"; };
@@ -207,6 +207,7 @@
 				A520B7ED27F1E7140023179B /* PulseUI in Frameworks */,
 				C458DCD3742C3F1B4FFB1165 /* Pods_GameNet_UIKit.framework in Frameworks */,
 				A54894BB2835773700F9E4A0 /* PulseUI in Frameworks */,
+				A5B0E3992837D20D006372B7 /* GameNet.Keychain in Frameworks */,
 				A54894B92835773700F9E4A0 /* PulseCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -229,30 +230,6 @@
 				A556523C2818AF9E00FE31B9 /* EditGameViewModelTests.swift */,
 			);
 			path = Game;
-			sourceTree = "<group>";
-		};
-		A520B7EE27F1E8270023179B /* App */ = {
-			isa = PBXGroup;
-			children = (
-				A541AA4B2800AE2200D0B56D /* DataSources */,
-				A520B7EF27F1E82B0023179B /* Resources */,
-			);
-			path = App;
-			sourceTree = "<group>";
-		};
-		A520B7EF27F1E82B0023179B /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				A520B7F027F1E82F0023179B /* Logger */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		A520B7F027F1E82F0023179B /* Logger */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Logger;
 			sourceTree = "<group>";
 		};
 		A520B7F827F22B640023179B /* Base */ = {
@@ -294,14 +271,6 @@
 				A535906B26A35B6600AB5AFC /* RefreshTokenResponseModel.swift */,
 			);
 			path = RefreshToken;
-			sourceTree = "<group>";
-		};
-		A541AA4B2800AE2200D0B56D /* DataSources */ = {
-			isa = PBXGroup;
-			children = (
-				A541AA4C2800AE2F00D0B56D /* KeychainDataSource.swift */,
-			);
-			path = DataSources;
 			sourceTree = "<group>";
 		};
 		A54F9ACF280844AF00F78B8E /* Platform */ = {
@@ -503,6 +472,7 @@
 		A5D24FA62688D11000F8A0DA = {
 			isa = PBXGroup;
 			children = (
+				A58C351C2837D0F600AE759F /* GameNet.Keychain */,
 				A5BF193B28356F580038EB9F /* GameNet.Network */,
 				A5D24FB12688D11000F8A0DA /* GameNet.UIKit */,
 				A5D24FB02688D11000F8A0DA /* Products */,
@@ -526,7 +496,6 @@
 			children = (
 				A5D24FB22688D11000F8A0DA /* AppDelegate.swift */,
 				A5D24FB42688D11000F8A0DA /* SceneDelegate.swift */,
-				A520B7EE27F1E8270023179B /* App */,
 				A5BF193828356A6B0038EB9F /* DI */,
 				A5ED37C32758FA8D00D56391 /* Coordinator */,
 				A5AD4BA726B9B9A5002EBF28 /* Styles */,
@@ -718,6 +687,7 @@
 				A54894B62835773700F9E4A0 /* Pulse */,
 				A54894B82835773700F9E4A0 /* PulseCore */,
 				A54894BA2835773700F9E4A0 /* PulseUI */,
+				A5B0E3982837D20D006372B7 /* GameNet.Keychain */,
 			);
 			productName = GameNet.UIKit;
 			productReference = A5D24FAF2688D11000F8A0DA /* GameNet.UIKit.app */;
@@ -923,7 +893,6 @@
 				A5ED37C52758FAC200D56391 /* StoryboardCoordinated.swift in Sources */,
 				A535906A26A35B5B00AB5AFC /* RefreshTokenRequestModel.swift in Sources */,
 				A535906C26A35B6600AB5AFC /* RefreshTokenResponseModel.swift in Sources */,
-				A541AA4D2800AE2F00D0B56D /* KeychainDataSource.swift in Sources */,
 				A599DFC027595205004ABEBA /* PlatformCoordinator.swift in Sources */,
 				A599DFBE275921A3004ABEBA /* MainTabBarCoordinator.swift in Sources */,
 				A5936CF3268E2EB400EC93B7 /* PlatformsViewController.swift in Sources */,
@@ -1304,6 +1273,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A54894B52835773700F9E4A0 /* XCRemoteSwiftPackageReference "Pulse" */;
 			productName = PulseUI;
+		};
+		A5B0E3982837D20D006372B7 /* GameNet.Keychain */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GameNet.Keychain;
 		};
 		A5BF193C2835717E0038EB9F /* GameNet.Network */ = {
 			isa = XCSwiftPackageProductDependency;

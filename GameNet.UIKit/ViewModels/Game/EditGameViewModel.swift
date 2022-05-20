@@ -7,7 +7,7 @@
 
 import Foundation
 import GameNet_Network
-import KeychainAccess
+import GameNet_Keychain
 
 protocol EditGameViewModelProtocol: AnyObject {
     var renderData: (() -> Void)? { get set }

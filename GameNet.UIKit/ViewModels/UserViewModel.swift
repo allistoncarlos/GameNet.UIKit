@@ -7,6 +7,7 @@
 
 import Foundation
 import GameNet_Network
+import GameNet_Keychain
 
 protocol UserViewModelProtocol: AnyObject {
     func login(username: String, password: String) async -> LoginResponse?
