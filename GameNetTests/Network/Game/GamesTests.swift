@@ -7,6 +7,7 @@
 
 import XCTest
 import GameNet_Network
+import GameNet_Keychain
 @testable import GameNet_UIKit
 
 final class GamesTests: XCTestCase {

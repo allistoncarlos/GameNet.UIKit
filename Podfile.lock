@@ -1,6 +1,5 @@
 PODS:
   - Alamofire (5.5.0)
-  - KeychainAccess (4.2.2)
   - OHHTTPStubs/Core (9.1.0)
   - OHHTTPStubs/Default (9.1.0):
     - OHHTTPStubs/Core
@@ -25,7 +24,6 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 5.5)
-  - KeychainAccess
   - OHHTTPStubs/Swift
   - SDWebImage
   - SwiftLint
@@ -36,7 +34,6 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
-    - KeychainAccess
     - OHHTTPStubs
     - SDWebImage
     - SwiftLint
@@ -46,7 +43,6 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
-  KeychainAccess: c0c4f7f38f6fc7bbe58f5702e25f7bd2f65abf51
   OHHTTPStubs: 90eac6d8f2c18317baeca36698523dc67c513831
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SwiftLint: d41cc46a2ae58ac6d9f26954bc89f1d72e71fdef
@@ -54,6 +50,6 @@ SPEC CHECKSUMS:
   Swinject: ddf78b8486dd9b71a667b852cad919ab4484478e
   SwinjectStoryboard: fe54ea9494a75348b1f3126e5e278e674f5684ad
 
-PODFILE CHECKSUM: cc8a314d5f7e99290de12f536c7e7c3bc4c16394
+PODFILE CHECKSUM: be0aa60d10b79d1df385f9edc9ccf544668cbdcf
 
 COCOAPODS: 1.11.3
