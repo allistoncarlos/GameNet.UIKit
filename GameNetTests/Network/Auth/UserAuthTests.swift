@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import GameNet_Network
 @testable import GameNet_UIKit
 
 final class UserAuthTests: XCTestCase {
@@ -33,8 +34,8 @@ final class UserAuthTests: XCTestCase {
         // When
         let result = await NetworkManager.shared
             .performRequest(
-                model: LoginResponseModel.self,
-                endpoint: .login(loginRequestModel: LoginRequestModel(username: username, password: password)))
+                responseType: LoginResponse.self,
+                endpoint: .login(data: LoginRequest(username: username, password: password)))
         
         // Then
         XCTAssertNotNil(result)
@@ -56,8 +57,8 @@ final class UserAuthTests: XCTestCase {
         // When
         let result = await NetworkManager.shared
             .performRequest(
-                model: LoginResponseModel.self,
-                endpoint: .login(loginRequestModel: LoginRequestModel(username: username, password: password)))
+                responseType: LoginResponse.self,
+                endpoint: .login(data: LoginRequest(username: username, password: password)))
         
         // Then
         XCTAssertNil(result)

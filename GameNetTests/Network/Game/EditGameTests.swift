@@ -7,6 +7,7 @@
 
 import Foundation
 import XCTest
+import GameNet_Network
 @testable import GameNet_UIKit
 
 final class EditGameTests: XCTestCase {
@@ -33,7 +34,7 @@ final class EditGameTests: XCTestCase {
         // When
         let result = await NetworkManager.shared
             .performRequest(
-                model: APIResult<GameDetailModel>.self,
+                responseType: APIResult<GameDetailResponse>.self,
                 endpoint: .game(id: gameId))
         
         // Then

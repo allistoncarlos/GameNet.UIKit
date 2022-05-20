@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import GameNet_Network
 @testable import GameNet_UIKit
 
 final class EditPlatformTests: XCTestCase {
@@ -31,7 +32,7 @@ final class EditPlatformTests: XCTestCase {
         // When
         let result = await NetworkManager.shared
             .performRequest(
-                model: APIResult<PlatformModel>.self,
+                responseType: APIResult<PlatformResponse>.self,
                 endpoint: .platform(id: id))
 
         // Then
@@ -55,8 +56,8 @@ final class EditPlatformTests: XCTestCase {
         // When
         let result = await NetworkManager.shared
             .performRequest(
-                model: APIResult<PlatformModel>.self,
-                endpoint: .savePlatform(id: nil, model: PlatformModel(id: nil, name: name)))
+                responseType: APIResult<PlatformResponse>.self,
+                endpoint: .savePlatform(id: nil, data: PlatformRequest(id: nil, name: name)))
         
         // Then
         XCTAssertNotNil(result)
@@ -77,8 +78,8 @@ final class EditPlatformTests: XCTestCase {
         // When
         let result = await NetworkManager.shared
             .performRequest(
-                model: APIResult<PlatformModel>.self,
-                endpoint: .savePlatform(id: id, model: PlatformModel(id: id, name: name)))
+                responseType: APIResult<PlatformResponse>.self,
+                endpoint: .savePlatform(id: id, data: PlatformRequest(id: id, name: name)))
         
         // Then
         XCTAssertNotNil(result)

@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import GameNet_Network
 @testable import GameNet_UIKit
 
 final class GamesTests: XCTestCase {
@@ -33,7 +34,7 @@ final class GamesTests: XCTestCase {
         // When
         let result = await NetworkManager.shared
             .performRequest(
-                model: APIResult<PagedResult<GameModel>>.self,
+                responseType: APIResult<PagedResult<GameResponse>>.self,
                 endpoint: .games(search: nil, page: page, pageSize: pageSize))
         
         // Then
@@ -63,7 +64,7 @@ final class GamesTests: XCTestCase {
         // When
         let result = await NetworkManager.shared
             .performRequest(
-                model: APIResult<PagedResult<GameModel>>.self,
+                responseType: APIResult<PagedResult<GameResponse>>.self,
                 endpoint: .games(search: search, page: page, pageSize: pageSize))
         
         // Then

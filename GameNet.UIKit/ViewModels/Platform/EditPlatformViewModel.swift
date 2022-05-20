@@ -6,19 +6,20 @@
 //
 
 import Foundation
+import GameNet_Network
 
 protocol EditPlatformViewModelProtocol: AnyObject {
     var renderData: (() -> Void)? { get set }
     var savedData: (() -> Void)? { get set }
 
-    var result: PlatformModel? { get set }
+    var result: Platform? { get set }
 
     func fetchData(id: String) async
-    func save(id: String?, data: PlatformModel) async
+    func save(id: String?, data: Platform) async
 }
 
 class EditPlatformViewModel: ObservableObject, EditPlatformViewModelProtocol {
-    var result: PlatformModel? {
+    var result: Platform? {
         didSet {
             renderData?()
         }
@@ -30,21 +31,21 @@ class EditPlatformViewModel: ObservableObject, EditPlatformViewModelProtocol {
     func fetchData(id: String) async {
         if let apiResult = await NetworkManager.shared
             .performRequest(
-                model: APIResult<PlatformModel>.self,
+                responseType: APIResult<PlatformResponse>.self,
                 endpoint: .platform(id: id)) {
             if apiResult.ok {
-                self.result = apiResult.data
+                self.result = apiResult.data.toPlatform()
             }
         }
     }
 
-    func save(id: String?, data: PlatformModel) async {
+    func save(id: String?, data: Platform) async {
         if let apiResult = await NetworkManager.shared
             .performRequest(
-                model: APIResult<PlatformModel>.self,
-                endpoint: .savePlatform(id: id, model: data)) {
+                responseType: APIResult<PlatformResponse>.self,
+                endpoint: .savePlatform(id: id, data: data.toRequest())) {
             if apiResult.ok {
-                self.result = apiResult.data
+                self.result = apiResult.data.toPlatform()
                 self.savedData?()
             }
         }

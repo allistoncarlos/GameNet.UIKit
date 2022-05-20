@@ -6,25 +6,26 @@
 //
 
 import Foundation
+import GameNet_Network
 
 protocol GameDetailViewModelProtocol: AnyObject {
     var renderData: (() -> Void)? { get set }
     var renderGameplayData: (() -> Void)? { get set }
-    var result: GameDetailModel? { get set }
-    var gameplayResult: GameplaySessionsModel? { get set }
+    var result: GameDetail? { get set }
+    var gameplayResult: GameplaySessions? { get set }
 
     func fetchData(id: String) async
     func fetchGameplaySessions(id: String) async
 }
 
 class GameDetailViewModel: ObservableObject, GameDetailViewModelProtocol {
-    var result: GameDetailModel? {
+    var result: GameDetail? {
         didSet {
             renderData?()
         }
     }
 
-    var gameplayResult: GameplaySessionsModel? {
+    var gameplayResult: GameplaySessions? {
         didSet {
             renderGameplayData?()
         }
@@ -37,11 +38,11 @@ class GameDetailViewModel: ObservableObject, GameDetailViewModelProtocol {
     func fetchData(id: String) async {
         if let apiResult = await NetworkManager.shared
             .performRequest(
-                model: APIResult<GameDetailModel>.self,
+                responseType: APIResult<GameDetailResponse>.self,
                 endpoint: .game(id: id)) {
 
             if apiResult.ok {
-                self.result = apiResult.data
+                self.result = apiResult.data.toGameDetail()
             }
         }
     }
@@ -49,11 +50,11 @@ class GameDetailViewModel: ObservableObject, GameDetailViewModelProtocol {
     func fetchGameplaySessions(id: String) async {
         if let apiResult = await NetworkManager.shared
             .performRequest(
-                model: APIResult<GameplaySessionsModel>.self,
+                responseType: APIResult<GameplaySessionsResponse>.self,
                 endpoint: .gameplays(id: id)) {
 
             if apiResult.ok {
-                self.gameplayResult = apiResult.data
+                self.gameplayResult = apiResult.data.toGameplaySessions()
             }
         }
     }

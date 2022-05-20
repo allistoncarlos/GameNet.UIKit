@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import SwiftyFORM
+import GameNet_Network
 
 protocol EditPlatformViewControllerDelegate: AnyObject {
     func savedData()
@@ -43,11 +44,10 @@ class EditPlatformViewController: BaseFormViewController, StoryboardCoordinated 
         if let platformId = platformId {
             viewModel?.renderData = { [weak self] in
                 DispatchQueue.main.async {
-                    if let data = self?.viewModel?.result,
-                        let name = data.name {
-                        self?.nameFormItem.value = name
+                    if let data = self?.viewModel?.result {
+                        self?.nameFormItem.value = data.name
 
-                        self?.setupModalNavigationBar(title: name)
+                        self?.setupModalNavigationBar(title: data.name)
                     }
                 }
             }
@@ -91,7 +91,7 @@ class EditPlatformViewController: BaseFormViewController, StoryboardCoordinated 
         switch result {
         case .valid:
             Task {
-                await viewModel?.save(id: platformId, data: PlatformModel(
+                await viewModel?.save(id: platformId, data: Platform(
                     id: platformId,
                     name: nameFormItem.value))
             }

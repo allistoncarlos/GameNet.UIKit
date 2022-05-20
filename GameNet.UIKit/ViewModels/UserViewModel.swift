@@ -6,24 +6,25 @@
 //
 
 import Foundation
+import GameNet_Network
 
 protocol UserViewModelProtocol: AnyObject {
-    func login(username: String, password: String) async -> LoginResponseModel?
+    func login(username: String, password: String) async -> LoginResponse?
 }
 
 final class UserViewModel: ObservableObject, UserViewModelProtocol {
-    func login(username: String, password: String) async -> LoginResponseModel? {
+    func login(username: String, password: String) async -> LoginResponse? {
         let result = await NetworkManager.shared
             .performRequest(
-                model: LoginResponseModel.self,
-                endpoint: .login(loginRequestModel: LoginRequestModel(username: username, password: password)))
+                responseType: LoginResponse.self,
+                endpoint: .login(data: LoginRequest(username: username, password: password)))
 
         self.saveToken(result: result)
 
         return result
     }
 
-    private func saveToken(result: LoginResponseModel?) {
+    private func saveToken(result: LoginResponse?) {
         if let session = result {
             let dateFormatter = ISO8601DateFormatter()
 

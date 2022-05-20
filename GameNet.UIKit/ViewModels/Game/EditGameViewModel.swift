@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import GameNet_Network
 import KeychainAccess
 
 protocol EditGameViewModelProtocol: AnyObject {
@@ -13,25 +14,25 @@ protocol EditGameViewModelProtocol: AnyObject {
     var renderPlatformsData: (() -> Void)? { get set }
     var savedData: (() -> Void)? { get set }
 
-    var result: GameModel? { get set }
-    var platformsResult: [PlatformModel] { get set }
+    var result: Game? { get set }
+    var platformsResult: [Platform] { get set }
 
     func fetchData(id: String) async
     func fetchPlatforms() async
-    func save(gameModel: GameEditModel, userGameModel: UserGameEditModel) async
+    func save(data: Game, userGameData: UserGame) async
 }
 
 class EditGameViewModel: ObservableObject, EditGameViewModelProtocol {
     private var gamesViewModel: GamesViewModelProtocol?
     private var platformsViewModel: PlatformsViewModelProtocol?
 
-    var result: GameModel? {
+    var result: Game? {
         didSet {
             renderData?()
         }
     }
 
-    var platformsResult: [PlatformModel] = [] {
+    var platformsResult: [Platform] = [] {
         didSet {
             renderPlatformsData?()
         }
@@ -63,44 +64,44 @@ class EditGameViewModel: ObservableObject, EditGameViewModelProtocol {
         self.platformsResult = platformsViewModel.result
     }
 
-    func save(gameModel: GameEditModel, userGameModel: UserGameEditModel) async {
+    func save(data: Game, userGameData: UserGame) async {
         if let apiResult = await NetworkManager.shared
-            .performUploadGame(model: gameModel) {
+            .performUploadGame(data: data.toRequest()) {
             if apiResult.ok {
                 guard let userId = KeychainDataSource.id.get(),
                       let gameId = apiResult.data.id else { return }
 
-                let resultUserGameModel = UserGameEditModel(
-                    id: nil,
-                    gameId: gameId,
-                    userId: userId,
-                    price: userGameModel.price,
-                    boughtDate: userGameModel.boughtDate,
-                    have: userGameModel.have,
-                    want: userGameModel.want,
-                    digital: userGameModel.digital,
-                    original: userGameModel.original)
+                let resultUserGameRequest = UserGameEditRequest(id: nil,
+                                                                gameId: gameId,
+                                                                userId: userId,
+                                                                price: userGameData.price,
+                                                                boughtDate: userGameData.boughtDate,
+                                                                have: userGameData.have,
+                                                                want: userGameData.want,
+                                                                digital: userGameData.digital,
+                                                                original: userGameData.original)
 
-                await self.saveUserGame(data: resultUserGameModel)
+                await self.saveUserGame(data: resultUserGameRequest)
             }
         }
     }
 
-    private func saveUserGame(data: UserGameEditModel) async {
+    private func saveUserGame(data: UserGameEditRequest) async {
         if let apiResult = await NetworkManager.shared
             .performRequest(
-                model: APIResult<UserGameEditResponseModel>.self,
-                endpoint: .saveUserGame(model: data)) {
+                responseType: APIResult<UserGameEditResponse>.self,
+                endpoint: .saveUserGame(data: data)) {
             if apiResult.ok {
                 if let name = apiResult.data.name,
                    let cover = apiResult.data.cover,
                    let platformId = apiResult.data.platformId,
                    let platform = apiResult.data.platform {
-                    self.result = GameModel(id: apiResult.data.id,
-                                            name: name,
-                                            cover: cover,
-                                            platformId: platformId,
-                                            platform: platform)
+                    self.result = Game(id: apiResult.data.id,
+                                       name: name,
+                                       cover: nil,
+                                       coverURL: cover,
+                                       platformId: platformId,
+                                       platform: platform)
 
                     self.savedData?()
                 }

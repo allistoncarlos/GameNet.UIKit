@@ -6,19 +6,20 @@
 //
 
 import Foundation
+import GameNet_Network
 
 protocol EditListViewModelProtocol: AnyObject {
     var renderData: (() -> Void)? { get set }
     var savedData: (() -> Void)? { get set }
 
-    var result: ListModel? { get set }
+    var result: List? { get set }
 
     func fetchData(id: String) async
-    func save(id: String?, data: ListModel) async
+    func save(id: String?, data: List) async
 }
 
 class EditListViewModel: ObservableObject, EditListViewModelProtocol {
-    var result: ListModel? {
+    var result: List? {
         didSet {
             renderData?()
         }
@@ -30,21 +31,21 @@ class EditListViewModel: ObservableObject, EditListViewModelProtocol {
     func fetchData(id: String) async {
         if let apiResult = await NetworkManager.shared
             .performRequest(
-                model: APIResult<ListModel>.self,
+                responseType: APIResult<ListResponse>.self,
                 endpoint: .list(id: id)) {
             if apiResult.ok {
-                self.result = apiResult.data
+                self.result = apiResult.data.toList()
             }
         }
     }
 
-    func save(id: String?, data: ListModel) async {
+    func save(id: String?, data: List) async {
         if let apiResult = await NetworkManager.shared
             .performRequest(
-                model: APIResult<ListModel>.self,
-                endpoint: .saveList(id: id, model: data)) {
+                responseType: APIResult<ListResponse>.self,
+                endpoint: .saveList(id: id, data: data.toRequest())) {
             if apiResult.ok {
-                self.result = apiResult.data
+                self.result = apiResult.data.toList()
                 self.savedData?()
             }
         }

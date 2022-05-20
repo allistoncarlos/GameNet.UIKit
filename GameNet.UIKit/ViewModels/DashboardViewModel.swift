@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import GameNet_Network
 
 protocol DashboardViewModelProtocol: AnyObject {
     var renderData: (() -> Void)? { get set }
-    var result: DashboardModel? { get set }
+    var result: Dashboard? { get set }
 
     func fetchData() async
 }
@@ -17,7 +18,7 @@ protocol DashboardViewModelProtocol: AnyObject {
 final class DashboardViewModel: ObservableObject, DashboardViewModelProtocol {
     var renderData: (() -> Void)?
 
-    var result: DashboardModel? {
+    var result: Dashboard? {
         didSet {
             renderData?()
         }
@@ -27,10 +28,10 @@ final class DashboardViewModel: ObservableObject, DashboardViewModelProtocol {
     func fetchData() async {
         if let apiResult = await NetworkManager.shared
             .performRequest(
-                model: APIResult<DashboardModel>.self,
+                responseType: APIResult<DashboardResponse>.self,
                 endpoint: .dashboard) {
             if apiResult.ok {
-                self.result = apiResult.data
+                self.result = apiResult.data.toDashboard()
             }
         }
     }

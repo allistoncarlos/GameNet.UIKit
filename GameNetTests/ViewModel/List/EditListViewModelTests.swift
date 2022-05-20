@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import GameNet_Network
 @testable import GameNet_UIKit
 
 final class EditListViewModelTests: XCTestCase {
@@ -53,14 +54,13 @@ final class EditListViewModelTests: XCTestCase {
     
     func testSaveNewPlatform_ValidParameters_ShouldReturnValidPlatform() async {
         // Given
-        let userId = "123"
         let name = "Nova Lista"
         let fakeJSONResponse = mock.fakeSaveNewListResponse
         
         stubRequests.stubJSONResponse(jsonObject: fakeJSONResponse, header: nil, statusCode: 201, absoluteStringWord: Constants.listResource)
 
         // When
-        await viewModel?.save(id: nil, data: ListModel(id: nil, name: name, userId: userId, creationDate: .now))
+        await viewModel?.save(id: nil, data: List(id: nil, name: name))
         let result = viewModel?.result
         
         // Then
@@ -74,14 +74,13 @@ final class EditListViewModelTests: XCTestCase {
     func testSaveExistingPlatform_ValidParameters_ShouldReturnValidPlatforms() async {
         // Given
         let id = "123"
-        let userId = "123"
         let name = "Plataforma Existente"
         let fakeJSONResponse = mock.fakeSaveExistingListResponse
         
         stubRequests.stubJSONResponse(jsonObject: fakeJSONResponse, header: nil, statusCode: 201, absoluteStringWord: "/\(Constants.listResource)?id=\(id)")
 
         // When
-        await viewModel?.save(id: id, data: ListModel(id: id, name: name, userId: userId, creationDate: .now))
+        await viewModel?.save(id: id, data: List(id: id, name: name))
         let result = viewModel?.result
         
         // Then

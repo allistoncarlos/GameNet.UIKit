@@ -6,19 +6,20 @@
 //
 
 import Foundation
+import GameNet_Network
 
 protocol ListDetailViewModelProtocol: AnyObject {
     var renderData: (() -> Void)? { get set }
     var savedData: (() -> Void)? { get set }
 
-    var result: [ListItemModel]? { get set }
+    var result: [ListItem]? { get set }
     var listType: ListType { get set }
 
     func fetchData(id: String) async
 }
 
 class ListDetailViewModel: ObservableObject, ListDetailViewModelProtocol {
-    var result: [ListItemModel]? {
+    var result: [ListItem]? {
         didSet {
             renderData?()
         }
@@ -43,10 +44,10 @@ class ListDetailViewModel: ObservableObject, ListDetailViewModelProtocol {
     private func fetchFinishedByYearData(id: String) async {
         if let apiResult = await NetworkManager.shared
             .performRequest(
-                model: APIResult<[ListItemModel]>.self,
+                responseType: APIResult<[ListItemResponse]>.self,
                 endpoint: .finishedByYearList(id: id)) {
             if apiResult.ok {
-                self.result = apiResult.data
+                self.result = apiResult.data.compactMap { $0.toListItem() }
             }
         }
     }
@@ -54,10 +55,10 @@ class ListDetailViewModel: ObservableObject, ListDetailViewModelProtocol {
     private func fetchBoughtByYearData(id: String) async {
         if let apiResult = await NetworkManager.shared
             .performRequest(
-                model: APIResult<[ListItemModel]>.self,
+                responseType: APIResult<[ListItemResponse]>.self,
                 endpoint: .boughtByYearList(id: id)) {
             if apiResult.ok {
-                self.result = apiResult.data
+                self.result = apiResult.data.compactMap { $0.toListItem() }
             }
         }
     }
@@ -65,11 +66,11 @@ class ListDetailViewModel: ObservableObject, ListDetailViewModelProtocol {
     private func fetchCustomListData(id: String) async {
         if let apiResult = await NetworkManager.shared
             .performRequest(
-                model: APIResult<ListGameModel>.self,
+                responseType: APIResult<ListGameResponse>.self,
                 endpoint: .list(id: id)) {
             if apiResult.ok,
                let games = apiResult.data.games {
-                self.result = games
+                self.result = games.compactMap { $0.toListItem() }
             }
         }
     }

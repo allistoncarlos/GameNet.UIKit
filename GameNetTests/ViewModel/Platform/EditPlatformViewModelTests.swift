@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import GameNet_Network
 @testable import GameNet_UIKit
 
 final class EditPlatformViewModelTests: XCTestCase {
@@ -59,7 +60,7 @@ final class EditPlatformViewModelTests: XCTestCase {
         stubRequests.stubJSONResponse(jsonObject: fakeJSONResponse, header: nil, statusCode: 201, absoluteStringWord: Constants.platformResource)
 
         // When
-        await viewModel?.save(id: nil, data: PlatformModel(id: nil, name: name))
+        await viewModel?.save(id: nil, data: Platform(id: nil, name: name))
         let result = viewModel?.result
         
         // Then
@@ -79,7 +80,7 @@ final class EditPlatformViewModelTests: XCTestCase {
         stubRequests.stubJSONResponse(jsonObject: fakeJSONResponse, header: nil, statusCode: 201, absoluteStringWord: "/\(Constants.platformResource)?id=\(id)")
 
         // When
-        await viewModel?.save(id: id, data: PlatformModel(id: id, name: name))
+        await viewModel?.save(id: id, data: Platform(id: id, name: name))
         let result = viewModel?.result
         
         // Then

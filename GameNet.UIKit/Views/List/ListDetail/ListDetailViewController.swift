@@ -92,10 +92,9 @@ extension ListDetailViewController: UITableViewDelegate,
         if let listItems = viewModel?.result {
             let listItem = listItems[indexPath.row]
 
-            if let name = listItem.name,
-               let platform = listItem.platform,
+            if let platform = listItem.platform,
                let cover = listItem.cover {
-                cell.name = name
+                cell.name = listItem.name
                 cell.platform = platform
                 cell.loadCover(url: cover)
             }
@@ -123,9 +122,8 @@ extension ListDetailViewController: UITableViewDelegate,
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let listItem = viewModel?.result?[indexPath.row],
-           let userGameId = listItem.userGameId,
-           let name = listItem.name {
-            coordinator?.showGameDetail(id: userGameId, name: name)
+           let userGameId = listItem.userGameId {
+            coordinator?.showGameDetail(id: userGameId, name: listItem.name)
         }
     }
 }

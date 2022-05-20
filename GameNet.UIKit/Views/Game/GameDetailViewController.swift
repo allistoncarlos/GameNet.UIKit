@@ -5,15 +5,17 @@
 //  Created by Alliston Aleixo on 15/08/21.
 //
 
-import UIKit
 import SDWebImage
+import UIKit
 
 class GameDetailViewController: BaseViewController, UIScrollViewDelegate, StoryboardCoordinated {
     // MARK: - Properties
+
     var viewModel: GameDetailViewModelProtocol?
     var gameId: String?
 
     // MARK: - Outlets
+
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var imageView: UIImageView!
@@ -27,6 +29,7 @@ class GameDetailViewController: BaseViewController, UIScrollViewDelegate, Storyb
     @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint!
 
     // MARK: - Override functions
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -77,7 +80,6 @@ extension GameDetailViewController {
                     self?.boughtDate.text = "Data de Compra: \(result.boughtDate.toFormattedString())"
 
                     if let latestGameplays = result.gameplays {
-
                         if let latestGameplay = latestGameplays.last {
                             self?.playingSince.text = "Jogando desde: \(latestGameplay.start.toFormattedString())"
                         }
@@ -94,18 +96,29 @@ extension GameDetailViewController {
                     self?.gameplays.isHidden = false
 
                     self?.renderGameplayLabel(text: "Total de \(result.totalGameplayTime)" +
-                                              "\nMédia de \(result.averageGameplayTime)", numberOfLines: 2)
+                        "\nMédia de \(result.averageGameplayTime)", numberOfLines: 2)
 
                     let sessions = result.sessions.sorted(by: { $0!.start >= $1!.start })
 
                     for gameplaySession in sessions {
                         if let gameplaySession = gameplaySession {
-                            self?.renderGameplayLabel(
-                                text: "\(gameplaySession.start.toFormattedString(dateFormat: Constants.dateFormat))"
-                                    + " até " +
-                                "\(gameplaySession.finish.toFormattedString(dateFormat: Constants.dateFormat))" +
-                                "\nTotal de \(gameplaySession.totalGameplayTime)",
-                                numberOfLines: 2)
+
+                            var resultText = ""
+                            var numberOfLines = 2
+
+                            if let finish = gameplaySession.finish {
+                                resultText =
+                                "\(gameplaySession.start.toFormattedString(dateFormat: Constants.dateFormat))"
+                                + " até " +
+                                "\(finish.toFormattedString(dateFormat: Constants.dateFormat))" +
+                                "\nTotal de \(gameplaySession.totalGameplayTime)"
+                            } else {
+                                resultText =
+                                "Início em \(gameplaySession.start.toFormattedString(dateFormat: Constants.dateFormat))"
+                                numberOfLines = 1
+                            }
+
+                            self?.renderGameplayLabel(text: resultText, numberOfLines: numberOfLines)
                         }
                     }
                 } else {
@@ -116,6 +129,7 @@ extension GameDetailViewController {
     }
 
     // MARK: - Private Funcs
+
     private func renderGameplayLabel(text: String, numberOfLines: Int = 1) {
         let label = UILabel()
         label.numberOfLines = numberOfLines

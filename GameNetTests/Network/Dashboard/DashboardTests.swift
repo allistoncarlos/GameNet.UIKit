@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import GameNet_Network
 @testable import GameNet_UIKit
 
 final class DashboardTests: XCTestCase {
@@ -28,7 +29,7 @@ final class DashboardTests: XCTestCase {
         // When
         let result = await NetworkManager.shared
             .performRequest(
-                model: DashboardModel.self,
+                responseType: DashboardResponse.self,
                 endpoint: .dashboard)
         
         // Then
@@ -44,7 +45,7 @@ final class DashboardTests: XCTestCase {
         // When
         let result = await NetworkManager.shared
             .performRequest(
-                model: APIResult<DashboardModel>.self,
+                responseType: APIResult<DashboardResponse>.self,
                 endpoint: .dashboard)
         
         // Then

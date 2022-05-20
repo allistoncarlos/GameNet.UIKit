@@ -7,9 +7,10 @@
 
 import UIKit
 import KeychainAccess
+import GameNet_Network
 
 class GameDetailTapGestureRecognizer: UITapGestureRecognizer {
-    var playingGame: PlayingGameModel?
+    var playingGame: PlayingGame?
 }
 
 class ListDetailTapGestureRecognizer: UITapGestureRecognizer {

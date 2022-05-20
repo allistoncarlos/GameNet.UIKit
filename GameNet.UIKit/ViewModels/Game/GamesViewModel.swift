@@ -6,13 +6,14 @@
 //
 
 import Foundation
+import GameNet_Network
 
 protocol GamesViewModelProtocol: AnyObject {
     var renderData: (() -> Void)? { get set }
-    var result: GameModel? { get set }
-    var pagedResult: PagedResult<GameModel>? { get set }
-    var data: [GameModel] { get set }
-    var searchedGames: [GameModel] { get set }
+    var result: Game? { get set }
+    var pagedList: PagedList<Game>? { get set }
+    var data: [Game] { get set }
+    var searchedGames: [Game] { get set }
 
     var isLoading: Bool { get set }
 
@@ -22,25 +23,26 @@ protocol GamesViewModelProtocol: AnyObject {
 }
 
 class GamesViewModel: ObservableObject, GamesViewModelProtocol {
-    var result: GameModel?
+    var result: Game?
 
-    var pagedResult: PagedResult<GameModel>? {
+    var pagedList: PagedList<Game>? {
         didSet {
-            if let pagedResult = pagedResult {
-                self.data += pagedResult.result
+            if let pagedList = pagedList {
+                self.data += pagedList.result
             }
 
             renderData?()
         }
     }
 
-    var data: [GameModel] = []
-    var searchedGames: [GameModel] = []
+    var data: [Game] = []
+    var searchedGames: [Game] = []
     var isLoading: Bool = false
 
     var renderData: (() -> Void)?
 
     // MARK: - GamesViewModelProtocol
+
     func fetchData() async {
         await self.fetchData(search: nil, page: 0)
     }
@@ -48,10 +50,10 @@ class GamesViewModel: ObservableObject, GamesViewModelProtocol {
     func fetchData(id: String) async {
         if let apiResult = await NetworkManager.shared
             .performRequest(
-                model: APIResult<GameModel>.self,
+                responseType: APIResult<GameResponse>.self,
                 endpoint: .game(id: id)) {
             if apiResult.ok {
-                self.result = apiResult.data
+                self.result = apiResult.data.toGame()
             }
         }
     }
@@ -61,12 +63,20 @@ class GamesViewModel: ObservableObject, GamesViewModelProtocol {
 
         if let apiResult = await NetworkManager.shared
             .performRequest(
-                model: APIResult<PagedResult<GameModel>>.self,
+                responseType: APIResult<PagedResult<GameResponse>>.self,
                 endpoint: .games(search: search, page: page, pageSize: Constants.pageSize)) {
             self.isLoading = false
 
             if apiResult.ok {
-                self.pagedResult = apiResult.data
+                let pagedResult = apiResult.data
+
+                self.pagedList = PagedList<Game>(count: pagedResult.count,
+                                                 totalCount: pagedResult.totalCount,
+                                                 page: pagedResult.page,
+                                                 pageSize: pagedResult.pageSize,
+                                                 totalPages: pagedResult.totalPages,
+                                                 search: pagedResult.search,
+                                                 result: pagedResult.result.compactMap { $0.toGame() })
             }
         }
     }

@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import SwiftyFORM
+import GameNet_Network
 
 protocol EditGameViewControllerDelegate: AnyObject {
     func savedData()
@@ -112,7 +113,7 @@ class EditGameViewController: BaseFormViewController, StoryboardCoordinated {
             DispatchQueue.main.async {
                 if let data = self?.viewModel?.platformsResult {
                     self?.platformPickerFormItem.options = data.map({ (platform) -> OptionRowModel in
-                        return OptionRowModel(platform.name ?? "", platform.id!)
+                        return OptionRowModel(platform.name, platform.id!)
                     })
                 }
             }
@@ -196,14 +197,16 @@ class EditGameViewController: BaseFormViewController, StoryboardCoordinated {
             let digital = digitalItem.value
             let original = originalItem.value
 
-            let gameModel = GameEditModel(
+            let game = Game(
                 id: gameId,
                 name: name,
                 cover: imageData,
-                platformId: platformId
+                coverURL: nil,
+                platformId: platformId,
+                platform: ""
             )
 
-            let userGameModel = UserGameEditModel(
+            let userGame = UserGame(
                 id: nil,
                 gameId: "",
                 userId: "",
@@ -216,7 +219,7 @@ class EditGameViewController: BaseFormViewController, StoryboardCoordinated {
             )
 
             Task {
-                await viewModel?.save(gameModel: gameModel, userGameModel: userGameModel)
+                await viewModel?.save(data: game, userGameData: userGame)
             }
         case .invalid:
             break

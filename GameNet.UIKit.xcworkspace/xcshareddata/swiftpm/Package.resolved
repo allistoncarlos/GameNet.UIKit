@@ -1,12 +1,21 @@
 {
   "pins" : [
     {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire.git",
+      "state" : {
+        "revision" : "354dda32d89fc8cd4f5c46487f64957d355f53d8",
+        "version" : "5.6.1"
+      }
+    },
+    {
       "identity" : "pulse",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/kean/Pulse",
       "state" : {
-        "revision" : "ba7a0e4668de7074470bd37a60b1f89325a416bb",
-        "version" : "0.20.2"
+        "branch" : "master",
+        "revision" : "403699c645e0872fa8986366a7015da334f0f48b"
       }
     },
     {
