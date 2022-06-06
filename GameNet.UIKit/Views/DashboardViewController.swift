@@ -5,9 +5,9 @@
 //  Created by Alliston Aleixo on 27/06/21.
 //
 
-import UIKit
-import KeychainAccess
 import GameNet_Network
+import KeychainAccess
+import UIKit
 
 class GameDetailTapGestureRecognizer: UITapGestureRecognizer {
     var playingGame: PlayingGame?
@@ -20,10 +20,12 @@ class ListDetailTapGestureRecognizer: UITapGestureRecognizer {
 
 class DashboardViewController: BaseViewController, StoryboardCoordinated {
     // MARK: - Properties
+
     var viewModel: DashboardViewModelProtocol?
     var coordinator: DashboardCoordinator?
 
     // MARK: - Outlets
+
     @IBOutlet weak var scrollView: UIScrollView!
 
     @IBOutlet weak var playingGamesView: UIStackView!
@@ -35,11 +37,13 @@ class DashboardViewController: BaseViewController, StoryboardCoordinated {
     @IBOutlet weak var totalGamesLabel: UILabel!
 
     // MARK: - Init
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 
     // MARK: - Override functions
+
     override func viewDidLoad() {
         let cornerRadius: CGFloat = 10
 
@@ -70,12 +74,30 @@ class DashboardViewController: BaseViewController, StoryboardCoordinated {
     }
 
     // MARK: - UITableViewDelegate
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return UITableViewCell()
     }
 }
 
 extension DashboardViewController {
+    private func renderUnfinishedGameplaySession(playingGames: [PlayingGame]) {
+        let hasUnfinishedGameplaySession = !playingGames.filter { $0.latestGameplaySession?.finish == nil }.isEmpty
+
+        if hasUnfinishedGameplaySession,
+           let unfinishedGame = playingGames.filter({ $0.latestGameplaySession?.finish == nil }).first {
+            let dialogMessage = UIAlertController(
+                title: "Gameplay não finalizado",
+                message: "\(unfinishedGame.name) tem um gameplay não finalizado",
+                preferredStyle: .alert)
+
+            let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
+            dialogMessage.addAction(ok)
+
+            self.present(dialogMessage, animated: true, completion: nil)
+        }
+    }
+
     fileprivate func renderDashboard() -> () -> Void {
         return { [weak self] in
             DispatchQueue.main.async {
@@ -88,12 +110,13 @@ extension DashboardViewController {
                       let gamesByPlatform = self?.viewModel?.result?.gamesByPlatform?.platforms
                 else { return }
 
+                self?.renderUnfinishedGameplaySession(playingGames: playingGames)
+
                 // Playing Games
                 for playingGame in playingGames {
                     if let titleSubtitleStackView = self?.renderTitleSubtitle(
                         title: playingGame.name,
                         subtitle: playingGame.latestGameplaySession?.start.toFormattedString() ?? "") {
-
                         let gesture = GameDetailTapGestureRecognizer(
                             target: self,
                             action: #selector(self?.showGameDetail))
@@ -113,7 +136,7 @@ extension DashboardViewController {
 
                 let numberFormatter = NumberFormatter()
                 numberFormatter.numberStyle = .currency
-                if let formattedTotalPrice = numberFormatter.string(from: NSNumber.init(value: totalPrice)) {
+                if let formattedTotalPrice = numberFormatter.string(from: NSNumber(value: totalPrice)) {
                     totalPriceLabel.text = formattedTotalPrice
                 }
 
@@ -133,7 +156,6 @@ extension DashboardViewController {
                 for finishedGameByYear in finishedGamesByYear {
                     if let finishedByYearStackView =
                         self?.renderBadgeText(badge: finishedGameByYear.total, text: "\(finishedGameByYear.year)") {
-
                         let gesture = ListDetailTapGestureRecognizer(
                             target: self,
                             action: #selector(self?.showListDetail))
@@ -164,7 +186,7 @@ extension DashboardViewController {
                 // Games By Platform
                 for platform in gamesByPlatform {
                     if let platformStackView = self?.renderBadgeText(badge: platform.platformGamesTotal,
-                                                               text: "\(platform.name)") {
+                                                                     text: "\(platform.name)") {
                         self?.gameByPlatformView?.addArrangedSubview(platformStackView)
                     }
                 }
@@ -173,6 +195,7 @@ extension DashboardViewController {
     }
 
     // MARK: - Private Functions
+
     private func renderTitleSubtitle(title: String, subtitle: String) -> UIStackView {
         let titleSubtitleStackView = UIStackView()
         titleSubtitleStackView.axis = .vertical
@@ -204,7 +227,7 @@ extension DashboardViewController {
         badgeLabel.textAlignment = .center
 
         let numberConstraints = [
-            badgeLabel.widthAnchor.constraint(equalToConstant: 50)
+            badgeLabel.widthAnchor.constraint(equalToConstant: 50),
         ]
         NSLayoutConstraint.activate(numberConstraints)
 
@@ -219,6 +242,7 @@ extension DashboardViewController {
     }
 
     // MARK: - Actions
+
     @objc func showGameDetail(sender: GameDetailTapGestureRecognizer) {
         if let id = sender.playingGame?.id, let name = sender.playingGame?.name {
             coordinator?.showGameDetail(id: id, name: name)
