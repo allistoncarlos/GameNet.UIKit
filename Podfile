@@ -6,7 +6,6 @@ target 'GameNet.UIKit' do
   use_frameworks!
 
   # Pods for GameNet.UIKit
-  pod 'Alamofire', '~> 5.5'
   pod 'Swinject'
   pod 'SwinjectStoryboard'
   pod 'SDWebImage'
